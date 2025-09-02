@@ -1,0 +1,192 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "reset": "Reset",
+    "close": "Closure",
+    "reload": "Refresh",
+    "choose": "Choose",
+    "navigate": "Navigate",
+    "inputPlaceholder": "please enter",
+    "selectPlaceholder": "please choose",
+    "tip": "Tip",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "app": {
+    "github": "GitHub",
+    "projectSetting": "Project Settings",
+    "theme": {
+      "title": "Theme",
+      "themeColor": "Theme Color",
+      "darkSidebar": "Dark Sidebar",
+      "grayMode": "Gray Mode",
+      "themeSwitch": "Theme Switch",
+      "primary": "Primary Color",
+      "info": "Info Color",
+      "success": "Success Color",
+      "warning": "Warning Color",
+      "error": "Error Color"
+    },
+    "layout": {
+      "title": "Layout Mode",
+      "vertical": "Left Menu Mode",
+      "horizontal": "Top Menu Mode",
+      "horizontalMix": "Top Menu Mixed Mode"
+    },
+    "pageFeature": {
+      "title": "Page Features",
+      "headerHeight": "Header Height",
+      "fixedHeaderAndTabs": "Fixed Header and Tabs",
+      "showReloadButton": "Show Reload Button",
+      "showTabs": "Show Tabs",
+      "tabHeight": "Tab Height",
+      "showBreadcrumb": "Show Breadcrumb",
+      "showBreadcrumbIcon": "Show Breadcrumb Icon",
+      "menuAccordion": "Menu Accordion Mode",
+      "menuWidth": "Menu Expanded Width",
+      "minMenuWidth": "Menu Collapsed Width"
+    },
+    "animation": {
+      "title": "Animation",
+      "enable": "Enable Animation",
+      "type": "Animation Type",
+      "fadeSlide": "Slide",
+      "fade": "Fade",
+      "fadeBottom": "Fade Bottom",
+      "fadeScale": "Fade Scale",
+      "zoomFade": "Zoom Fade",
+      "zoomOut": "Zoom Out"
+    },
+    "fullScreen": "Full Screen",
+    "exitFullScreen": "Exit Full Screen",
+    "resetConfig": "Reset Configuration",
+    "resetSuccess": "Reset Configuration Successfully",
+    "resetConfigContent": "After resetting the project configuration, the project configuration will be restored to the initial state, whether to continue?",
+    "zh-CN": "Chinese",
+    "en-US": "English",
+    "getRouteError": "Failed to get route"
+  },
+  "http": {
+    "400": "Syntax error in the request",
+    "401": "User unauthorized",
+    "403": "Server refused access",
+    "404": "Requested resource does not exist",
+    "405": "Request method not allowed",
+    "408": "Network request timed out",
+    "500": "Internal server error",
+    "501": "Server not implemented the requested functionality",
+    "502": "Bad gateway",
+    "503": "Service unavailable",
+    "504": "Gateway timeout",
+    "505": "HTTP version not supported for this request",
+    "defaultTip": "Request error"
+  },
+  "components": {
+    "iconSelector": {
+      "inputPlaceholder": "Select target icon",
+      "searchPlaceholder": "Search icon",
+      "clearIcon": "Clear icon",
+      "selectorTitle": "Icon selection"
+    },
+    "copyText": {
+      "message": "Copied successfully",
+      "tooltip": "Copy",
+      "unsupportedError": "Your browser does not support Clipboard API",
+      "unpermittedError": "Crrently not permitted to use Clipboard API"
+    }
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Login",
+    "usernamePlaceholder": "Please enter username",
+    "passwordPlaceholder": "Please enter password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "register": "Register",
+    "noAccountText": "No account?",
+    "haveAccountText": "Have account?",
+    "checkPasswordRuleTip": "Please confirm password again",
+    "registerButton": "Register",
+    "checkPasswordPlaceholder": "Please enter password again",
+    "loginSuccess": "Login successfully, entering system",
+    "loginLoading": "Login...",
+    "loginError": "Login failed",
+    "loginErrorTip": "Please enter complete information and verify the captcha",
+    "userSetting": "User Setting",
+    "logout": "Logout",
+    "logoutConfirm": {
+      "content": "Are you sure you want to logout?",
+      "successMessage": "Logout successfully"
+    }
+  },
+  "route": {
+    "dashboard": "Dashboard",
+    "dashboard-workplace": "Workplace",
+    "dashboard-console": "Console",
+    "List": "List",
+    "basic-list": "Basic List",
+    "list-basic-info": "Basic Details",
+    "exception": "Exception",
+    "exception-403": "403",
+    "exception-404": "404",
+    "exception-500": "500",
+    "form": "Form",
+    "form-basic-form": "Basic Form",
+    "form-step-form": "Step Form",
+    "form-detail": "Form Details",
+    "Permissions": "Permissions",
+    "permissions-example": "Permission Demo",
+    "permissions-super": "Super Admin",
+    "comp": "Components",
+    "comp-table": "Table",
+    "comp-table-basic": "Basic Table",
+    "comp-table-editCell": "Cell Editing",
+    "comp-table-editRow": "Row Editing",
+    "comp-form": "Form",
+    "comp-form-basic": "Basic Usage",
+    "comp-form-useForm": "useForm",
+    "comp-upload": "Upload",
+    "comp-modal": "Modal",
+    "comp-richtext": "Rich Text",
+    "comp-drag": "Drag",
+    "frame": "External",
+    "frame-naive-admin": "NaiveAdmin",
+    "frame-docs": "Documentation(Embedded)",
+    "frame-naive": "NaiveUI(Embedded)",
+    "setting": "Settings",
+    "setting-menu": "Menu Permission",
+    "setting-role": "Role Permission",
+    "setting-account": "Account Settings",
+    "setting-system": "System Settings",
+    "directive": "Directives",
+    "directive-index": "Directive Examples",
+    "about": "About",
+    "about-index": "About Project"
+  },
+  "table": {
+    "density": "Density",
+    "size": {
+      "small": "Compact",
+      "medium": "Default",
+      "large": "Loose"
+    },
+    "columnSetting": "Column Setting",
+    "selection": "Selection Column",
+    "fixLeft": "Fix to Left",
+    "fixRight": "Fix to Right"
+  },
+  "tabs": {
+    "contextMenu": {
+      "closeLeft": "Close Left",
+      "closeRight": "Close Right",
+      "closeOther": "Close Other",
+      "closeAll": "Close All"
+    }
+  }
+}

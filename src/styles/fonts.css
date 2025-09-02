@@ -1,0 +1,71 @@
+/* 常规体 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts/MapleMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 斜体 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts/MapleMono-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Light 细体 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts/MapleMono-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Light 斜体 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts/MapleMono-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Medium 中等 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts/MapleMono-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Medium 斜体 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts/MapleMono-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Semi-Bold 半粗体 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts/MapleMono-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Semi-Bold 斜体 */
+@font-face {
+  font-family: "Maple";
+  src: url("../../public/fonts//MapleMono-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* poppins */
+@font-face {
+  font-family: "Poppins";
+  src: url("../../public/fonts/Poppins-Regular.otf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}

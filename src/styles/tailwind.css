@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background-root: #f5f7f9;
+  --background: #ffffff;
+  --fg-base: #18181b;
+  --fg-subtle: #52525b;
+  --fg-primary: #2d8cf0;
+  --size: 45px;
+}
+
+html.dark {
+  --background-root: #101014;
+  --background: #18181c;
+  --fg-base: #ffffff;
+  --fg-subtle: #a1a1aa;
+  --fg-primary: #2d8cf0;
+}
+
+@theme inline {
+  --color-background-root: var(--background-root);
+  --color-background: var(--background);
+  --color-fg-base: var(--fg-base);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-primary: var(--fg-primary);
+}
+
+@theme {
+  --color-gray-200: #f3f3f5;
+
+  --font-maple: "Maple", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
+  --text-8: 0.5rem;
+  --text-9: 0.5625rem;
+  --text-10: 0.625rem;
+  --text-11: 0.6875rem;
+  --text-13: 0.8125rem;
+  --text-15: 0.9375rem;
+  --text-17: 1.0625rem;
+  --text-22: 1.375rem;
+  --text-26: 1.625rem;
+  --text-27: 1.6875rem;
+  --text-28: 1.75rem;
+  --text-28--line-height: 2.25rem;
+  --text-32: 2rem;
+  --text-32--line-height: 2.25rem;
+  --text-40: 2.5rem;
+  --text-40--line-height: 3.1rem;
+  --text-48: 3rem;
+  --text-48--line-height: 1.243;
+
+  --tracking-tightest: 0.01px;
+  --tracking-sm: 0.02px;
+  --tracking-lg: 0.38px;
+
+  ----shadow-xs: 2px 0 8px 0 rgb(29 35 41 / 5%);
+  --tracking-max: 1.75px;
+
+  --scale-120: 1.2;
+
+  --animate-blink: blink 1.4s both infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+  @keyframes blink {
+    0% {
+      opacity: 0.2;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.2;
+    }
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import "./transition.css";
+@import "./tailwind.css";
+@plugin '../lib/hero.ts';
+/* 注意：您可能需要更改适合您项目结构的路径 */
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+
+@import "./fonts.css";
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+body.gray-mode {
+  filter: grayscale(100%);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+}

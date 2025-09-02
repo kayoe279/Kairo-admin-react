@@ -1,0 +1,192 @@
+{
+  "common": {
+    "confirm": "确认",
+    "cancel": "取消",
+    "reset": "重置",
+    "reload": "刷新",
+    "close": "关闭",
+    "choose": "选择",
+    "navigate": "切换",
+    "inputPlaceholder": "请输入",
+    "selectPlaceholder": "请选择",
+    "tip": "提示",
+    "success": "成功",
+    "error": "错误",
+    "warning": "警告",
+    "ok": "确定",
+    "yes": "是",
+    "no": "否"
+  },
+  "app": {
+    "github": "GitHub",
+    "projectSetting": "项目设置",
+    "theme": {
+      "title": "主题",
+      "themeColor": "主题颜色",
+      "darkSidebar": "暗色侧边栏",
+      "grayMode": "灰色模式",
+      "themeSwitch": "主题切换",
+      "primary": "主色",
+      "info": "信息色",
+      "success": "成功色",
+      "warning": "警告色",
+      "error": "错误色"
+    },
+    "layout": {
+      "title": "布局模式",
+      "vertical": "左侧菜单模式",
+      "horizontal": "顶部菜单模式",
+      "horizontalMix": "顶部菜单混合模式"
+    },
+    "pageFeature": {
+      "title": "页面功能",
+      "headerHeight": "顶部高度",
+      "fixedHeaderAndTabs": "固定顶部和多页签",
+      "showReloadButton": "显示重载页面按钮",
+      "showTabs": "显示多页签",
+      "tabHeight": "多页签高度",
+      "showBreadcrumb": "显示面包屑导航",
+      "showBreadcrumbIcon": "显示面包屑显示图标",
+      "menuAccordion": "菜单手风琴模式",
+      "menuWidth": "菜单展开宽度",
+      "minMenuWidth": "菜单收缩宽度"
+    },
+    "animation": {
+      "title": "动画",
+      "enable": "启用动画",
+      "type": "动画类型",
+      "fadeSlide": "滑动",
+      "fade": "淡入淡出",
+      "fadeBottom": "底部消退",
+      "fadeScale": "缩放消退",
+      "zoomFade": "渐变",
+      "zoomOut": "闪现"
+    },
+    "fullScreen": "全屏",
+    "exitFullScreen": "退出全屏",
+    "resetConfig": "恢复默认配置",
+    "resetSuccess": "恢复默认配置成功",
+    "resetConfigContent": "恢复默认配置后，项目配置将恢复到初始状态，是否继续？",
+    "zh-CN": "中文",
+    "en-US": "English",
+    "getRouteError": "获取路由失败"
+  },
+  "http": {
+    "400": "请求出现语法错误",
+    "401": "用户未授权",
+    "403": "服务器拒绝访问",
+    "404": "请求的资源不存在",
+    "405": "请求方法未允许",
+    "408": "网络请求超时",
+    "500": "服务器内部错误",
+    "501": "服务器未实现请求功能",
+    "502": "错误网关",
+    "503": "服务不可用",
+    "504": "网关超时",
+    "505": "http版本不支持该请求",
+    "defaultTip": "请求错误"
+  },
+  "components": {
+    "iconSelector": {
+      "selectorTitle": "图标选择",
+      "inputPlaceholder": "选择目标图标",
+      "searchPlaceholder": "搜索图标",
+      "clearIcon": "清除图标"
+    },
+    "copyText": {
+      "tooltip": "复制",
+      "message": "复制成功",
+      "unsupportedError": "您的浏览器不支持剪贴板API",
+      "unpermittedError": "目前不允许使用剪贴板API"
+    }
+  },
+  "login": {
+    "username": "用户名",
+    "password": "密码",
+    "loginButton": "登录",
+    "usernamePlaceholder": "请输入用户名",
+    "passwordPlaceholder": "请输入密码",
+    "rememberMe": "记住我",
+    "forgotPassword": "忘记密码？",
+    "register": "注册",
+    "noAccountText": "没有账号？",
+    "haveAccountText": "已有账号？",
+    "checkPasswordRuleTip": "请再次确认密码",
+    "registerButton": "注册",
+    "checkPasswordPlaceholder": "请再次输入密码",
+    "loginSuccess": "登录成功，即将进入系统",
+    "loginLoading": "登录中...",
+    "loginError": "登录失败",
+    "loginErrorTip": "请填写完整信息，并且进行验证码校验",
+    "userSetting": "用户设置",
+    "logout": "退出登录",
+    "logoutConfirm": {
+      "content": "您确定要退出登录吗",
+      "successMessage": "成功退出登录"
+    }
+  },
+  "route": {
+    "dashboard": "工作台",
+    "dashboard-workplace": "首页",
+    "dashboard-console": "主控台",
+    "List": "列表页面",
+    "basic-list": "基础列表",
+    "list-basic-info": "基础详情",
+    "exception": "异常页面",
+    "exception-403": "403",
+    "exception-404": "404",
+    "exception-500": "500",
+    "form": "表单页面",
+    "form-basic-form": "基础表单",
+    "form-step-form": "分步表单",
+    "form-detail": "表单详情",
+    "Permissions": "权限",
+    "permissions-example": "权限展示",
+    "permissions-super": "超级管理员",
+    "comp": "组件示例",
+    "comp-table": "表格",
+    "comp-table-basic": "基础表格",
+    "comp-table-editCell": "单元格编辑",
+    "comp-table-editRow": "整行编辑",
+    "comp-form": "表单",
+    "comp-form-basic": "基础使用",
+    "comp-form-useForm": "useForm",
+    "comp-upload": "上传图片",
+    "comp-modal": "弹窗扩展",
+    "comp-richtext": "富文本",
+    "comp-drag": "拖拽",
+    "frame": "外部页面",
+    "frame-naive-admin": "NaiveAdmin",
+    "frame-docs": "项目文档(内嵌)",
+    "frame-naive": "NaiveUi(内嵌)",
+    "setting": "设置页面",
+    "setting-menu": "菜单权限",
+    "setting-role": "角色权限",
+    "setting-account": "个人设置",
+    "setting-system": "系统设置",
+    "directive": "指令示例",
+    "directive-index": "指令示例",
+    "about": "关于",
+    "about-index": "关于项目"
+  },
+  "table": {
+    "density": "密度",
+    "size": {
+      "small": "紧凑",
+      "medium": "默认",
+      "large": "宽松"
+    },
+    "columnSetting": "列设置",
+    "selection": "勾选列",
+    "fixLeft": "固定到左侧",
+    "fixRight": "固定到右侧"
+  },
+  "tabs": {
+    "contextMenu": {
+      "closeLeft": "关闭左边",
+      "closeRight": "关闭右边",
+      "closeOther": "关闭其他",
+      "closeAll": "关闭全部"
+    }
+  }
+}
