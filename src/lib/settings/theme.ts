@@ -13,7 +13,7 @@ export const appThemeList: string[] = [
   "#ff9800",
   "#FC5404",
   "#db5a6b",
-  "#F5222D"
+  "#F5222D",
 ];
 
 export const themeSetting = {
@@ -21,18 +21,24 @@ export const themeSetting = {
   darkNav: false,
   // 灰度模式
   grayMode: false,
+  // 前景色
+  foregroundColor: "#ffffffd9",
+  // 背景色
+  backgroundColor: "#18181c",
+  // 根背景色
+  rootBackgroundColor: "#101014",
   //系统主题色
-  themeColor: appThemeList[0],
-  // 信息颜色
-  infoColor: "#00b4d8",
+  primaryColor: appThemeList[0],
+  // 次要颜色
+  secondaryColor: "#7828c8",
   // 成功颜色
-  successColor: "#22C55E",
+  successColor: "#17c964",
   // 警告颜色
-  warningColor: "#FAAD14",
+  warningColor: "#f5a524",
   // 错误颜色
-  errorColor: "#F5222D",
+  dangerColor: "#f31260",
   //系统内置主题色列表
-  appThemeList
+  appThemeList,
 };
 
 export type ThemeSettingProps = typeof themeSetting;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <radialGradient cx="235.064" cy="363.106" gradientTransform="matrix(0.392609, -1.20712, 1.796179, 0.584196, -494.741654, 421.795425)" gradientUnits="userSpaceOnUse" id="gradient-0" r="100" spreadMethod="pad">
+      <stop offset="0" style="stop-color: rgb(248, 187, 187);"/>
+      <stop offset="1" style="stop-color: rgb(231, 92, 166);"/>
+    </radialGradient>
+  </defs>
+  <path d="M 287.129 160.688 Q 312.698 112.559 338.266 160.688 L 421.7 317.74 Q 447.269 365.869 396.132 365.869 L 229.263 365.869 Q 178.126 365.869 203.695 317.74 Z" style="stroke: rgb(0, 0, 0); stroke-width: 0px; fill: rgb(67, 67, 67);" transform="matrix(1, 0, 0, 1, 0, -5.684341886080802e-14)"/>
+  <path d="M 175.588 127.909 Q 205.242 72.091 234.895 127.909 L 331.658 310.051 Q 361.311 365.869 302.005 365.869 L 108.478 365.869 Q 49.172 365.869 78.825 310.051 Z" style="stroke: rgb(0, 0, 0); fill: url(#gradient-0); stroke-width: 0px; paint-order: fill;" transform="matrix(1, 0, 0, 1, 0, -5.684341886080802e-14)"/>
+</svg>

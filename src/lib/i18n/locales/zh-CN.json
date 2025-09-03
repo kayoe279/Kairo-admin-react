@@ -22,7 +22,7 @@
     "projectSetting": "项目设置",
     "theme": {
       "title": "主题",
-      "themeColor": "主题颜色",
+      "primaryColor": "主题颜色",
       "darkSidebar": "暗色侧边栏",
       "grayMode": "灰色模式",
       "themeSwitch": "主题切换",

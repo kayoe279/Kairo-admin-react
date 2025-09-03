@@ -28,3 +28,57 @@ body.gray-mode {
 button {
   cursor: pointer;
 }
+
+/* 全局滚动条样式 - 极细灰色，悬停显示 */
+
+/* Webkit 浏览器滚动条样式 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+}
+
+/* 悬停时显示滚动条 */
+:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox 滚动条样式 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover {
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+/* 暗色主题滚动条样式 */
+html.dark :hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+html.dark :hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+html.dark *:hover {
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}

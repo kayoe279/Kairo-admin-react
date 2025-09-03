@@ -9,7 +9,7 @@ interface AppState {
   settings: AppSettingProps;
   locale: Locale;
   reloadFlag: boolean;
-  open: boolean;
+  collapsed: boolean;
   fullScreen: boolean;
 }
 
@@ -17,7 +17,7 @@ interface AppActions {
   setNavTheme: (value: string) => void;
   setNavMode: (value: AppSettingProps["navMode"]) => void;
   setLocale: (value: Locale) => void;
-  toggleDrawer: (value?: boolean) => void;
+  toggleCollapsed: (value?: boolean) => void;
   toggleReloadFlag: (value?: boolean) => void;
   toggleFullScreen: (value?: boolean) => void;
   resetAppSetting: () => void;
@@ -29,10 +29,9 @@ type AppStore = AppState & { actions: AppActions };
 export const useAppStore = create<AppStore>()(
   persist(
     immer<AppStore>((set, get, store) => ({
-      // Initial state
       settings: { ...appSetting },
       locale: getCurrentLocale() || defaultLocale,
-      open: false,
+      collapsed: false,
       reloadFlag: true,
       fullScreen: false,
 
@@ -56,9 +55,9 @@ export const useAppStore = create<AppStore>()(
           });
         },
 
-        toggleDrawer: (value) =>
+        toggleCollapsed: (value) =>
           set((state) => {
-            state.open = value !== undefined ? value : !state.open;
+            state.collapsed = value !== undefined ? value : !state.collapsed;
           }),
 
         toggleReloadFlag: (value) =>
@@ -86,7 +85,6 @@ export const useAppStore = create<AppStore>()(
     })),
     {
       name: "app-store",
-      // ✅ 只持久化必要字段，避免存储临时状态
       partialize: (state) => ({
         settings: state.settings,
         locale: state.locale,
@@ -98,7 +96,7 @@ export const useAppStore = create<AppStore>()(
 // Selectors Hooks
 export const useAppLocale = () => useAppStore((s) => s.locale);
 export const useAppSettings = () => useAppStore((s) => s.settings);
-export const useAppDrawerOpen = () => useAppStore((s) => s.open);
+export const useAppMenuCollapsed = () => useAppStore((s) => s.collapsed);
 export const useAppFullScreen = () => useAppStore((s) => s.fullScreen);
 export const useAppReloadFlag = () => useAppStore((s) => s.reloadFlag);
 export const useAppActions = () => useAppStore((s) => s.actions);

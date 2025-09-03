@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   className?: string;
 }
 
-export const SvgIcon = ({ icon, localIcon, className = "", style = {}, ...restProps }: Props) => {
+export const SvgIcon = ({ icon, localIcon, className = "", style = {} }: Props) => {
   // 获取环境变量中的本地图标前缀
   const localPrefix = import.meta.env.VITE_ICON_LOCAL_PREFIX || "icon";
   const defaultLocalIcon = "no-icon";
@@ -26,35 +26,17 @@ export const SvgIcon = ({ icon, localIcon, className = "", style = {}, ...restPr
 
   const mergedClassName = `inline-block ${className}`.trim();
 
-  const mergedStyle = {
-    width: "1em",
-    height: "1em",
-    ...style,
-  };
-
   return (
-    <i {...restProps}>
+    <>
       {renderLocalIcon ? (
-        <svg
-          aria-hidden="true"
-          width="1em"
-          height="1em"
-          className={mergedClassName}
-          style={mergedStyle}
-        >
+        <svg aria-hidden="true" width="1em" height="1em" style={style} className={mergedClassName}>
           <use xlinkHref={symbolId} fill="currentColor" />
         </svg>
       ) : (
         icon && (
-          <Icon
-            icon={icon}
-            width="1em"
-            height="1em"
-            className={mergedClassName}
-            style={mergedStyle}
-          />
+          <Icon icon={icon} width="1em" height="1em" className={mergedClassName} style={style} />
         )
       )}
-    </i>
+    </>
   );
 };

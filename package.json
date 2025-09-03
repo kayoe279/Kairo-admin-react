@@ -12,10 +12,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@heroui/react": "^2.8.3",
     "@heroui/use-theme": "^2.1.10",
     "@iconify/react": "^6.0.0",
     "@tailwindcss/vite": "^4.1.12",
+    "antd": "^5.27.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

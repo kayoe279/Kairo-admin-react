@@ -22,7 +22,7 @@
     "projectSetting": "Project Settings",
     "theme": {
       "title": "Theme",
-      "themeColor": "Theme Color",
+      "primaryColor": "Theme Color",
       "darkSidebar": "Dark Sidebar",
       "grayMode": "Gray Mode",
       "themeSwitch": "Theme Switch",
