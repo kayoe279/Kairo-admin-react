@@ -1,9 +1,8 @@
-import { useMemo } from "react";
 import { Menu } from "antd";
 import type { MenuProps } from "antd";
-import { useLocation, useNavigate } from "react-router";
-import { useDarkMode } from "@/lib/hooks";
-import { findFirstLeafRoute, hasSubRoutes, transformToTopMixedMenus } from "@/lib/menu";
+import { useNavigate } from "react-router";
+import { useMixedMenu } from "@/lib/hooks/useMenu";
+import { findFirstLeafRoute, hasSubRoutes } from "@/lib/menu";
 import { cn } from "@/lib/utils";
 import { type AppRouteObject } from "@/router";
 import { useAppActions } from "@/store";
@@ -15,22 +14,9 @@ type MixedTopMenuProps = {
 
 export const MixedTopMenu = ({ menuRoutes, className }: MixedTopMenuProps) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { theme } = useDarkMode();
   const { toggleCollapsed } = useAppActions();
 
-  // 获取顶级菜单项
-  const topMenuItems = useMemo(() => transformToTopMixedMenus(menuRoutes), [menuRoutes]);
-
-  // 找到当前激活的顶级菜单
-  const activeTopMenuKey = useMemo(() => {
-    const currentPath = location.pathname;
-    // 找到匹配的顶级路由
-    const activeRoute = menuRoutes.find(
-      (route) => currentPath === route.path || currentPath.startsWith((route.path || "") + "/")
-    );
-    return activeRoute?.path || "";
-  }, [location.pathname, menuRoutes]);
+  const { theme, currentPath, topSelectedKeys, topMixedMenuItems } = useMixedMenu(menuRoutes);
 
   // 处理顶部菜单点击
   const handleTopMenuClick: MenuProps["onClick"] = ({ key }) => {
@@ -39,7 +25,7 @@ export const MixedTopMenu = ({ menuRoutes, className }: MixedTopMenuProps) => {
 
     if (hasSubRoutes(route)) {
       const leafRoute = findFirstLeafRoute(route);
-      if (leafRoute?.path && leafRoute.path !== location.pathname) {
+      if (leafRoute?.path && leafRoute.path !== currentPath) {
         toggleCollapsed(false);
         navigate(leafRoute.path);
       }
@@ -54,9 +40,9 @@ export const MixedTopMenu = ({ menuRoutes, className }: MixedTopMenuProps) => {
     <Menu
       mode="horizontal"
       theme={theme}
-      selectedKeys={[activeTopMenuKey]}
+      selectedKeys={topSelectedKeys}
       onClick={handleTopMenuClick}
-      items={topMenuItems}
+      items={topMixedMenuItems}
       className={cn("min-w-0 flex-1 !border-none", className)}
     />
   );

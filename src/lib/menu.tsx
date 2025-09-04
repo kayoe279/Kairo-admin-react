@@ -4,6 +4,19 @@ import { Link } from "react-router";
 import { SvgIcon } from "@/components/ui/SvgIcon";
 import type { AppRouteObject } from "@/types";
 
+export interface MenuItemType {
+  key: string;
+  label: React.ReactNode;
+  icon?: React.ReactNode;
+  children?: MenuItemType[];
+}
+
+export interface TopMixedMenuItemType {
+  key: string;
+  label: string;
+  icon?: React.ReactNode;
+}
+
 /**
  * 将路由数据转换为 Menu（侧边菜单, 顶部菜单）
  */
@@ -58,7 +71,7 @@ export function transformToTopMixedMenus(routes: AppRouteObject[]): MenuProps["i
       label: route.meta?.title || "未命名",
       icon: route.meta?.icon ? <SvgIcon icon={route.meta.icon as string} /> : undefined,
     }))
-    .sort((a: any, b: any) => {
+    .sort((a, b) => {
       const aRoute = routes.find((r) => r.path === a.key);
       const bRoute = routes.find((r) => r.path === b.key);
       return (aRoute?.meta?.sort || 0) - (bRoute?.meta?.sort || 0);

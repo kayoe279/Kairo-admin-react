@@ -1,15 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "antd";
 import type { MenuProps } from "antd";
 import { useLocation } from "react-router";
-import { useDarkMode } from "@/lib/hooks";
-import {
-  getAntMenuOpenKeys,
-  getAntMenuSelectedKeys,
-  getLevelKeys,
-  transformToMenus,
-  type LevelKeysProps,
-} from "@/lib/menu";
+import { useMenu } from "@/lib/hooks/useMenu";
+import { getAntMenuOpenKeys } from "@/lib/menu";
 import { cn } from "@/lib/utils";
 import { type AppRouteObject } from "@/router";
 import { useAppMenuCollapsed } from "@/store";
@@ -21,19 +15,11 @@ type SideMenuProps = {
 
 export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
   const location = useLocation();
-  const { theme } = useDarkMode();
   const collapsed = useAppMenuCollapsed();
 
-  // 转换为 Side Menu 数据格式
-  const menuItems = useMemo(() => transformToMenus(menuRoutes), [menuRoutes]);
-  const levelKeys = getLevelKeys(menuItems as LevelKeysProps[]);
+  const { theme, menuItems, selectedKeys, defaultOpenKeys, levelKeys } = useMenu(menuRoutes);
 
-  const defaultSelectedKeys = useMemo(
-    () => getAntMenuSelectedKeys(location.pathname),
-    [location.pathname]
-  );
-
-  const [stateOpenKeys, setStateOpenKeys] = useState<string[]>([]);
+  const [stateOpenKeys, setStateOpenKeys] = useState<string[]>(defaultOpenKeys);
 
   // 当路由变化时更新展开状态
   useEffect(() => {
@@ -62,18 +48,18 @@ export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
     }
   };
 
-  useEffect(() => {
-    if (!collapsed) {
-      setStateOpenKeys(getAntMenuOpenKeys(menuRoutes, location.pathname));
-    }
-  }, [collapsed, location.pathname, menuRoutes]);
+  // useEffect(() => {
+  //   if (!collapsed) {
+  //     setStateOpenKeys(getAntMenuOpenKeys(menuRoutes, location.pathname));
+  //   }
+  // }, [collapsed, location.pathname, menuRoutes]);
 
   return (
     <Menu
       mode="inline"
       inlineIndent={20}
       theme={theme}
-      defaultSelectedKeys={defaultSelectedKeys}
+      selectedKeys={selectedKeys}
       openKeys={stateOpenKeys}
       onOpenChange={onOpenChange}
       inlineCollapsed={collapsed}

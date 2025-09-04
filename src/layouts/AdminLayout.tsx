@@ -4,7 +4,6 @@ import { AdminMenu } from "@/layouts/Menu/AdminMenu";
 import { useDarkMode } from "@/lib/hooks";
 import { useAppMenuCollapsed, useAppSettings } from "@/store";
 import { Main } from "./Main";
-import { MixedSideMenu } from "./Menu";
 
 const { Sider } = Layout;
 
@@ -27,8 +26,7 @@ export const AdminLayout = () => {
           width={menuSetting.menuWidth}
         >
           <Logo collapsed={collapsed} />
-          {navMode === "vertical" && <AdminMenu />}
-          {navMode === "horizontal-mix" && <MixedSideMenu />}
+          <AdminMenu />
         </Sider>
       )}
 

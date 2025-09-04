@@ -30,7 +30,7 @@ export const Header = () => {
         {showTopMenu && (
           <>
             {navMode === "horizontal" && <Logo className="shrink-0" />}
-            <AdminMenu />
+            <AdminMenu location="header" />
           </>
         )}
       </div>
