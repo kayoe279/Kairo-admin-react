@@ -6,3 +6,4 @@ export * from "./hero";
 export * from "./color";
 export * from "./cookie";
 export * from "./constants";
+export * from "./menu";

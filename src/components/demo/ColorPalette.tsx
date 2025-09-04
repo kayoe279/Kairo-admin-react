@@ -1,9 +1,14 @@
 import React from "react";
+import { Button } from "@heroui/react";
+import type { AppSettingProps } from "@/lib/settings/app";
 import { appThemeList } from "@/lib/settings/theme";
+import { useAppActions, useAppSettings } from "@/store";
 import { useThemeStore } from "@/store/theme";
 
 export const ColorPalette: React.FC = () => {
   const { settings, actions } = useThemeStore();
+  const { navMode } = useAppSettings();
+  const { setNavMode } = useAppActions();
 
   const primaryShades = [
     "50",
@@ -19,8 +24,18 @@ export const ColorPalette: React.FC = () => {
     "950",
   ];
 
+  const handleSetNavMode = (mode: AppSettingProps["navMode"]) => {
+    setNavMode(mode);
+  };
+
   return (
     <div className="space-y-6">
+      <h1>{navMode}</h1>
+      <div className="flex gap-4">
+        <Button onPress={() => handleSetNavMode("vertical")}>vertical</Button>
+        <Button onPress={() => handleSetNavMode("horizontal")}>horizontal</Button>
+        <Button onPress={() => handleSetNavMode("horizontal-mix")}>horizontal-mix</Button>
+      </div>
       <h3 className="text-xl font-semibold">Primary 颜色调色板</h3>
 
       {/* 当前主题颜色 */}

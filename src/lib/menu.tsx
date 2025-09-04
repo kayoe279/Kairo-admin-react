@@ -5,13 +5,12 @@ import { SvgIcon } from "@/components/ui/SvgIcon";
 import type { AppRouteObject } from "@/types";
 
 /**
- * 将路由数据转换为 Ant Design Menu 格式
+ * 将路由数据转换为 Menu（侧边菜单, 顶部菜单）
  */
-export function transformRouteToAntMenu(routes: AppRouteObject[]): MenuProps["items"] {
+export function transformToMenus(routes: AppRouteObject[]): MenuProps["items"] {
   function buildAntMenuFromRoute(route: AppRouteObject): ItemType | null {
     const meta = route.meta;
 
-    // 如果没有meta或被隐藏，跳过
     if (!meta || meta.hidden) return null;
 
     const menuItem = {
@@ -49,9 +48,9 @@ export function transformRouteToAntMenu(routes: AppRouteObject[]): MenuProps["it
 }
 
 /**
- * 获取顶级菜单项（用于混合模式）
+ * 将路由数据转换为 Menu（顶部混合菜单）
  */
-export function getTopLevelMenus(routes: AppRouteObject[]): MenuProps["items"] {
+export function transformToTopMixedMenus(routes: AppRouteObject[]): MenuProps["items"] {
   return routes
     .filter((route) => !route.meta?.hidden)
     .map((route) => ({
@@ -64,33 +63,6 @@ export function getTopLevelMenus(routes: AppRouteObject[]): MenuProps["items"] {
       const bRoute = routes.find((r) => r.path === b.key);
       return (aRoute?.meta?.sort || 0) - (bRoute?.meta?.sort || 0);
     });
-}
-
-/**
- * 根据选中的顶级菜单获取其子菜单
- */
-export function getSubMenusByParent(
-  routes: AppRouteObject[],
-  parentKey: string
-): MenuProps["items"] {
-  const parentRoute = routes.find((route) => route.path === parentKey);
-  if (!parentRoute || !parentRoute.children) return [];
-
-  return transformRouteToAntMenu(parentRoute.children);
-}
-
-/**
- * 获取当前路径的所有父级路径
- */
-export function getParentPaths(currentPath: string): string[] {
-  const segments = currentPath.split("/").filter(Boolean);
-  const paths: string[] = [];
-
-  for (let i = 1; i <= segments.length; i++) {
-    paths.push("/" + segments.slice(0, i).join("/"));
-  }
-
-  return paths;
 }
 
 /**
@@ -115,6 +87,27 @@ export function getAntMenuOpenKeys(routes: AppRouteObject[], currentPath: string
   return openKeys;
 }
 
+export type LevelKeysProps = {
+  key?: string;
+  children?: LevelKeysProps[];
+};
+// 获取菜单的层级
+export const getLevelKeys = (items1: LevelKeysProps[]) => {
+  const key: Record<string, number> = {};
+  const func = (items2: LevelKeysProps[], level = 1) => {
+    items2.forEach((item) => {
+      if (item.key) {
+        key[item.key] = level;
+      }
+      if (item.children) {
+        func(item.children, level + 1);
+      }
+    });
+  };
+  func(items1);
+  return key;
+};
+
 /**
  * 根据当前路径获取 Ant Design Menu 选中的键
  */
@@ -127,4 +120,27 @@ export function getAntMenuSelectedKeys(currentPath: string): string[] {
  */
 export function hasSubRoutes(route: AppRouteObject): boolean {
   return Boolean(route.children && route.children.length > 0);
+}
+
+/**
+ * 递归查找最底层的第一个可访问路由
+ * 如果一个路由有子路由，会继续递归查找直到找到没有子路由的叶子节点
+ */
+export function findFirstLeafRoute(route: AppRouteObject): AppRouteObject | null {
+  if (route.meta?.hidden) {
+    return null;
+  }
+
+  if (!route.children || route.children.length === 0) {
+    return route;
+  }
+
+  for (const child of route.children) {
+    const leafRoute = findFirstLeafRoute(child);
+    if (leafRoute) {
+      return leafRoute;
+    }
+  }
+
+  return null;
 }

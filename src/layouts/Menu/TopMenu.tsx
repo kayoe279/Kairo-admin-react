@@ -2,20 +2,21 @@ import { useMemo } from "react";
 import { Menu } from "antd";
 import { useLocation } from "react-router";
 import { useDarkMode } from "@/lib/hooks";
+import { getAntMenuSelectedKeys, transformToMenus } from "@/lib/menu";
 import { cn } from "@/lib/utils";
-import { getAntMenuSelectedKeys, transformRouteToAntMenu } from "@/lib/utils/menu";
-import { menuRoutes } from "@/router/index";
+import { type AppRouteObject } from "@/router";
 
 type TopMenuProps = {
+  menuRoutes: AppRouteObject[];
   className?: string;
 };
 
-export const TopMenu = ({ className }: TopMenuProps) => {
+export const TopMenu = ({ menuRoutes, className }: TopMenuProps) => {
   const location = useLocation();
   const { theme } = useDarkMode();
 
   // 转换为 Ant Design Menu 数据格式
-  const menuItems = useMemo(() => transformRouteToAntMenu(menuRoutes), []);
+  const menuItems = useMemo(() => transformToMenus(menuRoutes), [menuRoutes]);
 
   // 获取当前选中的菜单项
   const selectedKeys = useMemo(

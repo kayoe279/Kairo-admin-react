@@ -1,5 +1,6 @@
+import { menuRoutes } from "@/router";
 import { useAppSettings } from "@/store";
-import { MixedMenu } from "./MixedMenu";
+import { MixedTopMenu } from "./MixedTopMenu";
 import { SideMenu } from "./SideMenu";
 import { TopMenu } from "./TopMenu";
 
@@ -11,14 +12,13 @@ export const AdminMenu = ({ className }: MenuProps) => {
   const settings = useAppSettings();
   const { navMode } = settings;
 
-  // 根据设置中的导航模式渲染对应的菜单组件
   switch (navMode) {
     case "horizontal":
-      return <TopMenu className={className} />;
+      return <TopMenu menuRoutes={menuRoutes} className={className} />;
     case "horizontal-mix":
-      return <MixedMenu className={className} />;
+      return <MixedTopMenu menuRoutes={menuRoutes} className={className} />;
     case "vertical":
     default:
-      return <SideMenu className={className} />;
+      return <SideMenu menuRoutes={menuRoutes} className={className} />;
   }
 };

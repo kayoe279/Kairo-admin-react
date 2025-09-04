@@ -3,31 +3,29 @@ import { Menu } from "antd";
 import type { MenuProps } from "antd";
 import { useLocation } from "react-router";
 import { useDarkMode } from "@/lib/hooks";
-import { cn } from "@/lib/utils";
 import {
   getAntMenuOpenKeys,
   getAntMenuSelectedKeys,
-  transformRouteToAntMenu,
-} from "@/lib/utils/menu";
-import { menuRoutes } from "@/router/index";
+  getLevelKeys,
+  transformToMenus,
+  type LevelKeysProps,
+} from "@/lib/menu";
+import { cn } from "@/lib/utils";
+import { type AppRouteObject } from "@/router";
 import { useAppMenuCollapsed } from "@/store";
 
 type SideMenuProps = {
+  menuRoutes: AppRouteObject[];
   className?: string;
 };
 
-interface LevelKeysProps {
-  key?: string;
-  children?: LevelKeysProps[];
-}
-
-export const SideMenu = ({ className }: SideMenuProps) => {
+export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
   const location = useLocation();
   const { theme } = useDarkMode();
   const collapsed = useAppMenuCollapsed();
 
-  // 转换为 Ant Design Menu 数据格式
-  const menuItems = useMemo(() => transformRouteToAntMenu(menuRoutes), []);
+  // 转换为 Side Menu 数据格式
+  const menuItems = useMemo(() => transformToMenus(menuRoutes), [menuRoutes]);
   const levelKeys = getLevelKeys(menuItems as LevelKeysProps[]);
 
   const defaultSelectedKeys = useMemo(
@@ -41,7 +39,7 @@ export const SideMenu = ({ className }: SideMenuProps) => {
   useEffect(() => {
     const newOpenKeys = getAntMenuOpenKeys(menuRoutes, location.pathname);
     setStateOpenKeys((prev) => [...new Set([...prev, ...newOpenKeys])]);
-  }, [location.pathname]);
+  }, [location.pathname, menuRoutes]);
 
   const onOpenChange: MenuProps["onOpenChange"] = (openKeys) => {
     const currentOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1);
@@ -68,36 +66,19 @@ export const SideMenu = ({ className }: SideMenuProps) => {
     if (!collapsed) {
       setStateOpenKeys(getAntMenuOpenKeys(menuRoutes, location.pathname));
     }
-  }, [collapsed, location.pathname]);
+  }, [collapsed, location.pathname, menuRoutes]);
 
   return (
-    <div className={cn("flex h-full flex-col overflow-y-auto", className)}>
-      <Menu
-        mode="inline"
-        inlineIndent={20}
-        theme={theme}
-        defaultSelectedKeys={defaultSelectedKeys}
-        openKeys={stateOpenKeys}
-        onOpenChange={onOpenChange}
-        inlineCollapsed={collapsed}
-        items={menuItems}
-      />
-    </div>
+    <Menu
+      mode="inline"
+      inlineIndent={20}
+      theme={theme}
+      defaultSelectedKeys={defaultSelectedKeys}
+      openKeys={stateOpenKeys}
+      onOpenChange={onOpenChange}
+      inlineCollapsed={collapsed}
+      items={menuItems}
+      className={cn("flex h-full flex-col overflow-y-auto", className)}
+    />
   );
-};
-
-const getLevelKeys = (items1: LevelKeysProps[]) => {
-  const key: Record<string, number> = {};
-  const func = (items2: LevelKeysProps[], level = 1) => {
-    items2.forEach((item) => {
-      if (item.key) {
-        key[item.key] = level;
-      }
-      if (item.children) {
-        func(item.children, level + 1);
-      }
-    });
-  };
-  func(items1);
-  return key;
 };

@@ -11,6 +11,9 @@ export const Header = () => {
   const { t } = useTranslation();
   const { headerSetting, navMode } = useAppSettings();
 
+  const showCollapsed = navMode === "vertical" || navMode === "horizontal-mix";
+  const showTopMenu = navMode === "horizontal" || navMode === "horizontal-mix";
+
   const onIconClick = (key: "github" | "lock") => {
     if (key === "github") {
       window.open(appConfig.github);
@@ -23,10 +26,10 @@ export const Header = () => {
       style={{ height: headerSetting.height + "px" }}
     >
       <div className="flex h-full min-w-0 flex-1 items-center gap-x-5">
-        {navMode === "vertical" && <Collapsed />}
-        {navMode === "horizontal" && (
+        {showCollapsed && <Collapsed />}
+        {showTopMenu && (
           <>
-            <Logo className="shrink-0" />
+            {navMode === "horizontal" && <Logo className="shrink-0" />}
             <AdminMenu />
           </>
         )}

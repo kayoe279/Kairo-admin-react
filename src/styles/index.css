@@ -42,10 +42,12 @@ button {
 .ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-submenu-horizontal {
   @apply flex items-center;
 }
-.ant-menu-horizontal li.ant-menu-submenu-selected {
+.ant-menu-horizontal li.ant-menu-submenu-selected,
+.ant-menu-horizontal li.ant-menu-item-selected {
   @apply !bg-transparent;
 }
-.ant-menu-horizontal li.ant-menu-submenu:hover .ant-menu-submenu-title {
+.ant-menu-horizontal li.ant-menu-submenu:hover .ant-menu-submenu-title,
+.ant-menu-horizontal li.ant-menu-item:hover {
   @apply !text-primary;
 }
 
