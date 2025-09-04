@@ -29,6 +29,26 @@ button {
   cursor: pointer;
 }
 
+/* ant design menu */
+.ant-menu-item,
+.ant-menu-submenu {
+  @apply after:!border-none;
+}
+
+.ant-menu-horizontal .ant-menu-overflow-item.ant-menu-item,
+.ant-menu-horizontal .ant-menu-submenu-horizontal .ant-menu-submenu-title {
+  @apply flex items-center;
+}
+.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-submenu-horizontal {
+  @apply flex items-center;
+}
+.ant-menu-horizontal li.ant-menu-submenu-selected {
+  @apply !bg-transparent;
+}
+.ant-menu-horizontal li.ant-menu-submenu:hover .ant-menu-submenu-title {
+  @apply !text-primary;
+}
+
 /* 全局滚动条样式 - 极细灰色，悬停显示 */
 
 /* Webkit 浏览器滚动条样式 */

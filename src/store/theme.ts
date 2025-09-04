@@ -16,6 +16,7 @@ type ThemeColorProps = {
 };
 interface ThemeActions {
   setThemeColor: (props: ThemeColorProps) => void;
+  setBaseThemeColor: (props: Partial<ThemeColorProps>) => void;
   setAllThemeColor: (props: Partial<ThemeColorProps>) => void;
   resetThemeColor: (props: Partial<ThemeColorProps>) => void;
   toggleGrayMode: (value: boolean) => void;
@@ -32,7 +33,19 @@ export const useThemeStore = create<ThemeStore>()(
       settings: { ...themeSetting },
 
       actions: {
-        // 设置 app 颜色主题
+        // 设置基础颜色
+        setBaseThemeColor: ({ isDarkMode }: Partial<ThemeColorProps>) => {
+          set((state) => {
+            if (isDarkMode) {
+              state.settings.foregroundColor = "#ffffffd9";
+              state.settings.backgroundColor = "#18181c";
+            } else {
+              state.settings.foregroundColor = "#18181c";
+              state.settings.backgroundColor = "#ffffff";
+            }
+          });
+        },
+        // 设置颜色主题
         setThemeColor: ({ type, color, isDarkMode }: ThemeColorProps) => {
           set((state) => {
             if (typeof document !== "undefined") {
@@ -62,8 +75,10 @@ export const useThemeStore = create<ThemeStore>()(
 
         // 设置所有主题色
         setAllThemeColor: ({ isDarkMode }: Partial<ThemeColorProps>) => {
+          const { setBaseThemeColor, setThemeColor } = get().actions;
+          setBaseThemeColor({ isDarkMode });
           colorTypes.forEach((type) => {
-            get().actions.setThemeColor({ type, isDarkMode });
+            setThemeColor({ type, isDarkMode });
           });
         },
 

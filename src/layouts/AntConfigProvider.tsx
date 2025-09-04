@@ -29,6 +29,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
       colorError: dangerColor,
       colorErrorHover: errorStr,
     },
+    cssVar: true,
     components: {
       Menu: {
         iconSize: 20,
@@ -37,14 +38,15 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
         itemBorderRadius: 12,
         subMenuItemBorderRadius: 12,
         collapsedWidth: 64,
-        subMenuItemBg: "rgba(0,0,0,0)",
-        darkSubMenuItemBg: "rgba(0,0,0,0)",
+        subMenuItemBg: "transparent",
+        darkSubMenuItemBg: "transparent",
         darkItemSelectedBg: primaryStr,
-        darkItemHoverBg: "rgba(255, 255, 255, 0.09)",
-        darkItemBg: backgroundColor,
-        darkPopupBg: backgroundColor,
         darkItemSelectedColor: primaryColor,
+        darkItemHoverBg: "rgba(255, 255, 255, 0.09)",
         darkItemColor: foregroundColor,
+        darkItemBg: backgroundColor,
+        darkPopupBg: "#3b3b3f",
+        horizontalItemHoverColor: primaryColor,
       },
       Layout: {
         siderBg: backgroundColor,

@@ -7,7 +7,7 @@ type MenuProps = {
   className?: string;
 };
 
-export const Menu = ({ className }: MenuProps) => {
+export const AdminMenu = ({ className }: MenuProps) => {
   const settings = useAppSettings();
   const { navMode } = settings;
 

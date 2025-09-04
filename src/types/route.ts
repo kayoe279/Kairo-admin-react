@@ -51,19 +51,3 @@ export interface AppRouteObject {
   /** 路由引用，用于动画等 */
   nodeRef?: React.RefObject<unknown>;
 }
-
-/** 菜单项数据接口 */
-export interface MenuItemData {
-  /** 菜单标题 */
-  title: string;
-  /** 菜单路径 */
-  path: string;
-  /** 菜单图标 */
-  icon?: React.ReactNode;
-  /** 排序权重 */
-  sort?: number;
-  /** 是否隐藏 */
-  hidden?: boolean;
-  /** 子菜单 */
-  children?: MenuItemData[];
-}

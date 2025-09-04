@@ -1,61 +1,23 @@
 import type { MenuProps } from "antd";
+import type { ItemType, SubMenuType } from "antd/es/menu/interface";
 import { Link } from "react-router";
 import { SvgIcon } from "@/components/ui/SvgIcon";
-import type { AppRouteObject, MenuItemData } from "@/types";
-
-/**
- * 将嵌套路由数据转换为菜单数据
- */
-export function transformRouteToMenu(routes: AppRouteObject[]): MenuItemData[] {
-  function buildMenuFromRoute(route: AppRouteObject): MenuItemData | null {
-    const meta = route.meta;
-
-    // 如果没有meta或被隐藏，跳过
-    if (!meta || meta.hidden) return null;
-
-    const menuItem: MenuItemData = {
-      title: meta.title || "未命名",
-      path: route.path || "",
-      icon: meta.icon,
-      sort: meta.sort || 0,
-      children: [],
-    };
-
-    // 递归处理子路由
-    if (route.children && route.children.length > 0) {
-      const childMenus = route.children
-        .map((child) => buildMenuFromRoute(child))
-        .filter((child): child is MenuItemData => child !== null);
-
-      if (childMenus.length > 0) {
-        menuItem.children = childMenus;
-      }
-    }
-
-    return menuItem;
-  }
-
-  const menuItems = routes
-    .map((route) => buildMenuFromRoute(route))
-    .filter((item): item is MenuItemData => item !== null);
-
-  return menuItems.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-}
+import type { AppRouteObject } from "@/types";
 
 /**
  * 将路由数据转换为 Ant Design Menu 格式
  */
 export function transformRouteToAntMenu(routes: AppRouteObject[]): MenuProps["items"] {
-  function buildAntMenuFromRoute(route: AppRouteObject): any {
+  function buildAntMenuFromRoute(route: AppRouteObject): ItemType | null {
     const meta = route.meta;
 
     // 如果没有meta或被隐藏，跳过
     if (!meta || meta.hidden) return null;
 
-    const menuItem: any = {
+    const menuItem = {
       key: route.path || "",
-      label: meta.title || "未命名",
-      icon: meta.icon ? <SvgIcon icon={meta.icon as string} className="!text-xl" /> : undefined,
+      label: meta.title || <></>,
+      icon: meta.icon ? <SvgIcon icon={meta.icon as string} /> : undefined,
     };
 
     // 递归处理子路由
@@ -65,21 +27,21 @@ export function transformRouteToAntMenu(routes: AppRouteObject[]): MenuProps["it
         .filter((child) => child !== null);
 
       if (childMenus.length > 0) {
-        menuItem.children = childMenus;
+        (menuItem as SubMenuType).children = childMenus;
       }
     } else {
       menuItem.label = <Link to={route.path || ""}>{meta.title || "未命名"}</Link>;
     }
 
-    return menuItem;
+    return menuItem as ItemType;
   }
 
   const menuItems = routes
     .map((route) => buildAntMenuFromRoute(route))
     .filter((item) => item !== null);
 
-  return menuItems.sort((a: any, b: any) => {
-    // 获取路由的 sort 值进行排序
+  // 获取路由的 sort 值进行排序
+  return menuItems.sort((a, b) => {
     const aRoute = routes.find((r) => r.path === a.key);
     const bRoute = routes.find((r) => r.path === b.key);
     return (aRoute?.meta?.sort || 0) - (bRoute?.meta?.sort || 0);
@@ -95,9 +57,7 @@ export function getTopLevelMenus(routes: AppRouteObject[]): MenuProps["items"] {
     .map((route) => ({
       key: route.path || "",
       label: route.meta?.title || "未命名",
-      icon: route.meta?.icon ? (
-        <SvgIcon icon={route.meta.icon as string} className="!text-xl" />
-      ) : undefined,
+      icon: route.meta?.icon ? <SvgIcon icon={route.meta.icon as string} /> : undefined,
     }))
     .sort((a: any, b: any) => {
       const aRoute = routes.find((r) => r.path === a.key);

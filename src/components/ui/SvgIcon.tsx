@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from "react";
 import { Icon } from "@iconify/react";
+import { cn } from "@/lib";
 
 /**
  * SvgIcon 组件
@@ -24,7 +25,7 @@ export const SvgIcon = ({ icon, localIcon, className = "", style = {} }: Props) 
 
   const renderLocalIcon = localIcon || !icon;
 
-  const mergedClassName = `inline-block ${className}`.trim();
+  const mergedClassName = cn("inline-block", className);
 
   return (
     <>

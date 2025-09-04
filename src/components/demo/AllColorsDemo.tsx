@@ -150,10 +150,24 @@ export const AllColorsDemo: React.FC = () => {
           <h3 className="text-xl font-semibold">Tailwind CSS 实际效果</h3>
         </CardHeader>
         <CardBody className="space-y-4">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-6">
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium">Base</h4>
+              <div className="space-y-2">
+                <div className="bg-background text-foreground rounded border border-amber-100 px-3 py-2 text-sm">
+                  bg-background
+                </div>
+                <div className="text-foreground border-primary rounded border px-3 py-2 text-sm">
+                  text-foreground
+                </div>
+                <div className="bg-background text-foreground-subtle rounded border border-amber-100 px-3 py-2 text-sm">
+                  text-foreground-subtle
+                </div>
+              </div>
+            </div>
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Primary</h4>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <div className="bg-primary rounded px-3 py-2 text-sm text-white">bg-primary</div>
                 <div className="bg-primary-100 text-primary-900 rounded px-3 py-2 text-sm">
                   bg-primary-100
@@ -166,7 +180,7 @@ export const AllColorsDemo: React.FC = () => {
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Secondary</h4>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <div className="bg-secondary rounded px-3 py-2 text-sm text-white">
                   bg-secondary
                 </div>
@@ -181,7 +195,7 @@ export const AllColorsDemo: React.FC = () => {
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Success</h4>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <div className="bg-success rounded px-3 py-2 text-sm text-white">bg-success</div>
                 <div className="bg-success-100 text-success-900 rounded px-3 py-2 text-sm">
                   bg-success-100
@@ -194,7 +208,7 @@ export const AllColorsDemo: React.FC = () => {
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Warning</h4>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <div className="bg-warning rounded px-3 py-2 text-sm text-white">bg-warning</div>
                 <div className="bg-warning-100 text-warning-900 rounded px-3 py-2 text-sm">
                   bg-warning-100
@@ -207,7 +221,7 @@ export const AllColorsDemo: React.FC = () => {
 
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Danger</h4>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <div className="bg-danger rounded px-3 py-2 text-sm text-white">bg-danger</div>
                 <div className="bg-danger-100 text-danger-900 rounded px-3 py-2 text-sm">
                   bg-danger-100
@@ -219,11 +233,11 @@ export const AllColorsDemo: React.FC = () => {
             </div>
           </div>
 
-          <div className="rounded-lg bg-gray-50 p-4">
+          <div className="bg-background rounded-lg p-4">
             <h4 className="mb-2 text-sm font-medium">✨ 特性亮点</h4>
-            <ul className="space-y-1 text-sm text-gray-600">
+            <ul className="text-foreground-subtle space-y-2 text-sm">
               <li>• 完全匹配设计规范的精确颜色值</li>
-              <li>• 支持 50-950 的完整色阶系统</li>
+              <li>• 支持 50-900 的完整色阶系统</li>
               <li>• 自动适配亮色/暗色模式</li>
               <li>• 实时动态主题切换</li>
               <li>• Tailwind CSS 和 HeroUI 完全同步</li>
