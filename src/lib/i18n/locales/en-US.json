@@ -56,11 +56,11 @@
       "enable": "Enable Animation",
       "type": "Animation Type",
       "fadeSlide": "Slide",
-      "fade": "Fade",
-      "fadeBottom": "Fade Bottom",
-      "fadeScale": "Fade Scale",
-      "zoomFade": "Zoom Fade",
-      "zoomOut": "Zoom Out"
+      "flipFade": "3D Flip",
+      "fadeBottom": "Fade From Bottom",
+      "bounceIn": "Bounce In",
+      "zoomFade": "Elastic Zoom",
+      "rotateFade": "Rotate Fade"
     },
     "fullScreen": "Full Screen",
     "exitFullScreen": "Exit Full Screen",

@@ -3,10 +3,11 @@ import { Button } from "@heroui/react";
 import type { AppSettingProps } from "@/lib/settings/app";
 import { appThemeList } from "@/lib/settings/theme";
 import { useAppActions, useAppSettings } from "@/store";
-import { useThemeStore } from "@/store/theme";
+import { useThemeActions, useThemeSettings } from "@/store/theme";
 
 export const ColorPalette: React.FC = () => {
-  const { settings, actions } = useThemeStore();
+  const { primaryColor } = useThemeSettings();
+  const { setThemeColor } = useThemeActions();
   const { navMode } = useAppSettings();
   const { setNavMode } = useAppActions();
 
@@ -40,7 +41,7 @@ export const ColorPalette: React.FC = () => {
 
       {/* 当前主题颜色 */}
       <div className="space-y-3">
-        <h4 className="text-lg font-medium">当前主题色: {settings.primaryColor}</h4>
+        <h4 className="text-lg font-medium">当前主题色: {primaryColor}</h4>
         <div className="grid grid-cols-11 gap-2">
           {primaryShades.map((shade) => (
             <div key={shade} className="text-center">
@@ -61,11 +62,9 @@ export const ColorPalette: React.FC = () => {
           {appThemeList.map((color) => (
             <button
               key={color}
-              onClick={() => actions.setThemeColor({ type: "primary", color })}
+              onClick={() => setThemeColor({ type: "primary", color })}
               className={`h-12 w-12 rounded-lg border-2 hover:scale-110 ${
-                settings.primaryColor === color
-                  ? "border-gray-900 ring-2 ring-gray-400"
-                  : "border-gray-200"
+                primaryColor === color ? "border-gray-900 ring-2 ring-gray-400" : "border-gray-200"
               }`}
               style={{ backgroundColor: color }}
               title={color}

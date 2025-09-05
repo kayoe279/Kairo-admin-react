@@ -1,97 +1,72 @@
 import { useState } from "react";
-import { Button } from "@heroui/react";
-import { useTranslation } from "react-i18next";
 import {
-  ButtonIcon,
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui";
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@heroui/react";
+import { Divider } from "antd";
+import { useTranslation } from "react-i18next";
+import { ButtonIcon, Drawer } from "@/components/ui";
+import { Animation } from "./Animation";
+import { LayoutMode } from "./LayoutMode";
+import { PageFeatures } from "./PageFeatures";
+import { ThemeColor } from "./ThemeColor";
+import { ThemeMode } from "./ThemeMode";
 
 export const AppSetting = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleResetSettings = () => {
+    // TODO: 集成到状态管理中重置所有设置
+    console.log("Reset all settings");
+
+    // 显示成功消息
+    console.log("Settings reset successfully");
+  };
+
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
-      <DrawerTrigger asChild>
-        <ButtonIcon icon="solar:settings-broken" tooltipContent={t("app.projectSetting")} />
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>{t("app.projectSetting")}</DrawerTitle>
-          <DrawerClose />
-        </DrawerHeader>
+    <>
+      <ButtonIcon
+        icon="solar:settings-broken"
+        tooltipContent={t("app.projectSetting")}
+        onClick={() => setIsOpen(true)}
+      />
+      <Drawer
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={t("app.projectSetting")}
+        footer={
+          <Button color="danger" variant="solid" onPress={handleResetSettings} className="w-full">
+            {t("app.resetConfig")}
+          </Button>
+        }
+      >
+        <Divider className="!text-foreground-subtle my-4 !text-sm">{t("app.theme.title")}</Divider>
+        <ThemeMode />
 
-        <div className="flex-1 overflow-y-auto px-8 py-4">
-          <div className="space-y-4">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-              risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-              risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
-            </p>
-            <p>
-              Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor
-              adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit
-              officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit incididunt nisi
-              consectetur esse laborum eiusmod pariatur proident Lorem eiusmod et. Culpa deserunt
-              nostrud ad veniam.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-              risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-              risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
-            </p>
-            <p>
-              Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor
-              adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit
-              officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit incididunt nisi
-              consectetur esse laborum eiusmod pariatur proident Lorem eiusmod et. Culpa deserunt
-              nostrud ad veniam.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-              risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-              risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
-            </p>
-            <p>
-              Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor
-              adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit
-              officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit incididunt nisi
-              consectetur esse laborum eiusmod pariatur proident Lorem eiusmod et. Culpa deserunt
-              nostrud ad veniam.
-            </p>
-          </div>
-        </div>
+        <Divider className="!text-foreground-subtle my-4 !text-sm">{t("app.layout.title")}</Divider>
+        <LayoutMode />
 
-        <DrawerFooter>
-          <div className="flex justify-end gap-2">
-            <Button color="danger" variant="light" onPress={() => setIsOpen(false)}>
-              Close
-            </Button>
-            <Button color="primary" onPress={() => setIsOpen(false)}>
-              Action
-            </Button>
-          </div>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        <Divider className="!text-foreground-subtle my-4 !text-sm">
+          {t("app.theme.primaryColor")}
+        </Divider>
+        <ThemeColor />
+
+        <Divider className="!text-foreground-subtle my-4 !text-sm">
+          {t("app.pageFeature.title")}
+        </Divider>
+        <PageFeatures />
+
+        <Divider className="!text-foreground-subtle my-4 !text-sm">
+          {t("app.animation.title")}
+        </Divider>
+        <Animation />
+      </Drawer>
+    </>
   );
 };

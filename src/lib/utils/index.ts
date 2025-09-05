@@ -41,3 +41,25 @@ export function lighten(color: string, amount: number) {
     amount
   )}${addLight(color.substring(4, 6), amount)}`;
 }
+
+// 辅助函数：通过路径字符串设置对象的值
+export function setValueByPath(obj: Record<string, unknown>, path: string, value: unknown) {
+  const keys = path.split(".");
+  let current = obj;
+
+  // 遍历到倒数第二个键
+  for (let i = 0; i < keys.length - 1; i++) {
+    const key = keys[i];
+    if (current[key] && typeof current[key] === "object") {
+      current = current[key] as Record<string, unknown>;
+    } else {
+      return; // 路径不存在，直接返回
+    }
+  }
+
+  // 设置最后一个键的值
+  const lastKey = keys[keys.length - 1];
+  if (current && typeof current === "object") {
+    current[lastKey] = value;
+  }
+}

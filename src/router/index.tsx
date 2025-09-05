@@ -3,9 +3,7 @@ import type { RouteObject as BaseRouteObject } from "react-router";
 import { AdminLayout } from "@/layouts/AdminLayout";
 import Login from "@/routes/auth/login";
 import Exception404 from "@/routes/exception/404";
-// 导入路由类型定义
-import type { AppRouteObject, MetaProps } from "@/types";
-// 导入路由模块
+import type { AppRouteObject } from "@/types";
 import { aboutRoutes } from "./modules/about";
 import { compRoutes } from "./modules/comp";
 import { dashboardRoutes } from "./modules/dashboard";
@@ -16,10 +14,8 @@ import { permissionsRoutes } from "./modules/permissions";
 import { settingRoutes } from "./modules/setting";
 import { testRoutes } from "./modules/test";
 
-export type { MetaProps, AppRouteObject };
-
 // 组合所有路由
-const allModuleRoutes: AppRouteObject[] = [
+export const allModuleRoutes: AppRouteObject[] = [
   ...dashboardRoutes,
   ...compRoutes,
   ...formRoutes,
@@ -31,7 +27,7 @@ const allModuleRoutes: AppRouteObject[] = [
   ...testRoutes,
 ];
 
-export const rootRouter: BaseRouteObject[] = [
+export const rootRoutes: BaseRouteObject[] = [
   // 登录页面 - 不需要布局
   {
     path: "/auth/login",
@@ -60,9 +56,7 @@ export const rootRouter: BaseRouteObject[] = [
 // 导出用于菜单生成的路由数据
 export const menuRoutes = allModuleRoutes;
 
-const Router = () => {
-  const routes = useRoutes(rootRouter);
+export const Router = () => {
+  const routes = useRoutes(rootRoutes);
   return routes;
 };
-
-export default Router;

@@ -76,7 +76,7 @@
 }
 
 html.dark {
-  --background-root: #101014;
+  --background-root: #000000;
   --background: #18181c;
   --background-hover: #2d2d30;
   --foreground: #ffffffd9;

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { SvgIcon } from "@/components/ui";
 import { cn } from "@/lib";
 import { appConfig } from "@/lib/settings/app";
+import { useAppSettings, useThemeSettings } from "@/store";
 
 type LogoProps = {
   collapsed?: boolean;
@@ -9,10 +10,16 @@ type LogoProps = {
 };
 
 export const Logo = ({ collapsed, className }: LogoProps) => {
+  const { darkNav } = useThemeSettings();
+  const { navMode } = useAppSettings();
+
   return (
     <div
       className={cn(
         "flex h-16 items-center justify-center overflow-hidden whitespace-nowrap",
+        darkNav && navMode !== "horizontal"
+          ? "text-background/80 dark:text-foreground"
+          : "text-foreground",
         className
       )}
     >

@@ -5,8 +5,8 @@ import { useLocation } from "react-router";
 import { useMenu } from "@/lib/hooks/useMenu";
 import { getAntMenuOpenKeys } from "@/lib/menu";
 import { cn } from "@/lib/utils";
-import { type AppRouteObject } from "@/router";
-import { useAppMenuCollapsed } from "@/store";
+import { useAppSettings, useThemeSettings } from "@/store";
+import type { AppRouteObject } from "@/types";
 
 type SideMenuProps = {
   menuRoutes: AppRouteObject[];
@@ -15,7 +15,8 @@ type SideMenuProps = {
 
 export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
   const location = useLocation();
-  const collapsed = useAppMenuCollapsed();
+  const { collapsed } = useAppSettings();
+  const { darkNav } = useThemeSettings();
 
   const { theme, menuItems, selectedKeys, defaultOpenKeys, levelKeys } = useMenu(menuRoutes);
 
@@ -48,23 +49,23 @@ export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (!collapsed) {
-  //     setStateOpenKeys(getAntMenuOpenKeys(menuRoutes, location.pathname));
-  //   }
-  // }, [collapsed, location.pathname, menuRoutes]);
+  useEffect(() => {
+    if (!collapsed) {
+      setStateOpenKeys(getAntMenuOpenKeys(menuRoutes, location.pathname));
+    }
+  }, [collapsed, location.pathname, menuRoutes]);
 
   return (
     <Menu
       mode="inline"
       inlineIndent={20}
-      theme={theme}
+      theme={darkNav ? "dark" : theme}
       selectedKeys={selectedKeys}
       openKeys={stateOpenKeys}
       onOpenChange={onOpenChange}
       inlineCollapsed={collapsed}
       items={menuItems}
-      className={cn("flex h-full flex-col overflow-y-auto", className)}
+      className={cn("flex h-full flex-col overflow-y-auto !border-none", className)}
     />
   );
 };

@@ -1,13 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { ButtonIcon } from "@/components/ui";
 import { AdminMenu, Collapsed } from "@/layouts/Menu";
+import { cn } from "@/lib";
 import { appConfig } from "@/lib/settings/app";
 import { useAppSettings } from "@/store";
 import { AppSetting } from "./AppSetting/AppSetting";
 import { Logo } from "./Logo";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
-export const Header = () => {
+export const Header = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
   const { headerSetting, navMode } = useAppSettings();
 
@@ -22,7 +23,10 @@ export const Header = () => {
 
   return (
     <header
-      className="text-foreground bg-background z-10 flex w-full items-center justify-between gap-x-6 px-4 shadow-xs md:px-5"
+      className={cn(
+        "text-foreground bg-background z-10 flex w-full items-center justify-between gap-x-6 px-4 md:px-5",
+        className
+      )}
       style={{ height: headerSetting.height + "px" }}
     >
       <div className="flex h-full min-w-0 flex-1 items-center gap-x-5">

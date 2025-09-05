@@ -3,3 +3,4 @@ export * from "./SvgIcon.example";
 export * from "./DarkModeSwitch";
 export * from "./ButtonIcon";
 export * from "./Drawer";
+export * from "./ColorPicker";

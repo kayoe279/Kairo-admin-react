@@ -1,9 +1,6 @@
-import { SvgIconExample } from "@/components/ui";
-
 export default function About() {
   return (
-    <div className="rounded-lg bg-white p-6 shadow">
-      <SvgIconExample />
+    <>
       <h1 className="mb-4 text-2xl font-bold text-gray-800">关于项目</h1>
       <div className="text-gray-600">
         <p>这是关于项目页面的占位内容。</p>
@@ -16,6 +13,6 @@ export default function About() {
           <li>更新日志</li>
         </ul>
       </div>
-    </div>
+    </>
   );
 }

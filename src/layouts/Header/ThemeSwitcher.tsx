@@ -6,7 +6,7 @@ import { useThemeActions } from "@/store";
 
 export const ThemeSwitcher = () => {
   const { t } = useTranslation();
-  const { setAllThemeColor } = useThemeActions();
+  const { setAllThemeColor, setBaseThemeColor } = useThemeActions();
   const { isDarkMode, setThemeMode } = useDarkMode();
 
   const iconName = useMemo(() => {
@@ -18,8 +18,9 @@ export const ThemeSwitcher = () => {
   }, [setThemeMode, isDarkMode]);
 
   useEffect(() => {
+    setBaseThemeColor({ isDarkMode });
     setAllThemeColor({ isDarkMode });
-  }, [isDarkMode, setAllThemeColor]);
+  }, [isDarkMode, setAllThemeColor, setBaseThemeColor]);
 
   return (
     <ButtonIcon icon={iconName} tooltipContent={t("app.theme.themeSwitch")} onClick={toggleTheme} />

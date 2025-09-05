@@ -1,9 +1,8 @@
 import { ButtonIcon } from "@/components/ui";
-import { useAppActions, useAppMenuCollapsed, useAppSettings } from "@/store";
+import { useAppActions, useAppSettings } from "@/store";
 
 export const Collapsed = () => {
-  const collapsed = useAppMenuCollapsed();
-  const { navMode } = useAppSettings();
+  const { navMode, collapsed } = useAppSettings();
   const { toggleCollapsed } = useAppActions();
 
   // 只在垂直菜单模式和混合模式下显示折叠按钮

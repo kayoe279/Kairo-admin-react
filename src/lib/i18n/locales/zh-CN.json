@@ -56,11 +56,11 @@
       "enable": "启用动画",
       "type": "动画类型",
       "fadeSlide": "滑动",
-      "fade": "淡入淡出",
-      "fadeBottom": "底部消退",
-      "fadeScale": "缩放消退",
-      "zoomFade": "渐变",
-      "zoomOut": "闪现"
+      "flipFade": "3D翻转",
+      "fadeBottom": "底部淡入",
+      "bounceIn": "弹跳进入",
+      "zoomFade": "弹性缩放",
+      "rotateFade": "旋转淡入"
     },
     "fullScreen": "全屏",
     "exitFullScreen": "退出全屏",

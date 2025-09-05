@@ -1,4 +1,4 @@
-@import "./transition.css";
+@import "./transitions.css";
 @import "./tailwind.css";
 @plugin '../lib/hero.ts';
 /* 注意：您可能需要更改适合您项目结构的路径 */
