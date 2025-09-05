@@ -114,7 +114,7 @@ export function getViewportOffset(element: Element): ViewportOffsetResult {
     right: clientWidth - rectWidth - left,
     bottom: clientHeight - rectHeight - top,
     rightIncludeBody: clientWidth - left,
-    bottomIncludeBody: clientHeight - top
+    bottomIncludeBody: clientHeight - top,
   };
 }
 
@@ -127,7 +127,7 @@ export function hackCss(attr: string, value: string) {
   });
   return {
     ...styleObj,
-    [attr]: value
+    [attr]: value,
   };
 }
 
@@ -157,7 +157,7 @@ export function off(
 export function once(el: HTMLElement, event: string, fn: EventListener): void {
   const listener = function (this: any, ...args: unknown[]) {
     if (fn) {
-      fn.apply(this, args);
+      fn.apply(this, args as [Event]);
     }
     off(el, event, listener);
   };

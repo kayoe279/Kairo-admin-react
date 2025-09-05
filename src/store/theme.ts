@@ -21,7 +21,7 @@ interface ThemeActions {
   resetThemeColor: (props: Partial<ThemeColorProps>) => void;
   toggleDarkNav: (value?: boolean) => void;
   toggleGrayMode: (value?: boolean) => void;
-  resetThemeStore: (isDarkMode: boolean) => void;
+  resetThemeSetting: (isDarkMode: boolean) => void;
 }
 
 type ThemeStore = ThemeSettingProps & { actions: ThemeActions };
@@ -113,7 +113,7 @@ export const useThemeStore = create<ThemeStore>()(
         },
 
         // 重置store
-        resetThemeStore: (isDarkMode: boolean) => {
+        resetThemeSetting: (isDarkMode: boolean) => {
           set(store.getInitialState());
           get().actions.resetThemeColor({ isDarkMode });
         },

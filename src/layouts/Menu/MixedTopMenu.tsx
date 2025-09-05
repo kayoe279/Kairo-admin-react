@@ -4,8 +4,8 @@ import { useNavigate } from "react-router";
 import { useMixedMenu } from "@/lib/hooks/useMenu";
 import { findFirstLeafRoute, hasSubRoutes } from "@/lib/menu";
 import { cn } from "@/lib/utils";
-import { type AppRouteObject } from "@/router";
 import { useAppActions } from "@/store";
+import type { AppRouteObject } from "@/types";
 
 type MixedTopMenuProps = {
   menuRoutes: AppRouteObject[];

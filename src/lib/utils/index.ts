@@ -4,12 +4,11 @@ import { twMerge } from "tailwind-merge";
 export * from "./is";
 export * from "./date";
 export * from "./dom";
-export * from "./url";
 
 // cn
-export function cn(...inputs: ClassValue[]) {
+export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
-}
+};
 
 export type FalseType = "" | 0 | false | null | undefined;
 export const typedBoolean = <Value>(value: Value): value is Exclude<Value, FalseType> => {
@@ -22,28 +21,28 @@ export const typedBoolean = <Value>(value: Value): value is Exclude<Value, False
  * @param {number} amount The amount to change the color by
  * @returns {string} The processed part of the color
  */
-function addLight(color: string, amount: number) {
+const addLight = (color: string, amount: number) => {
   const cc = parseInt(color, 16) + amount;
   const c = cc > 255 ? 255 : cc;
   return c.toString(16).length > 1 ? c.toString(16) : `0${c.toString(16)}`;
-}
+};
 /**
  * Lightens a 6 char HEX color according to the passed percentage
  * @param {string} color The color to change
  * @param {number} amount The amount to change the color by
  * @returns {string} The processed color represented as HEX
  */
-export function lighten(color: string, amount: number) {
+export const lighten = (color: string, amount: number) => {
   color = color.indexOf("#") >= 0 ? color.substring(1, color.length) : color;
   amount = Math.trunc((255 * amount) / 100);
   return `#${addLight(color.substring(0, 2), amount)}${addLight(
     color.substring(2, 4),
     amount
   )}${addLight(color.substring(4, 6), amount)}`;
-}
+};
 
 // 辅助函数：通过路径字符串设置对象的值
-export function setValueByPath(obj: Record<string, unknown>, path: string, value: unknown) {
+export const setValueByPath = (obj: Record<string, unknown>, path: string, value: unknown) => {
   const keys = path.split(".");
   let current = obj;
 
@@ -62,4 +61,4 @@ export function setValueByPath(obj: Record<string, unknown>, path: string, value
   if (current && typeof current === "object") {
     current[lastKey] = value;
   }
-}
+};

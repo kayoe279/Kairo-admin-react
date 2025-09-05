@@ -12,20 +12,18 @@ type DarkModeOptions = {
   initializeWithValue?: boolean;
 };
 
-type DarkModeReturn = {
-  theme: "dark" | "light";
-  themeMode: ThemeMode;
-  isDarkMode: boolean;
-  setThemeMode: (mode: ThemeMode) => void;
-  toggle: () => void;
-};
-
-export function useDarkMode(options: DarkModeOptions = {}): DarkModeReturn {
+export function useDarkMode(options: DarkModeOptions = {}) {
   const {
     defaultValue = "light",
     localStorageKey = LOCAL_STORAGE_KEY,
     initializeWithValue = true,
   } = options;
+
+  const themeModeMap = {
+    light: "light",
+    dark: "dark",
+    system: "system",
+  } as const;
 
   // 跟随系统
   const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY, {
@@ -62,7 +60,8 @@ export function useDarkMode(options: DarkModeOptions = {}): DarkModeReturn {
   };
 
   return {
-    theme: isDarkMode ? "dark" : "light",
+    themeModeMap,
+    theme: isDarkMode ? themeModeMap.dark : themeModeMap.light,
     themeMode,
     isDarkMode,
     setThemeMode,

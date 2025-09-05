@@ -1,6 +1,7 @@
 import { useMemo, type ReactNode } from "react";
-import { ConfigProvider, type ThemeConfig } from "antd";
+import { App, ConfigProvider, theme, type ThemeConfig } from "antd";
 import { hexToRgba } from "@/lib";
+import { useDarkMode } from "@/lib/hooks";
 import { useThemeSettings } from "@/store";
 
 export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
@@ -13,6 +14,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
     warningColor,
     dangerColor,
   } = useThemeSettings();
+  const { isDarkMode } = useDarkMode();
 
   const primaryStr = hexToRgba(primaryColor, 0.15);
   const successStr = hexToRgba(successColor, 0.15);
@@ -23,16 +25,17 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
     () => ({
       token: {
         colorPrimary: primaryColor,
-        colorPrimaryHover: primaryStr,
         colorSuccess: successColor,
-        colorSuccessHover: successStr,
         colorWarning: warningColor,
-        colorWarningHover: warningStr,
         colorError: dangerColor,
-        colorErrorHover: errorStr,
+        borderRadius: 12,
       },
       cssVar: true,
+      algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       components: {
+        Button: {
+          borderRadius: 10,
+        },
         Menu: {
           iconSize: 20,
           collapsedIconSize: 20,
@@ -57,6 +60,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
       },
     }),
     [
+      isDarkMode,
       darkNav,
       foregroundColor,
       backgroundColor,
@@ -71,5 +75,9 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
     ]
   );
 
-  return <ConfigProvider theme={config}>{children}</ConfigProvider>;
+  return (
+    <ConfigProvider theme={config}>
+      <App>{children}</App>
+    </ConfigProvider>
+  );
 };

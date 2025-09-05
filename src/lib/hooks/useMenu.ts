@@ -11,7 +11,7 @@ import {
   transformToTopMixedMenus,
   type LevelKeysProps,
 } from "@/lib/menu";
-import { type AppRouteObject } from "@/router";
+import type { AppRouteObject } from "@/types";
 
 /**
  * 菜单通用逻辑Hook

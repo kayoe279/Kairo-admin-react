@@ -1,4 +1,5 @@
-import { Switch, Tab, Tabs } from "@heroui/react";
+import { Switch } from "@heroui/react";
+import { Segmented } from "antd";
 import { useTranslation } from "react-i18next";
 import { SvgIcon } from "@/components/ui";
 import { useDarkMode, type ThemeMode as ThemeModeType } from "@/lib/hooks";
@@ -6,26 +7,33 @@ import { useThemeActions, useThemeSettings } from "@/store";
 import { SettingItem } from "./SettingItem";
 
 const ThemeSwitch = () => {
-  const { themeMode, setThemeMode } = useDarkMode();
+  const { themeMode, themeModeMap, setThemeMode } = useDarkMode();
+
+  const options = [
+    { value: themeModeMap.light, icon: <SvgIcon icon="solar:sun-bold" className="text-xl" /> },
+    {
+      value: themeModeMap.dark,
+      icon: <SvgIcon icon="solar:moon-stars-bold" className="text-xl" />,
+    },
+    {
+      value: themeModeMap.system,
+      icon: <SvgIcon icon="solar:sunrise-broken" className="text-xl" />,
+    },
+  ];
 
   const handleThemeChange = (key: string | number) => {
     setThemeMode(key as ThemeModeType);
   };
 
   return (
-    <div className="mx-auto flex w-full items-center justify-center">
-      <Tabs
-        className="[&>div]:!overflow-hidden"
-        aria-label="Tabs variants"
-        fullWidth
-        variant="solid"
-        selectedKey={themeMode}
-        onSelectionChange={handleThemeChange}
-      >
-        <Tab key="light" title={<SvgIcon icon="solar:sun-bold" className="text-xl" />} />
-        <Tab key="dark" title={<SvgIcon icon="solar:moon-stars-bold" className="text-xl" />} />
-        <Tab key="system" title={<SvgIcon icon="solar:sunrise-broken" className="text-xl" />} />
-      </Tabs>
+    <div className="w-full">
+      <Segmented
+        size="large"
+        block
+        value={themeMode}
+        options={options}
+        onChange={handleThemeChange}
+      />
     </div>
   );
 };
