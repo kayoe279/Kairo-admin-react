@@ -1,5 +1,5 @@
-import { COOKIE_ACCESS_TOKEN, COOKIE_REFRESH_TOKEN } from "./constants";
 import Cookies from "js-cookie";
+import { COOKIE_ACCESS_TOKEN, COOKIE_REFRESH_TOKEN } from "./constants";
 
 const CACHE_EXPIRE = import.meta.env.VITE_CACHE_EXPIRE; // 7天
 
@@ -10,7 +10,7 @@ export const getUserToken = () => {
 
 export const setUserToken = (token: string) => {
   Cookies.set(COOKIE_ACCESS_TOKEN, token, {
-    expires: new Date(new Date().getTime() + CACHE_EXPIRE * 1000)
+    expires: new Date(new Date().getTime() + CACHE_EXPIRE * 1000),
   });
 };
 
@@ -23,7 +23,7 @@ export const getRefreshToken = () => {
 };
 export const setRefreshToken = (refreshToken: string) => {
   Cookies.set(COOKIE_REFRESH_TOKEN, refreshToken, {
-    expires: new Date(new Date().getTime() + CACHE_EXPIRE * 1000)
+    expires: new Date(new Date().getTime() + CACHE_EXPIRE * 1000),
   });
 };
 export const removeRefreshToken = () => {

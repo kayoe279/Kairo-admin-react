@@ -11,7 +11,7 @@ export type ThemeType = (typeof colorTypes)[number];
 
 type ThemeColorProps = {
   type: ThemeType;
-  color?: string;
+  color: string;
   isDarkMode?: boolean;
 };
 interface ThemeActions {
@@ -48,9 +48,7 @@ export const useThemeStore = create<ThemeStore>()(
         setThemeColor: ({ type, color, isDarkMode }: ThemeColorProps) => {
           set((state) => {
             if (typeof document !== "undefined") {
-              const initialColor = themeSetting[`${type}Color`];
-              const colorPalette = generateColorPalette(type, color || initialColor);
-              if (color === initialColor) return;
+              const colorPalette = generateColorPalette(type, color);
               const processedColors = Object.entries(colorPalette);
               if (isDarkMode) {
                 // 如果是暗色模式，反转颜色调色板
@@ -76,7 +74,7 @@ export const useThemeStore = create<ThemeStore>()(
         setAllThemeColor: ({ isDarkMode }: Partial<ThemeColorProps>) => {
           const { setThemeColor } = get().actions;
           colorTypes.forEach((type) => {
-            setThemeColor({ type, isDarkMode });
+            setThemeColor({ type, color: get()[`${type}Color`], isDarkMode });
           });
         },
 
@@ -106,7 +104,7 @@ export const useThemeStore = create<ThemeStore>()(
           const { setThemeColor, setAllThemeColor, setBaseThemeColor } = get().actions;
           setBaseThemeColor({ isDarkMode });
           if (type) {
-            setThemeColor({ type, isDarkMode });
+            setThemeColor({ type, color: themeSetting[`${type}Color`], isDarkMode });
           } else {
             setAllThemeColor({ isDarkMode });
           }

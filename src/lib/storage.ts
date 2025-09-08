@@ -2,7 +2,7 @@ import {
   STORAGE_LOCALE,
   STORAGE_LOGIN_ACCOUNT,
   STORAGE_PREFIX,
-  STORAGE_USER_INFO
+  STORAGE_USER_INFO,
 } from "./constants";
 
 interface StorageData<T> {
@@ -17,7 +17,7 @@ function createLocalStorage<T extends Storage.Local>() {
   function set<K extends keyof T>(key: K, value: T[K], expire: number = 60 * 60 * 24 * 7) {
     const storageData: StorageData<T[K]> = {
       value,
-      expire: new Date().getTime() + expire * 1000
+      expire: new Date().getTime() + expire * 1000,
     };
     const json = JSON.stringify(storageData);
     window.localStorage.setItem(`${STORAGE_PREFIX}${String(key)}`, json);
@@ -47,7 +47,7 @@ function createLocalStorage<T extends Storage.Local>() {
     set,
     get,
     remove,
-    clear
+    clear,
   };
 }
 /**
@@ -78,7 +78,7 @@ function createSessionStorage<T extends Storage.Session>() {
     set,
     get,
     remove,
-    clear
+    clear,
   };
 }
 

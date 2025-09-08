@@ -40,6 +40,7 @@
     },
     "pageFeature": {
       "title": "Page Features",
+      "blurMask": "Blur Mask",
       "headerHeight": "Header Height",
       "fixedHeaderAndTabs": "Fixed Header and Tabs",
       "showReloadButton": "Show Reload Button",

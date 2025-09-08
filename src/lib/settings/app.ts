@@ -7,6 +7,8 @@ export const appSetting = {
   navMode: "vertical" as NavMode,
   //导航风格 dark 暗色侧边栏 light 白色侧边栏 header-dark 暗色顶栏
   navTheme: "light",
+  //模糊遮罩
+  blurMask: false,
   //顶部
   headerSetting: {
     //固定顶部和页签

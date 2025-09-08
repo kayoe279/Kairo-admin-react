@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { motion } from 'framer-motion';
+import * as React from "react";
+import { motion } from "framer-motion";
 
 export const defaultProperties = {
   dark: {
@@ -7,11 +7,11 @@ export const defaultProperties = {
       r: 9,
     },
     mask: {
-      cx: '50%',
-      cy: '23%',
+      cx: "50%",
+      cy: "23%",
     },
     svg: {
-      transform: 'rotate(40deg)',
+      transform: "rotate(40deg)",
     },
     lines: {
       opacity: 0,
@@ -22,11 +22,11 @@ export const defaultProperties = {
       r: 5,
     },
     mask: {
-      cx: '100%',
-      cy: '0%',
+      cx: "100%",
+      cy: "0%",
     },
     svg: {
-      transform: 'rotate(90deg)',
+      transform: "rotate(90deg)",
     },
     lines: {
       opacity: 1,
@@ -37,7 +37,10 @@ export const defaultProperties = {
 
 let REACT_TOGGLE_DARK_MODE_GLOBAL_ID = 0;
 
-type SVGProps = Omit<React.HTMLAttributes<HTMLOrSVGElement>, 'onChange' | 'onAnimationStart' | 'onDragStart' | 'onDrag' | 'onDragEnd'>;
+type SVGProps = Omit<
+  React.HTMLAttributes<HTMLOrSVGElement>,
+  "onChange" | "onAnimationStart" | "onDragStart" | "onDrag" | "onDragEnd"
+>;
 export interface Props extends SVGProps {
   onChange: (checked: boolean) => void;
   checked: boolean;
@@ -54,8 +57,8 @@ export const DarkModeSwitch: React.FC<Props> = ({
   checked = false,
   size = 24,
   animationProperties = defaultProperties,
-  moonColor = 'white',
-  sunColor = 'black',
+  moonColor = "white",
+  sunColor = "black",
   style,
   ...rest
 }) => {
@@ -74,7 +77,7 @@ export const DarkModeSwitch: React.FC<Props> = ({
     return animationProperties;
   }, [animationProperties]);
 
-  const { circle, svg, lines, mask } = properties[checked ? 'dark' : 'light'];
+  const { circle, svg, lines, mask } = properties[checked ? "dark" : "light"];
 
   const svgMotion = {
     ...svg,
@@ -112,18 +115,14 @@ export const DarkModeSwitch: React.FC<Props> = ({
       onClick={toggle}
       animate={svgMotion}
       style={{
-        cursor: 'pointer',
+        cursor: "pointer",
         ...style,
       }}
       {...rest}
     >
       <mask id={uniqueMaskId}>
         <rect x="0" y="0" width="100%" height="100%" fill="white" />
-        <motion.circle
-          animate={maskedCircleMotion}
-          r="9"
-          fill="black"
-        />
+        <motion.circle animate={maskedCircleMotion} r="9" fill="black" />
       </mask>
 
       <motion.circle

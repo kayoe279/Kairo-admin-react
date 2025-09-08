@@ -25,7 +25,7 @@ export const Drawer = ({
       closeIcon={false}
       extra={
         <Button isIconOnly variant="light" size="sm" onPress={(e) => props.onClose?.(e as any)}>
-          <SvgIcon icon="majesticons:close-line" className="text-xl" />
+          <SvgIcon icon="pajamas:close" className="text-xl" />
         </Button>
       }
       {...props}

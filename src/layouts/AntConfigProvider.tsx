@@ -17,9 +17,6 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
   const { isDarkMode } = useDarkMode();
 
   const primaryStr = hexToRgba(primaryColor, 0.15);
-  const successStr = hexToRgba(successColor, 0.15);
-  const warningStr = hexToRgba(warningColor, 0.15);
-  const errorStr = hexToRgba(dangerColor, 0.15);
 
   const config: ThemeConfig = useMemo(
     () => ({
@@ -57,6 +54,22 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
           siderBg: backgroundColor,
           lightSiderBg: darkNav ? foregroundColor : backgroundColor,
         },
+        Breadcrumb: {
+          borderRadiusSM: 8,
+          paddingXXS: 8,
+        },
+        Dropdown: {
+          borderRadiusLG: 12,
+          borderRadiusSM: 8,
+          borderRadiusXS: 4,
+          paddingXXS: 6,
+          paddingXS: 10,
+        },
+        Tooltip: {
+          borderRadius: 10,
+          paddingXS: 12,
+          paddingSM: 14,
+        },
       },
     }),
     [
@@ -69,9 +82,6 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
       warningColor,
       dangerColor,
       primaryStr,
-      successStr,
-      warningStr,
-      errorStr,
     ]
   );
 

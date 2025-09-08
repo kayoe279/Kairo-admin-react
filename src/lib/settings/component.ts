@@ -10,12 +10,12 @@ export const componentSetting = {
       // 接口返回总页数字段名
       totalField: "pageCount",
       //总数字段名
-      countField: "itemCount"
+      countField: "itemCount",
     },
     //默认分页数量
     defaultPageSize: 20,
     //可切换每页数量集合
-    pageSizes: [10, 20, 30, 40, 50]
+    pageSizes: [10, 20, 30, 40, 50],
   },
   upload: {
     //考虑接口规范不同
@@ -23,11 +23,11 @@ export const componentSetting = {
       // 集合字段名
       infoField: "data",
       // 图片地址字段名
-      imgField: "photo"
+      imgField: "photo",
     },
     //最大上传图片大小
     maxSize: 2,
     //图片上传类型
-    fileType: ["image/png", "image/jpg", "image/jpeg", "image/gif", "image/svg+xml"]
-  }
+    fileType: ["image/png", "image/jpg", "image/jpeg", "image/gif", "image/svg+xml"],
+  },
 };

@@ -2,57 +2,30 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { PAGE } from "@/lib/constants";
+import type { RouteItem } from "@/lib/hooks";
 
-// Types for route-like objects in React
-interface RouteInfo {
-  name: string;
-  path: string;
-  meta?: {
-    title?: string;
-    affix?: boolean;
-    hidden?: boolean;
-    withoutTab?: boolean;
-    [key: string]: any;
-  };
-  hash?: string;
-  params?: Record<string, any>;
-  query?: Record<string, any>;
-  fullPath: string;
-}
-
-export interface TabItem extends RouteInfo {
+export interface TabItem extends RouteItem {
   isFixed?: boolean;
 }
 
 interface TabsState {
-  // State
   activeTabId: string;
   tabsList: TabItem[];
-
-  // Utility methods
-  getTabByRoute: (route: RouteInfo) => TabItem;
+  getTabByRoute: (route: RouteItem) => TabItem;
   filterTabsByIds: (tabIds: string[], tabs: TabItem[]) => TabItem[];
   retainAffixRoute: (tabs: TabItem[]) => TabItem[];
 }
 
 interface TabsActions {
   setActiveTabId: (id: string) => void;
-  addTab: (route: RouteInfo, navigate?: (path: string) => void) => void;
-  initTabs: (homeRoute?: RouteInfo) => void;
-  closeLeftTabs: (tabId: string) => void;
-  closeRightTabs: (tabId: string) => void;
+  addTab: (route: RouteItem) => void;
+  initTabs: () => void;
+  closeLeftTabs: (tabId: string, navigate?: (path: string) => void) => void;
+  closeRightTabs: (tabId: string, navigate?: (path: string) => void) => void;
   closeOtherTabs: (tabId: string, navigate?: (path: string) => void) => void;
-  closeCurrentTab: (
-    tabId: string,
-    navigate?: (path: string) => void,
-    callback?: () => void
-  ) => void;
-  closeAllTabs: () => void;
-  switchTabItem: (
-    tabId: string,
-    navigate?: (path: string) => void,
-    currentRouteName?: string
-  ) => void;
+  closeCurrentTab: (tabId: string, navigate?: (path: string) => void) => void;
+  closeAllTabs: (navigate?: (path: string) => void) => void;
+  switchTabItem: (tabId: string, navigate?: (path: string) => void) => void;
   clearAllTabs: () => void;
 }
 
@@ -76,7 +49,7 @@ export const useTabsStore = create<TabsStore>()(
       },
 
       // Utility: Convert route to tab
-      getTabByRoute: (route: RouteInfo) => {
+      getTabByRoute: (route: RouteItem) => {
         const { name, fullPath, hash, meta, params, path, query } = route;
         return {
           fullPath,
@@ -92,48 +65,54 @@ export const useTabsStore = create<TabsStore>()(
 
       // Actions
       actions: {
-        // Set active tab ID
+        // 设置当前激活的标签页
         setActiveTabId: (id: string) => {
           set((state) => {
             state.activeTabId = id;
           });
         },
 
-        // Initialize tabs with home tab
-        initTabs: (homeRoute?: RouteInfo) => {
-          if (!homeRoute) return;
-
+        // 初始化路由
+        initTabs: () => {
           const { tabsList, getTabByRoute } = get();
-          const homeTab = tabsList.some((item) => item.name === PAGE.HOME_NAME_REDIRECT);
-
+          const homeTab = tabsList.some((item) => item.name === PAGE.HOME_NAME_REDIRECT_PATH);
           if (!homeTab) {
+            //  TODO: homeRoute 来自 router store 里面
             set((state) => {
-              const homeTabItem = getTabByRoute(homeRoute);
-              state.tabsList.unshift(homeTabItem);
+              const homeTabItem = getTabByRoute({
+                name: PAGE.HOME_NAME_REDIRECT_PATH,
+                path: PAGE.HOME_NAME_REDIRECT_PATH,
+                fullPath: PAGE.HOME_NAME_REDIRECT_PATH,
+                hash: PAGE.HOME_NAME_REDIRECT_PATH,
+                params: {},
+                query: {},
+                meta: { title: "首页", keepAlive: true, affix: true },
+              });
+              if (homeTabItem) state.tabsList.unshift(homeTabItem);
             });
           }
         },
 
-        // Add new tab
-        addTab: (route: RouteInfo, _navigate?: (path: string) => void) => {
+        // 添加新路由标签页
+        addTab: (route: RouteItem) => {
           const { meta } = route;
           if (meta?.withoutTab || meta?.hidden) return;
 
-          const { tabsList, getTabByRoute, actions } = get();
+          const { tabsList, activeTabId, getTabByRoute, actions } = get();
           const name = route.name;
+          if (activeTabId === name) return;
           const isExists = tabsList.some((item) => item.name === name);
-
-          if (!isExists) {
-            set((state) => {
-              state.tabsList.push(getTabByRoute(route));
-            });
-          }
-
           actions.setActiveTabId(name);
+
+          if (isExists) return;
+
+          set((state) => {
+            state.tabsList.push(getTabByRoute(route));
+          });
         },
 
-        // Close left tabs
-        closeLeftTabs: (tabId: string) => {
+        // 关闭左侧标签页
+        closeLeftTabs: (tabId: string, navigate?) => {
           const { tabsList } = get();
           const index = tabsList.findIndex((item) => item.name === tabId);
 
@@ -142,10 +121,16 @@ export const useTabsStore = create<TabsStore>()(
               (item, i) => i >= index || (item?.meta?.affix ?? false)
             );
           });
+
+          const { tabsList: updatedTabsList } = get();
+          const shouldRoute = updatedTabsList.filter((item) => !item.meta?.affix)?.[0];
+          if (shouldRoute) {
+            navigate?.(shouldRoute.path);
+          }
         },
 
-        // Close right tabs
-        closeRightTabs: (tabId: string) => {
+        // 关闭右侧标签页
+        closeRightTabs: (tabId: string, navigate?) => {
           const { tabsList } = get();
           const index = tabsList.findIndex((item) => item.name === tabId);
 
@@ -154,11 +139,17 @@ export const useTabsStore = create<TabsStore>()(
               (item, i) => i <= index || (item?.meta?.affix ?? false)
             );
           });
+
+          const { tabsList: updatedTabsList } = get();
+          const shouldRoute = updatedTabsList[Math.max(0, updatedTabsList.length - 1)];
+          if (shouldRoute) {
+            navigate?.(shouldRoute.path);
+          }
         },
 
-        // Close other tabs
+        // 关闭其他标签页
         closeOtherTabs: (tabId: string, navigate?) => {
-          const { actions } = get();
+          const { activeTabId } = get();
 
           set((state) => {
             state.tabsList = state.tabsList.filter(
@@ -166,25 +157,20 @@ export const useTabsStore = create<TabsStore>()(
             );
           });
 
-          actions.setActiveTabId(tabId);
-
-          if (navigate) {
-            // Find the tab to get its path
-            const { tabsList } = get();
-            const targetTab = tabsList.find((tab) => tab.name === tabId);
+          if (activeTabId !== tabId) {
+            const { tabsList: updatedTabsList } = get();
+            const targetTab = updatedTabsList.find((tab) => tab.name === tabId);
             if (targetTab) {
-              navigate(targetTab.path);
+              navigate?.(targetTab.path);
             }
           }
         },
 
-        // Close current tab
-        closeCurrentTab: (tabId: string, navigate?, callback?) => {
-          const { tabsList, activeTabId, filterTabsByIds, actions } = get();
+        // 关闭当前标签页
+        closeCurrentTab: (tabId: string, navigate?) => {
+          const { tabsList, activeTabId, filterTabsByIds } = get();
 
-          if (tabsList.length === 1) {
-            return;
-          }
+          if (tabsList.length === 1) return;
 
           const isRemoveActiveTab = activeTabId === tabId;
 
@@ -194,36 +180,28 @@ export const useTabsStore = create<TabsStore>()(
 
           if (isRemoveActiveTab) {
             const { tabsList: updatedTabsList } = get();
-            const currentRoute = updatedTabsList[Math.max(0, updatedTabsList.length - 1)];
-
-            if (currentRoute) {
-              actions.setActiveTabId(currentRoute.name);
-
-              if (navigate) {
-                navigate(currentRoute.path);
-              }
+            const shouldRoute = updatedTabsList[Math.max(0, updatedTabsList.length - 1)];
+            if (shouldRoute) {
+              navigate?.(shouldRoute.path);
             }
           }
-
-          callback?.();
         },
 
-        // Close all tabs
-        closeAllTabs: () => {
+        // 关闭所有标签页
+        closeAllTabs: (navigate?) => {
           const { retainAffixRoute } = get();
-
           set((state) => {
-            state.tabsList = retainAffixRoute(state.tabsList);
+            const updatedTabsList = retainAffixRoute(state.tabsList);
+            state.tabsList = updatedTabsList;
+            navigate?.(updatedTabsList[0].path);
           });
         },
 
-        // Switch to tab
-        switchTabItem: (tabId: string, navigate?, currentRouteName?) => {
-          if (tabId === currentRouteName) return;
-
-          const { tabsList, actions } = get();
+        // 切换到标签页
+        switchTabItem: (tabId: string, navigate?) => {
+          const { tabsList, activeTabId, actions } = get();
+          if (tabId === activeTabId) return;
           const currentTab = tabsList.find((item) => item.name === tabId);
-
           if (!currentTab) return;
 
           actions.setActiveTabId(tabId);
@@ -233,7 +211,7 @@ export const useTabsStore = create<TabsStore>()(
           }
         },
 
-        // Clear all tabs
+        // 清空所有标签页
         clearAllTabs: () => {
           set((state) => {
             state.activeTabId = "";

@@ -7,7 +7,7 @@ import { cn } from "@/lib";
  * - 支持 iconify 和本地 svg 图标
  * - 如果同时传递 icon 和 localIcon，优先渲染 localIcon
  */
-interface Props extends HTMLAttributes<HTMLElement> {
+interface Props extends HTMLAttributes<SVGSVGElement> {
   /** Iconify 图标名称 */
   icon?: string;
   /** 本地 svg 图标名称 */
@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   className?: string;
 }
 
-export const SvgIcon = ({ icon, localIcon, className = "", style = {} }: Props) => {
+export const SvgIcon = ({ icon, localIcon, className = "", style = {}, ...props }: Props) => {
   // 获取环境变量中的本地图标前缀
   const localPrefix = import.meta.env.VITE_ICON_LOCAL_PREFIX || "icon";
   const defaultLocalIcon = "no-icon";
@@ -30,12 +30,26 @@ export const SvgIcon = ({ icon, localIcon, className = "", style = {} }: Props) 
   return (
     <>
       {renderLocalIcon ? (
-        <svg aria-hidden="true" width="1em" height="1em" style={style} className={mergedClassName}>
+        <svg
+          aria-hidden="true"
+          width="1em"
+          height="1em"
+          style={style}
+          className={mergedClassName}
+          {...props}
+        >
           <use xlinkHref={symbolId} fill="currentColor" />
         </svg>
       ) : (
         icon && (
-          <Icon icon={icon} width="1em" height="1em" className={mergedClassName} style={style} />
+          <Icon
+            icon={icon}
+            width="1em"
+            height="1em"
+            className={mergedClassName}
+            style={style}
+            onClick={props?.onClick}
+          />
         )
       )}
     </>

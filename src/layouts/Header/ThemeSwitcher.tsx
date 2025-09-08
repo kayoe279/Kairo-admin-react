@@ -22,7 +22,5 @@ export const ThemeSwitcher = () => {
     setAllThemeColor({ isDarkMode });
   }, [isDarkMode, setAllThemeColor, setBaseThemeColor]);
 
-  return (
-    <ButtonIcon icon={iconName} tooltipContent={t("app.theme.themeSwitch")} onClick={toggleTheme} />
-  );
+  return <ButtonIcon icon={iconName} title={t("app.theme.themeSwitch")} onClick={toggleTheme} />;
 };

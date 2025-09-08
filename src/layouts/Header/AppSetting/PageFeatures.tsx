@@ -5,11 +5,19 @@ import { SettingItem } from "./SettingItem";
 
 export const PageFeatures = () => {
   const { t } = useTranslation();
-  const { headerSetting, multiTabsSetting, menuSetting, breadcrumbsSetting } = useAppSettings();
+  const { blurMask, headerSetting, multiTabsSetting, menuSetting, breadcrumbsSetting } =
+    useAppSettings();
   const { setSettingByPath } = useAppActions();
 
   return (
     <div className="space-y-4 py-3">
+      <SettingItem title={t("app.pageFeature.blurMask")}>
+        <Switch
+          isSelected={blurMask}
+          onValueChange={(value) => setSettingByPath("blurMask", value)}
+        />
+      </SettingItem>
+
       <SettingItem title={t("app.pageFeature.headerHeight")}>
         <Input
           type="number"

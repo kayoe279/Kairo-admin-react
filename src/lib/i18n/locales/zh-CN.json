@@ -40,6 +40,7 @@
     },
     "pageFeature": {
       "title": "页面功能",
+      "blurMask": "模糊遮罩",
       "headerHeight": "顶部高度",
       "fixedHeaderAndTabs": "固定顶部和多页签",
       "showReloadButton": "显示重载页面按钮",
