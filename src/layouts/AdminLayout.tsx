@@ -12,7 +12,7 @@ export const AdminLayout = () => {
   const showSideMenu = navMode === "vertical" || navMode === "horizontal-mix";
 
   return (
-    <Layout className="flex h-screen transition-colors duration-200">
+    <Layout className="flex h-screen">
       {showSideMenu && (
         <Layout.Sider
           collapsed={collapsed}
@@ -25,16 +25,16 @@ export const AdminLayout = () => {
         </Layout.Sider>
       )}
 
-      <Layout
+      <div
         className={cn(
-          "text-foreground !bg-background-root flex min-w-0 flex-1 flex-col",
+          "text-foreground bg-background-root flex min-w-0 flex-1 flex-col",
           headerSetting.fixed ? "overflow-hidden" : "!h-auto overflow-y-auto"
         )}
       >
         <Header className="shrink-0" />
         {multiTabsSetting.show && <Tabs />}
         <PageMain className={cn(headerSetting.fixed && "min-h-0 flex-1 overflow-y-auto")} />
-      </Layout>
+      </div>
     </Layout>
   );
 };

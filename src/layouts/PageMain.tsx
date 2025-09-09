@@ -11,13 +11,11 @@ export const PageMain = ({ className }: { className?: string }) => {
   const outlet = useOutlet();
 
   if (!isPageAnimate) {
-    return (
-      <main className={cn("text-foreground bg-background-root p-4", className)}>{outlet}</main>
-    );
+    return <main className={cn("text-foreground p-4", className)}>{outlet}</main>;
   }
 
   return (
-    <main className={cn("text-foreground bg-background-root relative p-4", className)}>
+    <main className={cn("text-foreground relative p-4", className)}>
       <SwitchTransition>
         <CSSTransition
           key={`${location.pathname}-${refreshKey}`}
