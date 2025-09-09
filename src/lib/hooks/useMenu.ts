@@ -3,9 +3,9 @@ import { useLocation } from "react-router";
 import { useDarkMode } from "@/lib/hooks";
 import {
   findFirstLeafRoute,
-  getAntMenuOpenKeys,
   getAntMenuSelectedKeys,
   getLevelKeys,
+  getMenuKeyPaths,
   hasSubRoutes,
   transformToMenus,
   transformToTopMixedMenus,
@@ -27,20 +27,21 @@ export function useMenu(menuRoutes: AppRouteObject[]) {
     [location.pathname]
   );
 
-  const defaultOpenKeys = useMemo(
-    () => getAntMenuOpenKeys(menuRoutes, location.pathname),
-    [menuRoutes, location.pathname]
-  );
-
   const levelKeys = useMemo(() => getLevelKeys(menuItems as LevelKeysProps[]), [menuItems]);
+
+  const currentKeyPaths = useMemo(
+    () => getMenuKeyPaths(menuItems, location.pathname),
+    [menuItems, location.pathname]
+  );
 
   return {
     theme,
     menuItems,
     selectedKeys,
-    defaultOpenKeys,
     levelKeys,
+    currentKeyPaths,
     currentPath: location.pathname,
+    getMenuKeyPaths,
   };
 }
 

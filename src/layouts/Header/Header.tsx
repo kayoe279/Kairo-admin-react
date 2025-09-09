@@ -5,15 +5,17 @@ import { cn } from "@/lib";
 import { appConfig } from "@/lib/settings/app";
 import { useAppSettings } from "@/store";
 import { AppSetting } from "./AppSetting/AppSetting";
+import { Breadcrumbs } from "./Breadcrumbs";
 import { Logo } from "./Logo";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
 export const Header = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
-  const { headerSetting, navMode } = useAppSettings();
+  const { headerSetting, breadcrumbsSetting, navMode } = useAppSettings();
 
   const showCollapsed = navMode === "vertical" || navMode === "horizontal-mix";
   const showTopMenu = navMode === "horizontal" || navMode === "horizontal-mix";
+  const showBreadcrumbs = navMode === "vertical" && breadcrumbsSetting.show;
 
   const onIconClick = (key: "github" | "lock") => {
     if (key === "github") {
@@ -37,6 +39,7 @@ export const Header = ({ className }: { className?: string }) => {
             <AdminMenu location="header" />
           </>
         )}
+        {showBreadcrumbs && <Breadcrumbs />}
       </div>
       <div className="flex h-full items-center gap-x-6">
         <ButtonIcon

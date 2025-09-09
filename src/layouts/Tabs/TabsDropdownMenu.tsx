@@ -3,6 +3,7 @@ import { Dropdown, type DropDownProps, type MenuProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { SvgIcon } from "@/components/ui";
+import { useAppActions } from "@/store";
 import { useTabsActions, useTabsList } from "@/store/tabs";
 
 export type DropdownKey =
@@ -32,6 +33,7 @@ export const TabsDropdownMenu = ({
   const location = useLocation();
   const navigate = useNavigate();
   const tabsList = useTabsList();
+  const { refreshPage } = useAppActions();
   const { closeCurrentTab, closeOtherTabs, closeAllTabs, closeLeftTabs, closeRightTabs } =
     useTabsActions();
 
@@ -112,8 +114,7 @@ export const TabsDropdownMenu = ({
 
     switch (key) {
       case "reloadCurrent":
-        // TODO: 重新加载当前标签页
-        console.log("%c [ reloadCurrent ]-154", "font-size:13px; background:pink; color:#bf2c9f;");
+        refreshPage();
         break;
       case "closeCurrent":
         closeCurrentTab(tabId, navigate);

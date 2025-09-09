@@ -6,15 +6,21 @@ import { ButtonIcon, SvgIcon } from "@/components/ui";
 import { TAB_DATA_ID } from "@/lib/constants";
 import { useBetterScroll, useRouteInfo } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
-import { useActiveTabId, useAppSettings, useTabsActions, useTabsList } from "@/store";
+import {
+  useActiveTabId,
+  useAppActions,
+  useAppSettings,
+  useTabsActions,
+  useTabsList,
+} from "@/store";
 import { TabsDropdownMenu } from "./TabsDropdownMenu";
 
 export const Tabs = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { currentRoute } = useRouteInfo();
-
-  const { multiTabsSetting } = useAppSettings();
+  const { multiTabsSetting, refreshing } = useAppSettings();
+  const { refreshPage } = useAppActions();
   const activeTabId = useActiveTabId();
   const tabsList = useTabsList();
   const { initTabs, addTab, closeCurrentTab, switchTabItem } = useTabsActions();
@@ -212,8 +218,8 @@ export const Tabs = ({ className }: { className?: string }) => {
           <ButtonIcon
             title={t("common.reload")}
             icon="ant-design:reload-outlined"
-            // TODO: 刷新页面
-            onClick={() => window.location.reload()}
+            className={cn({ "pointer-events-none animate-spin opacity-50": refreshing })}
+            onClick={() => refreshPage()}
           />
         )}
 

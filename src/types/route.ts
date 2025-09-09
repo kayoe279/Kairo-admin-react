@@ -40,14 +40,11 @@ export interface AppRouteObject {
   element?: React.ReactNode;
   /** 子路由 */
   children?: AppRouteObject[];
+  caseSensitive?: boolean;
   /** 是否为索引路由 */
   index?: boolean;
-  /** 路径大小写敏感 */
-  caseSensitive?: boolean;
   /** 路由元信息 */
   meta?: MetaProps;
-  /** 外部链接 */
-  isLink?: string;
   /** 路由引用，用于动画等 */
   nodeRef?: React.RefObject<unknown>;
 }

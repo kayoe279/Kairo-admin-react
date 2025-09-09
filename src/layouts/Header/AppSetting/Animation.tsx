@@ -6,7 +6,7 @@ import { SettingItem } from "./SettingItem";
 export const Animation = () => {
   const { t } = useTranslation();
   const { isPageAnimate, pageAnimateType } = useAppSettings();
-  const { setSettingByPath } = useAppActions();
+  const { updateAppSetting } = useAppActions();
 
   // 动画选项
   const animateOptions = [
@@ -19,11 +19,11 @@ export const Animation = () => {
   ];
 
   const handleAnimateToggle = (value: boolean) => {
-    setSettingByPath("isPageAnimate", value);
+    updateAppSetting("isPageAnimate", value);
   };
 
   const handleAnimateTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSettingByPath("pageAnimateType", e.target.value);
+    updateAppSetting("pageAnimateType", e.target.value);
   };
 
   return (

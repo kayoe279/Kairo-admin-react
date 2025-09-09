@@ -2,38 +2,38 @@ import { Layout } from "antd";
 import { Header, Logo } from "@/layouts/Header";
 import { AdminMenu } from "@/layouts/Menu/AdminMenu";
 import { Tabs } from "@/layouts/Tabs/Tabs";
-import { useDarkMode } from "@/lib/hooks";
+import { cn } from "@/lib";
 import { useAppSettings } from "@/store";
 import { PageMain } from "./PageMain";
 
-const { Sider } = Layout;
-
 export const AdminLayout = () => {
-  const { theme } = useDarkMode();
-  const { menuSetting, navMode, collapsed, multiTabsSetting } = useAppSettings();
+  const { menuSetting, headerSetting, navMode, collapsed, multiTabsSetting } = useAppSettings();
 
   const showSideMenu = navMode === "vertical" || navMode === "horizontal-mix";
 
   return (
     <Layout className="flex h-screen transition-colors duration-200">
       {showSideMenu && (
-        <Sider
-          trigger={null}
-          collapsible
+        <Layout.Sider
           collapsed={collapsed}
-          theme={theme}
-          collapsedWidth={menuSetting.minMenuWidth}
           width={menuSetting.menuWidth}
+          collapsedWidth={menuSetting.minMenuWidth}
+          className="h-full overflow-y-auto"
         >
           <Logo collapsed={collapsed} />
           <AdminMenu />
-        </Sider>
+        </Layout.Sider>
       )}
 
-      <Layout className="text-foreground bg-background flex flex-1 flex-col overflow-hidden transition-colors duration-200">
+      <Layout
+        className={cn(
+          "text-foreground !bg-background-root flex min-w-0 flex-1 flex-col",
+          headerSetting.fixed ? "overflow-hidden" : "!h-auto overflow-y-auto"
+        )}
+      >
         <Header className="shrink-0" />
         {multiTabsSetting.show && <Tabs />}
-        <PageMain className="min-h-0 flex-1" />
+        <PageMain className={cn(headerSetting.fixed && "min-h-0 flex-1 overflow-y-auto")} />
       </Layout>
     </Layout>
   );

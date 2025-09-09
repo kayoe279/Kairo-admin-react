@@ -6,7 +6,7 @@ import { useAppActions, useAppSettings } from "@/store";
 export const LayoutMode = () => {
   const { t } = useTranslation();
   const { navMode } = useAppSettings();
-  const { setNavMode } = useAppActions();
+  const { updateAppSetting } = useAppActions();
 
   return (
     <div className="grid grid-cols-3 gap-x-5 py-3">
@@ -19,7 +19,7 @@ export const LayoutMode = () => {
               navMode === "vertical" ? "border-primary" : "border-transparent"
             )}
             variant="light"
-            onPress={() => setNavMode("vertical")}
+            onPress={() => updateAppSetting("navMode", "vertical")}
           >
             <div className="bg-primary/70 h-full w-4.5 rounded-sm" />
             <div className="flex h-full min-w-0 flex-1 flex-col gap-y-1.5">
@@ -39,7 +39,7 @@ export const LayoutMode = () => {
               navMode === "horizontal" ? "border-primary" : "border-transparent"
             )}
             variant="light"
-            onPress={() => setNavMode("horizontal")}
+            onPress={() => updateAppSetting("navMode", "horizontal")}
           >
             <div className="flex h-full min-w-0 flex-1 flex-col gap-y-1.5">
               <div className="bg-primary h-4 w-full rounded-sm" />
@@ -58,7 +58,7 @@ export const LayoutMode = () => {
               navMode === "horizontal-mix" ? "border-primary" : "border-transparent"
             )}
             variant="light"
-            onPress={() => setNavMode("horizontal-mix")}
+            onPress={() => updateAppSetting("navMode", "horizontal-mix")}
           >
             <div className="bg-primary h-4 w-full rounded-sm" />
             <div className="flex min-h-0 w-full flex-1 gap-x-1.5">

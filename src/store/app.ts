@@ -10,24 +10,23 @@ import type { NestedKeyOf, PathValue } from "@/types";
 
 interface AppState extends AppSettingProps {
   locale: Locale;
-  reloadFlag: boolean;
   collapsed: boolean;
   fullScreen: boolean;
+  refreshing: boolean;
+  refreshKey: number;
 }
 
 interface AppActions {
-  setNavTheme: (value: string) => void;
-  setNavMode: (value: AppSettingProps["navMode"]) => void;
-  setSettingByPath: <P extends NestedKeyOf<AppSettingProps>>(
+  updateAppSetting: <P extends NestedKeyOf<AppSettingProps>>(
     path: P,
     value: PathValue<AppSettingProps, P>
   ) => void;
   setLocale: (value: Locale) => void;
   toggleCollapsed: (value?: boolean) => void;
-  toggleReloadFlag: (value?: boolean) => void;
+  toggleRefreshing: (value?: boolean) => void;
   toggleFullScreen: (value?: boolean) => void;
+  refreshPage: (duration?: number, cb?: () => void) => Promise<void>;
   resetAppSetting: () => void;
-  reloadPage: (duration?: number) => void;
 }
 
 type AppStore = AppState & { actions: AppActions };
@@ -38,23 +37,14 @@ export const useAppStore = create<AppStore>()(
       ...appSetting,
       locale: getCurrentLocale() || defaultLocale,
       collapsed: false,
-      reloadFlag: true,
+      refreshing: false,
       fullScreen: false,
+      refreshKey: 0,
 
       // Actions
       actions: {
-        setNavTheme: (value) =>
-          set((state) => {
-            state.navTheme = value;
-          }),
-
-        setNavMode: (value) =>
-          set((state) => {
-            state.navMode = value;
-          }),
-
         // 路径设置方法：通过路径字符串设置值，如 "headerSetting.height"
-        setSettingByPath: (path, value) =>
+        updateAppSetting: (path, value) =>
           set((state) => {
             if (value == null) return;
             setValueByPath(state, path, value);
@@ -73,9 +63,9 @@ export const useAppStore = create<AppStore>()(
             state.collapsed = value !== undefined ? value : !state.collapsed;
           }),
 
-        toggleReloadFlag: (value) =>
+        toggleRefreshing: (value) =>
           set((state) => {
-            state.reloadFlag = value !== undefined ? value : !state.reloadFlag;
+            state.refreshing = value !== undefined ? value : !state.refreshing;
           }),
 
         toggleFullScreen: (value) =>
@@ -83,17 +73,22 @@ export const useAppStore = create<AppStore>()(
             state.fullScreen = value !== undefined ? value : !state.fullScreen;
           }),
 
-        resetAppSetting: () => set(store.getInitialState()),
-
-        reloadPage: async (duration = 300) => {
-          const { isPageAnimate, actions } = get();
-          actions.toggleReloadFlag(false);
+        refreshPage: async (duration = 500, cb?) => {
+          set((state) => {
+            state.refreshKey = state.refreshKey + 1;
+          });
+          const { isPageAnimate, refreshing, actions } = get();
+          if (refreshing) return;
+          actions.toggleRefreshing(true);
           const d = isPageAnimate ? duration : 40;
           await new Promise((resolve) => {
             setTimeout(resolve, d);
           });
-          actions.toggleReloadFlag(true);
+          actions.toggleRefreshing(false);
+          cb?.();
         },
+
+        resetAppSetting: () => set(store.getInitialState()),
       },
     })),
     {

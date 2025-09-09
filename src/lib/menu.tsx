@@ -45,7 +45,7 @@ export function transformToMenus(routes: AppRouteObject[]): MenuProps["items"] {
       menuItem.label = <Link to={route.path || ""}>{meta.title || "未命名"}</Link>;
     }
 
-    return menuItem as ItemType;
+    return menuItem || [];
   }
 
   const menuItems = routes
@@ -78,28 +78,6 @@ export function transformToTopMixedMenus(routes: AppRouteObject[]): MenuProps["i
     });
 }
 
-/**
- * 根据当前路径获取 Ant Design Menu 需要展开的键
- */
-export function getAntMenuOpenKeys(routes: AppRouteObject[], currentPath: string): string[] {
-  const openKeys: string[] = [];
-
-  function findOpenKeys(routeList: AppRouteObject[]) {
-    routeList.forEach((route) => {
-      if (route.children && route.children.length > 0) {
-        // 如果当前路径以这个路由路径开头，说明需要展开这个菜单项
-        if (currentPath.startsWith(route.path || "")) {
-          openKeys.push(route.path || "");
-        }
-        findOpenKeys(route.children);
-      }
-    });
-  }
-
-  findOpenKeys(routes);
-  return openKeys;
-}
-
 export type LevelKeysProps = {
   key?: string;
   children?: LevelKeysProps[];
@@ -119,6 +97,44 @@ export const getLevelKeys = (items1: LevelKeysProps[]) => {
   };
   func(items1);
   return key;
+};
+
+/**
+ * 获取菜单路径的完整层级路径（基于转换后的菜单结构）
+ * @param menus 转换后的菜单数据
+ * @param targetKey 目标菜单key，例如 '/comp/table/edit-cell'
+ * @returns 返回包含所有父级路径的数组，例如 ['/comp/table/edit-cell', '/comp/table', '/comp']
+ */
+export const getMenuKeyPaths = (menus: MenuProps["items"], targetKey: string): string[] => {
+  if (!targetKey || !menus) return [];
+
+  const keyPaths: string[] = [];
+
+  function findPathInMenus(menuList: MenuProps["items"] = [], currentPath: string[]): boolean {
+    for (const _menu of menuList) {
+      const menu = _menu as MenuItemType;
+      const newPath = [...currentPath, (menu?.key as string) || ""];
+
+      // 如果找到目标菜单项
+      if (menu?.key === targetKey) {
+        keyPaths.push(...newPath);
+        return true;
+      }
+
+      // 递归查找子菜单
+      if (menu?.children && menu?.children?.length > 0) {
+        if (findPathInMenus(menu?.children as MenuProps["items"], newPath)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  findPathInMenus(menus, []);
+
+  // 返回从目标路径到根路径的顺序：[..., 祖父路径, 父路径, 目标路径]
+  return keyPaths.filter((v) => !!v);
 };
 
 /**

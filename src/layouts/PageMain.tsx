@@ -6,27 +6,27 @@ import { useAppSettings } from "@/store";
 
 export const PageMain = ({ className }: { className?: string }) => {
   const location = useLocation();
-  const { isPageAnimate, pageAnimateType } = useAppSettings();
+  const { isPageAnimate, pageAnimateType, refreshKey } = useAppSettings();
   const nodeRef = useRef<HTMLDivElement>(null);
   const outlet = useOutlet();
 
   if (!isPageAnimate) {
-    return <div className="size-full overflow-y-auto p-4">{outlet}</div>;
+    return (
+      <main className={cn("text-foreground bg-background-root p-4", className)}>{outlet}</main>
+    );
   }
 
   return (
-    <main className={cn("text-foreground bg-background-root relative overflow-y-auto", className)}>
+    <main className={cn("text-foreground bg-background-root relative p-4", className)}>
       <SwitchTransition>
         <CSSTransition
-          key={location.pathname}
+          key={`${location.pathname}-${refreshKey}`}
           nodeRef={nodeRef}
           timeout={300}
           classNames={`page-${pageAnimateType}`}
           unmountOnExit
         >
-          <div ref={nodeRef} className="absolute inset-0 size-full overflow-y-auto p-4">
-            {outlet}
-          </div>
+          <div ref={nodeRef}>{outlet}</div>
         </CSSTransition>
       </SwitchTransition>
     </main>

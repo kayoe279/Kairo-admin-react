@@ -9,7 +9,7 @@ export const ColorPalette: React.FC = () => {
   const { primaryColor } = useThemeSettings();
   const { setThemeColor } = useThemeActions();
   const { navMode } = useAppSettings();
-  const { setNavMode } = useAppActions();
+  const { updateAppSetting } = useAppActions();
 
   const primaryShades = [
     "50",
@@ -26,7 +26,7 @@ export const ColorPalette: React.FC = () => {
   ];
 
   const handleSetNavMode = (mode: AppSettingProps["navMode"]) => {
-    setNavMode(mode);
+    updateAppSetting("navMode", mode);
   };
 
   return (
