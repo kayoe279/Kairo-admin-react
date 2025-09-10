@@ -160,7 +160,7 @@ export const Tabs = ({ className }: { className?: string }) => {
             ease: "easeOut",
           }}
           className={cn(
-            "bg-background border-default-100 flex w-full overflow-hidden border-b",
+            "bg-background flex w-full overflow-hidden",
             isMobile ? "gap-x-2 px-2 py-1.5" : "gap-x-4 px-4 py-2",
             className
           )}

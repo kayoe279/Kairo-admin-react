@@ -6,8 +6,11 @@
   --background-root: #f5f7f9;
   --background: #ffffff;
   --background-hover: #f3f3f5;
+
   --foreground: #18181c;
   --foreground-subtle: #52525b;
+
+  --default-100: #f4f4f5;
 
   /* Primary color palette */
   --primary-50: #f0fdfa;
@@ -66,8 +69,11 @@ html.dark {
   --background-root: #000000;
   --background: #18181c;
   --background-hover: #2d2d30;
+
   --foreground: #ffffffd9;
   --foreground-subtle: #a1a1aa;
+
+  --default-100: #27272a;
 
   /* Primary color palette for dark mode */
   --primary-50: #042f2e;
@@ -128,6 +134,7 @@ html.dark {
   --color-background-hover: var(--background-hover);
   --color-foreground: var(--foreground);
   --color-foreground-subtle: var(--foreground-subtle);
+  --color-default-100: var(--default-100);
 
   /* Primary color palette for Tailwind */
   --color-primary-50: var(--primary-50);
