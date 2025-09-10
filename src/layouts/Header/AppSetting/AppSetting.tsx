@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Button } from "@heroui/react";
-import { App, Divider } from "antd";
+import { App, Button, Divider } from "antd";
 import { useTranslation } from "react-i18next";
 import { ButtonIcon, Drawer } from "@/components/ui";
 import { useDarkMode } from "@/lib/hooks";
@@ -48,7 +47,13 @@ export const AppSetting = () => {
         onClose={() => setIsOpen(false)}
         title={t("app.projectSetting")}
         footer={
-          <Button color="danger" variant="flat" onPress={handleResetSettings} className="w-full">
+          <Button
+            color="pink"
+            variant="filled"
+            size="large"
+            onClick={handleResetSettings}
+            className="w-full !text-sm"
+          >
             {t("app.resetConfig")}
           </Button>
         }

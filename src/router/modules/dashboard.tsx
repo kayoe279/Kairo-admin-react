@@ -1,4 +1,3 @@
-import { createRef } from "react";
 import { Outlet } from "react-router";
 import DashboardConsole from "@/routes/dashboard/console";
 import DashboardWorkplace from "@/routes/dashboard/workplace";
@@ -8,9 +7,8 @@ export const dashboardRoutes: AppRouteObject[] = [
   {
     path: "/dashboard",
     element: <Outlet />,
-    nodeRef: createRef(),
     meta: {
-      title: "工作台",
+      name: "dashboard",
       icon: "solar:emoji-funny-square-broken",
       sort: 0,
     },
@@ -18,9 +16,8 @@ export const dashboardRoutes: AppRouteObject[] = [
       {
         path: "/dashboard/workplace",
         element: <DashboardWorkplace />,
-        nodeRef: createRef(),
         meta: {
-          title: "首页",
+          name: "dashboardWorkplace",
           keepAlive: true,
           affix: true,
         },
@@ -28,9 +25,8 @@ export const dashboardRoutes: AppRouteObject[] = [
       {
         path: "/dashboard/console",
         element: <DashboardConsole />,
-        nodeRef: createRef(),
         meta: {
-          title: "主控台",
+          name: "dashboardConsole",
           keepAlive: true,
         },
       },

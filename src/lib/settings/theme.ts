@@ -29,14 +29,12 @@ export const themeSetting = {
   rootBackgroundColor: "#101014",
   //系统主题色
   primaryColor: appThemeList[0],
-  // 次要颜色
-  secondaryColor: "#7828c8",
   // 成功颜色
   successColor: "#17c964",
   // 警告颜色
   warningColor: "#f5a524",
   // 错误颜色
-  dangerColor: "#f31260",
+  errorColor: "#f31260",
   //系统内置主题色列表
   appThemeList,
 };

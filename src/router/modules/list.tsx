@@ -1,4 +1,3 @@
-import { createRef } from "react";
 import { Outlet } from "react-router";
 import ListBasic from "@/routes/list/basic";
 import ListInfo from "@/routes/list/info.$id";
@@ -8,9 +7,8 @@ export const listRoutes: AppRouteObject[] = [
   {
     path: "/list",
     element: <Outlet />,
-    nodeRef: createRef(),
     meta: {
-      title: "列表页面",
+      name: "list",
       icon: "solar:checklist-minimalistic-outline",
       sort: 1,
     },
@@ -18,17 +16,15 @@ export const listRoutes: AppRouteObject[] = [
       {
         path: "/list/basic",
         element: <ListBasic />,
-        nodeRef: createRef(),
         meta: {
-          title: "基础列表",
+          name: "basicList",
         },
       },
       {
         path: "/list/info/:id",
         element: <ListInfo />,
-        nodeRef: createRef(),
         meta: {
-          title: "基础详情",
+          name: "listBasicInfo",
           hidden: true,
         },
       },

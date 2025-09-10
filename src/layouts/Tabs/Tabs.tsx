@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import type { ResourceKey } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useMediaQuery } from "usehooks-ts";
@@ -144,99 +146,115 @@ export const Tabs = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div
-      className={cn(
-        "bg-background border-default-100 transition-height flex w-full border-b duration-500 ease-in-out",
-        isMobile ? "gap-x-2 px-2 py-1.5" : "gap-x-4 px-4 py-2",
-        className
-      )}
-      style={{ height: multiTabsSetting.height + "px" }}
-    >
-      <div className="relative flex min-w-0 flex-1 items-center">
-        {/* 左侧滚动遮罩 */}
-        {scrollState.isScrollable && scrollState.canScrollLeft && (
-          <div className="from-background pointer-events-none absolute top-0 left-0 z-10 h-full w-8 bg-gradient-to-r to-transparent dark:from-gray-900" />
-        )}
+    <AnimatePresence mode="wait">
+      {multiTabsSetting.show && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{
+            height: multiTabsSetting.height,
+            opacity: 1,
+          }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{
+            duration: 0.25,
+            ease: "easeOut",
+          }}
+          className={cn(
+            "bg-background border-default-100 flex w-full overflow-hidden border-b",
+            isMobile ? "gap-x-2 px-2 py-1.5" : "gap-x-4 px-4 py-2",
+            className
+          )}
+        >
+          <div className="relative flex min-w-0 flex-1 items-center">
+            {/* 左侧滚动遮罩 */}
+            {scrollState.isScrollable && scrollState.canScrollLeft && (
+              <div className="from-background pointer-events-none absolute top-0 left-0 z-10 h-full w-8 bg-gradient-to-r to-transparent dark:from-gray-900" />
+            )}
 
-        <div ref={wrapperRef} className="min-w-0 flex-1 overflow-hidden">
-          <div className="inline-block">
-            <div
-              ref={tabsRef}
-              className={cn(
-                "flex h-full items-center whitespace-nowrap",
-                isMobile ? "gap-x-1.5" : "gap-x-2"
-              )}
-              style={{ minWidth: "max-content" }}
-            >
-              {tabsList.map((tab) => (
-                <TabsDropdownMenu key={`${tab.name}-${tab.path}`} tabId={tab.name}>
-                  <button
-                    className={cn(
-                      "relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg",
-                      isMobile
-                        ? "h-7 px-3 py-1 text-xs"
-                        : "h-8 max-h-12 px-3 py-1.5 text-sm leading-8",
-                      activeTabId === tab.name
-                        ? "bg-primary/20 text-primary"
-                        : "bg-default-100 text-foreground hover:bg-default-200/70"
-                    )}
-                    type="button"
-                    {...{ [TAB_DATA_ID]: tab.name }}
-                    onClick={(e) => handleTabSwitch(e, tab.name)}
-                  >
-                    {t(`route.${tab.name}`, tab?.meta?.title || tab.name)}
-                    {tab?.meta?.affix ? (
-                      <SvgIcon
-                        icon="la:thumbtack"
-                        className={cn("opacity-60", isMobile ? "ml-0.5 text-sm" : "ml-1 text-base")}
-                      />
-                    ) : (
-                      !isMobile && (
-                        <SvgIcon
-                          icon="pajamas:close"
-                          className="text-sm"
-                          onClick={(e) => handleTabClose(e, tab.name)}
-                        />
-                      )
-                    )}
-                  </button>
-                </TabsDropdownMenu>
-              ))}
+            <div ref={wrapperRef} className="min-w-0 flex-1 overflow-hidden">
+              <div className="inline-block">
+                <div
+                  ref={tabsRef}
+                  className={cn(
+                    "flex h-full items-center whitespace-nowrap",
+                    isMobile ? "gap-x-1.5" : "gap-x-2"
+                  )}
+                  style={{ minWidth: "max-content" }}
+                >
+                  {tabsList.map((tab) => (
+                    <TabsDropdownMenu key={`${tab.name}-${tab.path}`} tabId={tab.name}>
+                      <button
+                        className={cn(
+                          "relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg",
+                          isMobile
+                            ? "h-7 px-3 py-1 text-xs"
+                            : "h-8 max-h-12 px-3 py-1.5 text-sm leading-8",
+                          activeTabId === tab.name
+                            ? "bg-primary/20 text-primary"
+                            : "bg-default-100 text-foreground hover:bg-default-200/70"
+                        )}
+                        type="button"
+                        {...{ [TAB_DATA_ID]: tab.name }}
+                        onClick={(e) => handleTabSwitch(e, tab.name)}
+                      >
+                        {t(`route.${tab.name}` as ResourceKey) as string}
+                        {tab?.meta?.affix ? (
+                          <SvgIcon
+                            icon="la:thumbtack"
+                            className={cn(
+                              "opacity-60",
+                              isMobile ? "ml-0.5 text-sm" : "ml-1 text-base"
+                            )}
+                          />
+                        ) : (
+                          !isMobile && (
+                            <SvgIcon
+                              icon="pajamas:close"
+                              className="text-sm"
+                              onClick={(e) => handleTabClose(e, tab.name)}
+                            />
+                          )
+                        )}
+                      </button>
+                    </TabsDropdownMenu>
+                  ))}
+                </div>
+              </div>
             </div>
+
+            {/* 右侧滚动遮罩 */}
+            {scrollState.isScrollable && scrollState.canScrollRight && (
+              <div className="from-background pointer-events-none absolute top-0 right-0 z-10 h-full w-8 bg-gradient-to-l to-transparent dark:from-gray-900" />
+            )}
           </div>
-        </div>
 
-        {/* 右侧滚动遮罩 */}
-        {scrollState.isScrollable && scrollState.canScrollRight && (
-          <div className="from-background pointer-events-none absolute top-0 right-0 z-10 h-full w-8 bg-gradient-to-l to-transparent dark:from-gray-900" />
-        )}
-      </div>
+          <div className={cn("flex items-center", isMobile ? "gap-x-1" : "gap-x-4")}>
+            {/* 刷新按钮 - 在移动端隐藏 */}
+            {!isMobile && (
+              <ButtonIcon
+                title={t("common.reload")}
+                icon="ant-design:reload-outlined"
+                className={cn({ "pointer-events-none animate-spin opacity-50": refreshing })}
+                onClick={() => refreshPage()}
+              />
+            )}
 
-      <div className={cn("flex items-center", isMobile ? "gap-x-1" : "gap-x-4")}>
-        {/* 刷新按钮 - 在移动端隐藏 */}
-        {!isMobile && (
-          <ButtonIcon
-            title={t("common.reload")}
-            icon="ant-design:reload-outlined"
-            className={cn({ "pointer-events-none animate-spin opacity-50": refreshing })}
-            onClick={() => refreshPage()}
-          />
-        )}
+            {/* 全屏按钮 - 在移动端隐藏 */}
+            {!isMobile && (
+              <ButtonIcon
+                title={t("app.fullScreen")}
+                icon="ant-design:fullscreen-outlined"
+                onClick={handleFullScreen}
+              />
+            )}
 
-        {/* 全屏按钮 - 在移动端隐藏 */}
-        {!isMobile && (
-          <ButtonIcon
-            title={t("app.fullScreen")}
-            icon="ant-design:fullscreen-outlined"
-            onClick={handleFullScreen}
-          />
-        )}
-
-        {/* 标签页操作菜单按钮 */}
-        <TabsDropdownMenu tabId={activeTabId} trigger={["hover"]}>
-          <ButtonIcon icon="icon-park-outline:more-app" className="text-lg" />
-        </TabsDropdownMenu>
-      </div>
-    </div>
+            {/* 标签页操作菜单按钮 */}
+            <TabsDropdownMenu tabId={activeTabId} trigger={["hover"]}>
+              <ButtonIcon icon="icon-park-outline:more-app" className="text-lg" />
+            </TabsDropdownMenu>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

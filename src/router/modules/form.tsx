@@ -1,4 +1,3 @@
-import { createRef } from "react";
 import { Outlet } from "react-router";
 import FormBasic from "@/routes/form/basic";
 import FormDetail from "@/routes/form/detail";
@@ -9,9 +8,8 @@ export const formRoutes: AppRouteObject[] = [
   {
     path: "/form",
     element: <Outlet />,
-    nodeRef: createRef(),
     meta: {
-      title: "表单页面",
+      name: "form",
       icon: "solar:document-add-broken",
       sort: 3,
     },
@@ -19,25 +17,22 @@ export const formRoutes: AppRouteObject[] = [
       {
         path: "/form/basic",
         element: <FormBasic />,
-        nodeRef: createRef(),
         meta: {
-          title: "基础表单",
+          name: "formBasicForm",
         },
       },
       {
         path: "/form/step",
         element: <FormStep />,
-        nodeRef: createRef(),
         meta: {
-          title: "分步表单",
+          name: "formStepForm",
         },
       },
       {
         path: "/form/detail",
         element: <FormDetail />,
-        nodeRef: createRef(),
         meta: {
-          title: "表单详情",
+          name: "formDetail",
         },
       },
     ],

@@ -1,10 +1,7 @@
 @import "./transitions.css";
 @import "./tailwind.css";
-@plugin '../lib/hero.ts';
-/* 注意：您可能需要更改适合您项目结构的路径 */
-@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
-
 @import "./fonts.css";
+@import "./antd.css";
 
 html,
 body {
@@ -27,28 +24,6 @@ body.gray-mode {
 
 button {
   cursor: pointer;
-}
-
-/* ant design menu */
-.ant-menu-item,
-.ant-menu-submenu {
-  @apply after:!border-none;
-}
-
-.ant-menu-horizontal .ant-menu-overflow-item.ant-menu-item,
-.ant-menu-horizontal .ant-menu-submenu-horizontal .ant-menu-submenu-title {
-  @apply flex items-center;
-}
-.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-submenu-horizontal {
-  @apply flex items-center;
-}
-.ant-menu-horizontal li.ant-menu-submenu-selected,
-.ant-menu-horizontal li.ant-menu-item-selected {
-  @apply !bg-transparent;
-}
-.ant-menu-horizontal li.ant-menu-submenu:hover .ant-menu-submenu-title,
-.ant-menu-horizontal li.ant-menu-item:hover {
-  @apply !text-primary;
 }
 
 /* 全局滚动条样式 - 极细灰色，悬停显示 */

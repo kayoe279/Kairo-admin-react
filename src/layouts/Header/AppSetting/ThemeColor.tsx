@@ -7,8 +7,7 @@ import { SettingItem } from "./SettingItem";
 export const ThemeColor = () => {
   const { t } = useTranslation();
   const { isDarkMode } = useDarkMode();
-  const { primaryColor, secondaryColor, successColor, warningColor, dangerColor } =
-    useThemeSettings();
+  const { primaryColor, successColor, warningColor, errorColor } = useThemeSettings();
   const { setThemeColor } = useThemeActions();
 
   const updateThemeColor = (type: ThemeType, color: string) => {
@@ -21,13 +20,6 @@ export const ThemeColor = () => {
         <ColorPicker
           color={primaryColor}
           onColorChange={(color) => updateThemeColor("primary", color)}
-        />
-      </SettingItem>
-
-      <SettingItem title={t("app.theme.info")}>
-        <ColorPicker
-          color={secondaryColor}
-          onColorChange={(color) => updateThemeColor("secondary", color)}
         />
       </SettingItem>
 
@@ -47,8 +39,8 @@ export const ThemeColor = () => {
 
       <SettingItem title={t("app.theme.error")}>
         <ColorPicker
-          color={dangerColor}
-          onColorChange={(color) => updateThemeColor("danger", color)}
+          color={errorColor}
+          onColorChange={(color) => updateThemeColor("error", color)}
         />
       </SettingItem>
     </div>

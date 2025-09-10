@@ -14,7 +14,7 @@ export const appSetting = {
     //固定顶部和页签
     fixed: true,
     //顶部高度
-    height: 64,
+    height: 56,
     //显示重载按钮
     isReload: true,
   },

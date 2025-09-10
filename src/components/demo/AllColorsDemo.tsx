@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Button, Card, CardBody, CardHeader, Chip, Progress } from "@heroui/react";
+import { Button, Card, Progress } from "antd";
 import { useDarkMode } from "@/lib/hooks";
 import { useThemeActions, useThemeSettings, type ThemeType } from "@/store/theme";
 
@@ -16,12 +16,6 @@ export const AllColorsDemo: React.FC = () => {
       presets: ["#30B092", "#3b82f6", "#8b5cf6", "#22C55E", "#FAAD14", "#F5222D"],
     },
     {
-      name: "Secondary",
-      type: "secondary" as const,
-      value: settings.secondaryColor,
-      presets: ["#7828c8", "#9353d3", "#a855f7", "#8b5cf6", "#7c3aed", "#6d28d9"],
-    },
-    {
       name: "Success",
       type: "success" as const,
       value: settings.successColor,
@@ -34,9 +28,9 @@ export const AllColorsDemo: React.FC = () => {
       presets: ["#f5a524", "#FAAD14", "#f59e0b", "#d97706", "#ca8a04", "#a16207"],
     },
     {
-      name: "Danger",
-      type: "danger" as const,
-      value: settings.dangerColor,
+      name: "Error",
+      type: "error" as const,
+      value: settings.errorColor,
       presets: ["#f31260", "#F5222D", "#ef4444", "#dc2626", "#b91c1c", "#991b1b"],
     },
   ];
@@ -59,10 +53,12 @@ export const AllColorsDemo: React.FC = () => {
 
       {/* 颜色对比图 */}
       <div className="grid grid-cols-1 gap-8">
-        {colorTypes.map((colorType) => (
-          <Card key={colorType.type} className="overflow-hidden">
-            <CardHeader className="pb-4">
-              <div className="flex w-full items-center justify-between">
+        {colorTypes.map((colorType) => {
+          const buttonColor = colorType.type === "error" ? "danger" : (colorType.type as any);
+          const showButtons = colorType.type === "primary" || colorType.type === "error";
+          return (
+            <Card key={colorType.type} className="overflow-hidden">
+              <div className="flex w-full items-center justify-between pb-4">
                 <div className="flex items-center gap-3">
                   <h3 className="text-xl font-semibold">{colorType.name}</h3>
                   <div
@@ -72,84 +68,85 @@ export const AllColorsDemo: React.FC = () => {
                   <span className="font-mono text-sm text-gray-500">{colorType.value}</span>
                 </div>
                 <Button
-                  color={colorType.type as any}
-                  onPress={() => handleResetThemeColor(colorType.type)}
+                  variant="filled"
+                  color="green"
+                  onClick={() => handleResetThemeColor(colorType.type)}
                 >
                   重置
                 </Button>
               </div>
-            </CardHeader>
 
-            <CardBody className="space-y-4">
-              {/* 完整色阶展示 */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700">完整色阶调色板</h4>
-                <div className="grid grid-cols-11 gap-1">
-                  {shades.map((shade) => (
-                    <div key={shade} className="text-center">
-                      <div
-                        className="mb-1 h-12 w-full rounded border border-gray-200"
-                        style={{ backgroundColor: `var(--${colorType.type}-${shade})` }}
+              <div className="space-y-4">
+                {/* 完整色阶展示 */}
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700">完整色阶调色板</h4>
+                  <div className="grid grid-cols-11 gap-1">
+                    {shades.map((shade) => (
+                      <div key={shade} className="text-center">
+                        <div
+                          className="mb-1 h-12 w-full rounded border border-gray-200"
+                          style={{ backgroundColor: `var(--${colorType.type}-${shade})` }}
+                        />
+                        <span className="text-xs text-gray-500">{shade}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 预设颜色快速切换 */}
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700">预设颜色</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {colorType.presets.map((color) => (
+                      <button
+                        key={color}
+                        onClick={() => setThemeColor({ type: colorType.type, color, isDarkMode })}
+                        className={`h-8 w-8 rounded border-2 hover:scale-110 ${
+                          colorType.value === color
+                            ? "border-gray-900 ring-2 ring-gray-400"
+                            : "border-gray-200"
+                        }`}
+                        style={{ backgroundColor: color }}
+                        title={color}
                       />
-                      <span className="text-xs text-gray-500">{shade}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* 预设颜色快速切换 */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700">预设颜色</h4>
-                <div className="flex flex-wrap gap-2">
-                  {colorType.presets.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => setThemeColor({ type: colorType.type, color, isDarkMode })}
-                      className={`h-8 w-8 rounded border-2 hover:scale-110 ${
-                        colorType.value === color
-                          ? "border-gray-900 ring-2 ring-gray-400"
-                          : "border-gray-200"
-                      }`}
-                      style={{ backgroundColor: color }}
-                      title={color}
-                    />
-                  ))}
+                {/* 组件示例 */}
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700">Antd 组件示例</h4>
+                  <div className="flex flex-wrap items-center gap-3">
+                    {showButtons && (
+                      <>
+                        <Button color={buttonColor} variant="solid">
+                          Solid
+                        </Button>
+                        <Button color={buttonColor} variant="outlined">
+                          Outlined
+                        </Button>
+                        <Button color={buttonColor} variant="text">
+                          Text
+                        </Button>
+                        <Button color={buttonColor} variant="filled">
+                          Filled
+                        </Button>
+                      </>
+                    )}
+                    <Progress strokeColor={colorType.value as any} percent={75} className="w-24" />
+                  </div>
                 </div>
               </div>
-
-              {/* 组件示例 */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700">HeroUI 组件示例</h4>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button color={colorType.type as any} variant="solid">
-                    Solid
-                  </Button>
-                  <Button color={colorType.type as any} variant="bordered">
-                    Bordered
-                  </Button>
-                  <Button color={colorType.type as any} variant="light">
-                    Light
-                  </Button>
-                  <Button color={colorType.type as any} variant="flat">
-                    Flat
-                  </Button>
-                  <Chip color={colorType.type as any} variant="solid">
-                    {colorType.name}
-                  </Chip>
-                  <Progress color={colorType.type as any} value={75} className="w-24" />
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </div>
 
       {/* Tailwind CSS 使用示例 */}
       <Card>
-        <CardHeader>
-          <h3 className="text-xl font-semibold">Tailwind CSS 实际效果</h3>
-        </CardHeader>
-        <CardBody className="space-y-4">
+        <h3 className="text-xl font-semibold">Tailwind CSS 实际效果</h3>
+
+        <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-6">
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Base</h4>
@@ -220,14 +217,14 @@ export const AllColorsDemo: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <h4 className="text-sm font-medium">Danger</h4>
+              <h4 className="text-sm font-medium">Error</h4>
               <div className="space-y-2">
-                <div className="bg-danger rounded px-3 py-2 text-sm text-white">bg-danger</div>
-                <div className="bg-danger-100 text-danger-900 rounded px-3 py-2 text-sm">
-                  bg-danger-100
+                <div className="bg-error rounded px-3 py-2 text-sm text-white">bg-error</div>
+                <div className="bg-error-100 text-error-900 rounded px-3 py-2 text-sm">
+                  bg-error-100
                 </div>
-                <div className="text-danger border-danger rounded border px-3 py-2 text-sm">
-                  text-danger
+                <div className="text-error border-error rounded border px-3 py-2 text-sm">
+                  text-error
                 </div>
               </div>
             </div>
@@ -244,7 +241,7 @@ export const AllColorsDemo: React.FC = () => {
               <li>• 基于 CSS 变量的高性能实现</li>
             </ul>
           </div>
-        </CardBody>
+        </div>
       </Card>
     </div>
   );

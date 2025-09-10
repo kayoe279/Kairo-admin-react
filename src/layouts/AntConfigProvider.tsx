@@ -12,7 +12,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
     primaryColor,
     successColor,
     warningColor,
-    dangerColor,
+    errorColor,
   } = useThemeSettings();
   const { isDarkMode } = useDarkMode();
 
@@ -24,14 +24,15 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
         colorPrimary: primaryColor,
         colorSuccess: successColor,
         colorWarning: warningColor,
-        colorError: dangerColor,
+        colorError: errorColor,
+        colorInfo: primaryColor,
         borderRadius: 10,
       },
       cssVar: true,
       algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       components: {
         Button: {
-          borderRadius: 10,
+          borderRadius: 8,
         },
         Menu: {
           iconSize: 20,
@@ -71,6 +72,17 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
           paddingXS: 12,
           paddingSM: 14,
         },
+        Switch: {
+          handleSize: 20,
+          trackHeight: 24,
+          handleSizeSM: 14,
+          trackHeightSM: 18,
+          innerMaxMargin: 24,
+        },
+        InputNumber: {
+          controlWidth: 80,
+          borderRadius: 8,
+        },
       },
     }),
     [
@@ -81,7 +93,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
       primaryColor,
       successColor,
       warningColor,
-      dangerColor,
+      errorColor,
       primaryStr,
     ]
   );

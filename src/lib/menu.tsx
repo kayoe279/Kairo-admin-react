@@ -1,5 +1,6 @@
 import type { MenuProps } from "antd";
-import type { ItemType, SubMenuType } from "antd/es/menu/interface";
+import type { SubMenuType } from "antd/es/menu/interface";
+import type { ResourceKey, TFunction } from "i18next";
 import { Link } from "react-router";
 import { SvgIcon } from "@/components/ui/SvgIcon";
 import type { AppRouteObject } from "@/types";
@@ -20,17 +21,17 @@ export interface TopMixedMenuItemType {
 /**
  * 将路由数据转换为 Menu（侧边菜单, 顶部菜单）
  */
-export function transformToMenus(routes: AppRouteObject[]): MenuProps["items"] {
-  function buildAntMenuFromRoute(route: AppRouteObject): ItemType | null {
+export function transformToMenus(routes: AppRouteObject[], t: TFunction): MenuProps["items"] {
+  function buildAntMenuFromRoute(route: AppRouteObject) {
     const meta = route.meta;
 
     if (!meta || meta.hidden) return null;
 
     const menuItem = {
       key: route.path || "",
-      label: meta.title || <></>,
+      label: t(`route.${meta.name}` as ResourceKey) || <></>,
       icon: meta.icon ? <SvgIcon icon={meta.icon as string} /> : undefined,
-    };
+    } as SubMenuType;
 
     // 递归处理子路由
     if (route.children && route.children.length > 0) {
@@ -38,11 +39,13 @@ export function transformToMenus(routes: AppRouteObject[]): MenuProps["items"] {
         .map((child) => buildAntMenuFromRoute(child))
         .filter((child) => child !== null);
 
-      if (childMenus.length > 0) {
-        (menuItem as SubMenuType).children = childMenus;
+      if (menuItem && childMenus.length > 0) {
+        menuItem.children = childMenus;
       }
     } else {
-      menuItem.label = <Link to={route.path || ""}>{meta.title || "未命名"}</Link>;
+      menuItem.label = (
+        <Link to={route.path || ""}>{t(`route.${meta.name}` as ResourceKey) || ""}</Link>
+      );
     }
 
     return menuItem || [];
@@ -63,12 +66,15 @@ export function transformToMenus(routes: AppRouteObject[]): MenuProps["items"] {
 /**
  * 将路由数据转换为 Menu（顶部混合菜单）
  */
-export function transformToTopMixedMenus(routes: AppRouteObject[]): MenuProps["items"] {
+export function transformToTopMixedMenus(
+  routes: AppRouteObject[],
+  t: TFunction
+): MenuProps["items"] {
   return routes
     .filter((route) => !route.meta?.hidden)
     .map((route) => ({
       key: route.path || "",
-      label: route.meta?.title || "未命名",
+      label: t(`route.${route.meta?.name}` as ResourceKey) || "",
       icon: route.meta?.icon ? <SvgIcon icon={route.meta.icon as string} /> : undefined,
     }))
     .sort((a, b) => {

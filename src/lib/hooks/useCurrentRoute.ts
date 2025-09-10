@@ -11,7 +11,7 @@ export interface RouteItem {
   hash: string;
   params: Record<string, string>;
   query: Record<string, string>;
-  meta?: AppRouteObject["meta"];
+  meta: AppRouteObject["meta"];
 }
 
 // 当前路由信息接口
@@ -102,7 +102,7 @@ export const useRouteInfo = (): RouteInfo => {
 
   const currentRoute = useMemo(
     () => ({
-      name: matchedRoute?.path || "",
+      name: matchedRoute?.meta?.name || "",
       path: matchedRoute?.path || "",
       fullPath,
       hash,

@@ -6,6 +6,7 @@ import { appConfig } from "@/lib/settings/app";
 import { useAppSettings } from "@/store";
 import { AppSetting } from "./AppSetting/AppSetting";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { LanguageSwitch } from "./LanguageSwitch";
 import { Logo } from "./Logo";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
@@ -26,7 +27,7 @@ export const Header = ({ className }: { className?: string }) => {
   return (
     <header
       className={cn(
-        "text-foreground bg-background border-default-100 z-10 flex w-full items-center justify-between gap-x-6 border-b px-4 md:px-5",
+        "text-foreground bg-background z-10 flex w-full items-center justify-between gap-x-6 px-4 md:px-5",
         className
       )}
       style={{ height: headerSetting.height + "px" }}
@@ -47,6 +48,7 @@ export const Header = ({ className }: { className?: string }) => {
           title={t("app.github")}
           onClick={() => onIconClick("github")}
         />
+        <LanguageSwitch />
         <ThemeSwitcher />
         <AppSetting />
         <div>头像</div>

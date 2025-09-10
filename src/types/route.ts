@@ -1,9 +1,12 @@
 import React from "react";
+import type { RouteObject } from "react-router";
 
 /** React 路由的 meta 属性接口 */
 export interface MetaProps {
   /** 菜单标识符 */
   menu?: string;
+  /** 路由名称 */
+  name?: string;
   /** 页面标题 */
   title?: string;
   /** 图标组件 */
@@ -33,7 +36,7 @@ export interface MetaProps {
 }
 
 /** React 应用路由对象接口 */
-export interface AppRouteObject {
+export type AppRouteObject = RouteObject & {
   /** 路径 */
   path?: string;
   /** 路由组件 */
@@ -47,4 +50,4 @@ export interface AppRouteObject {
   meta?: MetaProps;
   /** 路由引用，用于动画等 */
   nodeRef?: React.RefObject<unknown>;
-}
+};

@@ -1,9 +1,4 @@
-import {
-  STORAGE_LOCALE,
-  STORAGE_LOGIN_ACCOUNT,
-  STORAGE_PREFIX,
-  STORAGE_USER_INFO,
-} from "./constants";
+import { STORAGE_LOGIN_ACCOUNT, STORAGE_PREFIX, STORAGE_USER_INFO } from "./constants";
 
 interface StorageData<T> {
   value: T;
@@ -105,15 +100,4 @@ export const setLoginAccount = (loginAccount: Storage.Local["loginAccount"]) => 
 };
 export const removeLoginAccount = () => {
   local.remove(STORAGE_LOGIN_ACCOUNT);
-};
-
-// 当前语言
-export const getCurrentLocale = () => {
-  return local.get(STORAGE_LOCALE);
-};
-export const setCurrentLocale = (locale: Locale) => {
-  local.set(STORAGE_LOCALE, locale);
-};
-export const removeCurrentLocale = () => {
-  local.remove(STORAGE_LOCALE);
 };

@@ -3,7 +3,6 @@ import type { RouteObject } from "react-router";
 import { AdminLayout } from "@/layouts/AdminLayout";
 import Login from "@/routes/auth/login";
 import Exception404 from "@/routes/exception/404";
-import type { AppRouteObject } from "@/types";
 import { aboutRoutes } from "./modules/about";
 import { compRoutes } from "./modules/comp";
 import { dashboardRoutes } from "./modules/dashboard";
@@ -15,7 +14,7 @@ import { settingRoutes } from "./modules/setting";
 import { testRoutes } from "./modules/test";
 
 // 组合所有路由
-export const menuRoutes: AppRouteObject[] = [
+export const menuRoutes = [
   ...dashboardRoutes,
   ...compRoutes,
   ...formRoutes,
@@ -43,7 +42,7 @@ export const rootRoutes: RouteObject[] = [
         element: <Navigate to="/dashboard/workplace" replace />,
       },
       // 导入所有模块路由
-      ...(menuRoutes as RouteObject[]),
+      ...menuRoutes,
       // 404 fallback
       {
         path: "*",

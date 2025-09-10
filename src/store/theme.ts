@@ -5,7 +5,7 @@ import { immer } from "zustand/middleware/immer";
 import { generateColorPalette } from "@/lib";
 import { themeSetting, type ThemeSettingProps } from "@/lib/settings/theme";
 
-const colorTypes = ["primary", "secondary", "success", "warning", "danger"] as const;
+const colorTypes = ["primary", "success", "warning", "error"] as const;
 
 export type ThemeType = (typeof colorTypes)[number];
 

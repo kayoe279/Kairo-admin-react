@@ -7,7 +7,7 @@ export const PAGE = {
   REDIRECT_PATH: "/redirect",
   ERROR_PAGE_NAME: "404",
   HOME_NAME: "dashboard",
-  HOME_NAME_REDIRECT: "dashboard-workplace",
+  HOME_NAME_REDIRECT: "dashboardWorkplace",
   HOME_NAME_REDIRECT_PATH: "/dashboard/workplace",
 } as const;
 

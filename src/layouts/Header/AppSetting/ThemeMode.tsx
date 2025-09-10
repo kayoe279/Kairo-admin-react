@@ -1,5 +1,4 @@
-import { Switch } from "@heroui/react";
-import { Segmented } from "antd";
+import { Segmented, Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import { SvgIcon } from "@/components/ui";
 import { useDarkMode, type ThemeMode as ThemeModeType } from "@/lib/hooks";
@@ -29,6 +28,7 @@ const ThemeSwitch = () => {
     <div className="w-full">
       <Segmented
         size="large"
+        className="!transition-none"
         block
         value={themeMode}
         options={options}
@@ -47,10 +47,10 @@ export const ThemeMode = () => {
     <div className="space-y-4">
       <ThemeSwitch />
       <SettingItem title={t("app.theme.darkSidebar")}>
-        <Switch isSelected={darkNav} onValueChange={toggleDarkNav} />
+        <Switch value={darkNav} onChange={toggleDarkNav} />
       </SettingItem>
       <SettingItem title={t("app.theme.grayMode")}>
-        <Switch isSelected={grayMode} onValueChange={toggleGrayMode} />
+        <Switch value={grayMode} onChange={toggleGrayMode} />
       </SettingItem>
     </div>
   );

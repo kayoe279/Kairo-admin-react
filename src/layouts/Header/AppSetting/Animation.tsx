@@ -1,4 +1,4 @@
-import { Select, SelectItem, Switch } from "@heroui/react";
+import { Select, Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import { useAppActions, useAppSettings } from "@/store";
 import { SettingItem } from "./SettingItem";
@@ -22,28 +22,25 @@ export const Animation = () => {
     updateAppSetting("isPageAnimate", value);
   };
 
-  const handleAnimateTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    updateAppSetting("pageAnimateType", e.target.value);
+  const handleAnimateTypeChange = (value: string) => {
+    updateAppSetting("pageAnimateType", value);
   };
 
   return (
     <div className="space-y-4 py-3">
       <SettingItem title={t("app.animation.enable")}>
-        <Switch isSelected={isPageAnimate} onValueChange={handleAnimateToggle} />
+        <Switch value={isPageAnimate} onChange={handleAnimateToggle} />
       </SettingItem>
 
       <SettingItem title={t("app.animation.type")}>
         <Select
-          selectedKeys={[pageAnimateType]}
+          className="max-w-40 min-w-32"
+          variant="filled"
+          value={pageAnimateType}
           onChange={handleAnimateTypeChange}
-          className="max-w-36 min-w-30"
-          size="sm"
-          isDisabled={!isPageAnimate}
-        >
-          {animateOptions.map((option) => (
-            <SelectItem key={option.value}>{option.label}</SelectItem>
-          ))}
-        </Select>
+          disabled={!isPageAnimate}
+          options={animateOptions}
+        ></Select>
       </SettingItem>
     </div>
   );

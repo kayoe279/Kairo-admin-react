@@ -3,7 +3,7 @@ const colorVars = {
   secondary: "--secondary-500",
   success: "--success-500",
   warning: "--warning-500",
-  danger: "--danger-500",
+  error: "--error-500",
 } as const;
 
 // 生成颜色调色板的辅助函数

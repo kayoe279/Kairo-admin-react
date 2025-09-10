@@ -34,36 +34,31 @@ type TabsStore = TabsState & { actions: TabsActions };
 export const useTabsStore = create<TabsStore>()(
   persist(
     immer((set, get) => ({
-      // Initial state
       activeTabId: "",
       tabsList: [],
 
-      // Utility: Filter tabs by IDs
       filterTabsByIds: (tabIds: string[], tabs: TabItem[]) => {
         return tabs.filter((tab) => !tabIds.includes(tab.name));
       },
 
-      // Utility: Retain affix (pinned) routes
       retainAffixRoute: (tabs: TabItem[]) => {
         return tabs.filter((item) => item?.meta?.affix ?? false);
       },
 
-      // Utility: Convert route to tab
       getTabByRoute: (route: RouteItem) => {
         const { name, fullPath, hash, meta, params, path, query } = route;
         return {
+          name: meta?.name || name,
+          path,
           fullPath,
           hash,
-          meta,
-          name,
           params,
-          path,
           query,
+          meta,
           isFixed: (meta?.affix as boolean) ?? false,
         };
       },
 
-      // Actions
       actions: {
         // 设置当前激活的标签页
         setActiveTabId: (id: string) => {
@@ -75,18 +70,18 @@ export const useTabsStore = create<TabsStore>()(
         // 初始化路由
         initTabs: () => {
           const { tabsList, getTabByRoute } = get();
-          const homeTab = tabsList.some((item) => item.name === PAGE.HOME_NAME_REDIRECT_PATH);
+          const homeTab = tabsList.some((item) => item.name === PAGE.HOME_NAME_REDIRECT);
           if (!homeTab) {
             //  TODO: homeRoute 来自 router store 里面
             set((state) => {
               const homeTabItem = getTabByRoute({
-                name: PAGE.HOME_NAME_REDIRECT_PATH,
+                name: "dashboardWorkplace",
                 path: PAGE.HOME_NAME_REDIRECT_PATH,
                 fullPath: PAGE.HOME_NAME_REDIRECT_PATH,
                 hash: PAGE.HOME_NAME_REDIRECT_PATH,
                 params: {},
                 query: {},
-                meta: { title: "首页", keepAlive: true, affix: true },
+                meta: { name: "dashboardWorkplace", keepAlive: true, affix: true },
               });
               if (homeTabItem) state.tabsList.unshift(homeTabItem);
             });
@@ -99,7 +94,7 @@ export const useTabsStore = create<TabsStore>()(
           if (meta?.withoutTab || meta?.hidden) return;
 
           const { tabsList, activeTabId, getTabByRoute, actions } = get();
-          const name = route.name;
+          const name = meta?.name || "";
           if (activeTabId === name) return;
           const isExists = tabsList.some((item) => item.name === name);
           actions.setActiveTabId(name);

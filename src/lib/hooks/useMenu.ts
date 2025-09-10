@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { useDarkMode } from "@/lib/hooks";
 import {
@@ -19,8 +20,9 @@ import type { AppRouteObject } from "@/types";
 export function useMenu(menuRoutes: AppRouteObject[]) {
   const location = useLocation();
   const { theme } = useDarkMode();
+  const { t } = useTranslation();
 
-  const menuItems = useMemo(() => transformToMenus(menuRoutes), [menuRoutes]);
+  const menuItems = useMemo(() => transformToMenus(menuRoutes, t), [menuRoutes, t]);
 
   const selectedKeys = useMemo(
     () => getAntMenuSelectedKeys(location.pathname),
@@ -51,8 +53,9 @@ export function useMenu(menuRoutes: AppRouteObject[]) {
 export function useMixedMenu(menuRoutes: AppRouteObject[]) {
   const location = useLocation();
   const { theme } = useDarkMode();
+  const { t } = useTranslation();
 
-  const topMixedMenuItems = useMemo(() => transformToTopMixedMenus(menuRoutes), [menuRoutes]);
+  const topMixedMenuItems = useMemo(() => transformToTopMixedMenus(menuRoutes, t), [menuRoutes, t]);
 
   const activeTopMenu = useMemo(() => {
     const currentPath = location.pathname;

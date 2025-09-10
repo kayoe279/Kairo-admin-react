@@ -1,4 +1,3 @@
-import { createRef } from "react";
 import { Outlet } from "react-router";
 import PermissionsExample from "@/routes/permissions/example";
 import type { AppRouteObject } from "@/types";
@@ -7,9 +6,8 @@ export const permissionsRoutes: AppRouteObject[] = [
   {
     path: "/permissions",
     element: <Outlet />,
-    nodeRef: createRef(),
     meta: {
-      title: "权限",
+      name: "permissions",
       icon: "solar:shield-user-broken",
       sort: 5,
     },
@@ -17,9 +15,8 @@ export const permissionsRoutes: AppRouteObject[] = [
       {
         path: "/permissions/example",
         element: <PermissionsExample />,
-        nodeRef: createRef(),
         meta: {
-          title: "权限展示",
+          name: "permissionsExample",
         },
       },
     ],

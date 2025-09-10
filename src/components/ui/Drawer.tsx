@@ -1,6 +1,5 @@
 import { type ComponentProps, type ReactNode } from "react";
-import { Button } from "@heroui/react";
-import { Drawer as AntdDrawer } from "antd";
+import { Drawer as AntdDrawer, Button } from "antd";
 import type { DrawerClassNames } from "antd/es/drawer/DrawerPanel";
 import { SvgIcon } from "@/components/ui";
 
@@ -24,7 +23,13 @@ export const Drawer = ({
       classNames={drawerClassNames}
       closeIcon={false}
       extra={
-        <Button isIconOnly variant="light" size="sm" onPress={(e) => props.onClose?.(e as any)}>
+        <Button
+          color="default"
+          variant="text"
+          size="small"
+          className="!size-8 !p-0"
+          onClick={(e) => props.onClose?.(e as any)}
+        >
           <SvgIcon icon="pajamas:close" className="text-xl" />
         </Button>
       }
