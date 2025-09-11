@@ -1,6 +1,6 @@
 import { type HTMLAttributes, type ReactNode } from "react";
 import { Tooltip, type TooltipProps } from "antd";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { SvgIcon } from "./SvgIcon";
 
 type ButtonIconProps = Omit<HTMLAttributes<HTMLButtonElement>, "className"> &

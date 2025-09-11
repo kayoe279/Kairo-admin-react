@@ -1,10 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export * from "./is";
-export * from "./date";
-export * from "./dom";
-
 // cn
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -14,6 +10,13 @@ export type FalseType = "" | 0 | false | null | undefined;
 export const typedBoolean = <Value>(value: Value): value is Exclude<Value, FalseType> => {
   return Boolean(value);
 };
+
+/**
+ * 判断是否 url
+ * */
+export function isUrl(url: string) {
+  return /^(http|https):\/\//g.test(url);
+}
 
 /**
  * Sums the passed percentage to the R, G or B of a HEX color

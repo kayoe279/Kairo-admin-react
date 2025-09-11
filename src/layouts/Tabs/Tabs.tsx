@@ -5,9 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useMediaQuery } from "usehooks-ts";
 import { ButtonIcon, SvgIcon } from "@/components/ui";
-import { TAB_DATA_ID } from "@/lib/constants";
+import { cn, TAB_DATA_ID } from "@/lib";
 import { useBetterScroll, useRouteMatch } from "@/lib/hooks";
-import { cn } from "@/lib/utils";
 import {
   useActiveTabId,
   useAppActions,

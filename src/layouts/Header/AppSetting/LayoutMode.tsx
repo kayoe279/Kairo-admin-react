@@ -1,6 +1,6 @@
 import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 import { useAppActions, useAppSettings } from "@/store";
 
 export const LayoutMode = () => {

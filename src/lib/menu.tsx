@@ -4,7 +4,7 @@ import type { ResourceKey, TFunction } from "i18next";
 import { Link } from "react-router";
 import { SvgIcon } from "@/components/ui/SvgIcon";
 import type { AppRouteObject } from "@/types";
-import { typedBoolean } from "./utils";
+import { typedBoolean } from "./helper";
 
 export interface MenuItemType {
   key: string;

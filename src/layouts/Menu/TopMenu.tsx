@@ -1,6 +1,6 @@
 import { Menu } from "antd";
-import { useMenu } from "@/lib/hooks/useMenu";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
+import { useMenu } from "@/lib/hooks";
 import type { AppRouteObject } from "@/types";
 
 type TopMenuProps = {
