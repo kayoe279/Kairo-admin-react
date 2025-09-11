@@ -1,10 +1,12 @@
-// import { getRefreshToken, setRefreshToken, setUserToken } from "@/lib/cookie";
-// import { refreshToken } from "@/service/api/auth/login";
-// import { useUserStore } from "@/store";
 import { message } from "antd";
+import { getRefreshToken, setRefreshToken, setUserToken } from "@/lib/cookie";
+import { refreshToken } from "@/service/api/auth/login";
+import { useUserStore } from "@/store";
 import { ERROR_NO_TIP_STATUS, ERROR_STATUS } from "./config";
 
 type ErrorStatus = keyof typeof ERROR_STATUS;
+
+const logout = useUserStore.getState().actions.logout;
 
 export const showError = (error: Service.RequestError) => {
   // 如果error不需要提示,则跳过
@@ -71,19 +73,18 @@ export const handleServiceResult = (data: any, isSuccess: boolean = true) => {
 };
 
 export const handleRefreshToken = async () => {
-  // const authStore = useUserStore();
-  // const isAutoRefresh = import.meta.env.VITE_AUTO_REFRESH_TOKEN === "Yes";
-  // if (!isAutoRefresh) {
-  //   await authStore.logout();
-  //   return;
-  // }
-  // // 刷新token
-  // const { data } = await refreshToken({ refreshToken: getRefreshToken() });
-  // if (data) {
-  //   setUserToken(data.accessToken);
-  //   setRefreshToken(data.refreshToken);
-  // } else {
-  //   // 刷新失败，退出
-  //   await authStore.logout();
-  // }
+  const isAutoRefresh = import.meta.env.VITE_AUTO_REFRESH_TOKEN === "Yes";
+  if (!isAutoRefresh) {
+    await logout();
+    return;
+  }
+  // 刷新token
+  const { data } = await refreshToken({ refreshToken: getRefreshToken() });
+  if (data) {
+    setUserToken(data.accessToken);
+    setRefreshToken(data.refreshToken);
+  } else {
+    // 刷新失败，退出
+    await logout();
+  }
 };

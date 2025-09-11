@@ -2,6 +2,7 @@
 @import "./tailwind.css";
 @import "./fonts.css";
 @import "./antd.css";
+@import "./nprogress.css";
 
 html,
 body {

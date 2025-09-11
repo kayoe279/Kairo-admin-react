@@ -14,6 +14,7 @@ interface UserState {
   token: string | null;
   initRoutes?: () => Promise<void>;
   clearTabs?: () => void;
+  isAuthenticated: () => boolean;
 }
 
 interface UserActions {
@@ -37,6 +38,12 @@ export const useUserStore = create<UserStore>()(
     token: getUserToken() || null,
     initRoutes: undefined,
     clearTabs: undefined,
+    isAuthenticated: () => {
+      const { token } = get();
+      const userToken = getUserToken();
+      const userInfo = getUserInfo();
+      return !!userInfo && !!token && !!userToken && userToken === token;
+    },
 
     actions: {
       handleLoginInfo: async (result: Api.Login.Info, navigate?, redirectPath = "/") => {
@@ -50,10 +57,11 @@ export const useUserStore = create<UserStore>()(
           state.userInfo = result;
         });
 
-        const { initRoutes } = get();
-        if (initRoutes) {
-          await initRoutes();
-        }
+        // TODO: 初始化路由
+        // const { initRoutes } = get();
+        // if (initRoutes) {
+        //   await initRoutes();
+        // }
         if (navigate) {
           const toPath = decodeURIComponent(redirectPath);
           navigate(toPath);
@@ -75,7 +83,7 @@ export const useUserStore = create<UserStore>()(
         });
 
         if (!ignoreAuth && navigate) {
-          navigate("/login", {
+          navigate("/auth/login", {
             state: { redirect: currentPath },
           });
         }
@@ -85,6 +93,7 @@ export const useUserStore = create<UserStore>()(
 );
 
 // Selectors Hooks
+export const useIsAuthenticated = () => useUserStore((s) => s.isAuthenticated());
 export const useUserInfo = () => useUserStore((s) => s.userInfo);
 export const useUserToken = () => useUserStore((s) => s.token);
 export const useUserActions = () => useUserStore((s) => s.actions);

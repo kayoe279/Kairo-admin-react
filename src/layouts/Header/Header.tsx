@@ -9,6 +9,7 @@ import { Breadcrumbs } from "./Breadcrumbs";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { Logo } from "./Logo";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { User } from "./User";
 
 export const Header = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ export const Header = ({ className }: { className?: string }) => {
         <LanguageSwitch />
         <ThemeSwitcher />
         <AppSetting />
-        <div>头像</div>
+        <User />
       </div>
     </header>
   );

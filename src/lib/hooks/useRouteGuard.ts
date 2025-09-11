@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
-import { useUserStore } from "@/store/user";
+import { useIsAuthenticated, useUserInfo } from "@/store/user";
 
 type RouteGuardBeforeEnterResult = { path?: string; success: boolean } | void | null | undefined;
 
@@ -41,7 +41,8 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { userInfo } = useUserStore();
+  const userInfo = useUserInfo();
+  const isAuthenticated = useIsAuthenticated();
   const [isChecking, setIsChecking] = useState(false);
 
   const { requireAuth, roles = [], beforeEnter } = options;
@@ -51,7 +52,7 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
     const currentPath = location.pathname;
 
     // 1. 检查是否需要登录
-    if (requireAuth && !userInfo) {
+    if (requireAuth && !isAuthenticated) {
       return {
         passed: false,
         reason: t("auth.loginTip"),
@@ -59,8 +60,8 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
       };
     }
 
-    // 2. 检查角色权限
-    if (requireAuth && roles.length > 0 && userInfo?.roles) {
+    // 2. 检查角色权限 TODO: 这里需要根据角色权限来判断
+    if (requireAuth && isAuthenticated && roles.length > 0 && userInfo?.roles) {
       const userRoles = userInfo.roles.map((role) => role.toString());
       const hasRequiredRole = roles.some((role) => userRoles.includes(role));
       if (!hasRequiredRole) {
@@ -94,7 +95,16 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
     }
 
     return { passed: true };
-  }, [beforeEnter, requireAuth, roles, location.pathname, userInfo, t, location.state?.from]);
+  }, [
+    beforeEnter,
+    requireAuth,
+    isAuthenticated,
+    roles,
+    location.pathname,
+    userInfo,
+    t,
+    location.state?.from,
+  ]);
 
   //执行路由守卫检查
   const executeGuard = useCallback(async () => {

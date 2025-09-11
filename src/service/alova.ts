@@ -2,7 +2,7 @@ import { createAlovaMockAdapter } from "@alova/mock";
 import { createAlova } from "alova";
 import { createServerTokenAuthentication } from "alova/client";
 import adapterFetch from "alova/fetch";
-import VueHook, { type VueHookType } from "alova/vue";
+import ReactHook, { type ReactHookType } from "alova/react";
 import { message } from "antd";
 import { getUserToken } from "@/lib/cookie";
 import { DEFAULT_ALOVA_OPTIONS, DEFAULT_BACKEND_OPTIONS } from "./config";
@@ -38,7 +38,7 @@ const mockAdapter = createAlovaMockAdapter(mocks, {
   },
 });
 
-const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<VueHookType>({
+const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<ReactHookType>({
   // 服务端判定token过期
   refreshTokenOnSuccess: {
     // 当服务端返回401时，表示token过期
@@ -74,7 +74,7 @@ export function createAlovaInstance(
   return createAlova({
     ...alovaConfig,
     baseURL: _alovaConfig.baseURL,
-    statesHook: VueHook,
+    statesHook: ReactHook,
     requestAdapter: mockAdapter,
     timeout: _alovaConfig.timeout,
     cacheLogger: process.env.NODE_ENV === "development",
