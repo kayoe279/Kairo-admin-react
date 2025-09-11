@@ -1,4 +1,5 @@
 export * from "./useDarkMode";
 export * from "./useMenu";
-export * from "./useCurrentRoute";
 export * from "./useBetterScroll";
+export * from "./useRouteMatch";
+export * from "./useRouteGuard";

@@ -101,30 +101,39 @@
       "unpermittedError": "Crrently not permitted to use Clipboard API"
     }
   },
-  "login": {
+  "auth": {
+    "title": "Login",
+    "subtitle": "Welcome back, please login to your account",
     "username": "Username",
     "password": "Password",
     "loginButton": "Login",
+    "loading": "Logging in...",
+    "success": "Login successful",
+    "failed": "Login failed, please check your username and password",
+    "usernameRequired": "Please enter username",
+    "passwordRequired": "Please enter password",
+    "usernameMinLength": "Username must be at least 3 characters",
+    "passwordMinLength": "Password must be at least 6 characters",
     "usernamePlaceholder": "Please enter username",
     "passwordPlaceholder": "Please enter password",
+    "tip": "Login with your account information",
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot password?",
     "register": "Register",
     "noAccountText": "No account?",
     "haveAccountText": "Have account?",
-    "checkPasswordRuleTip": "Please confirm password again",
+    "checkPassword": "Confirm Password",
+    "checkPasswordRequired": "Please confirm password again",
     "registerButton": "Register",
     "checkPasswordPlaceholder": "Please enter password again",
-    "loginSuccess": "Login successfully, entering system",
-    "loginLoading": "Login...",
-    "loginError": "Login failed",
-    "loginErrorTip": "Please enter complete information and verify the captcha",
     "userSetting": "User Setting",
     "logout": "Logout",
     "logoutConfirm": {
       "content": "Are you sure you want to logout?",
       "successMessage": "Logout successfully"
-    }
+    },
+    "permissionTip": "Permission denied",
+    "loginTip": "You need to login first"
   },
   "route": {
     "dashboard": "Dashboard",

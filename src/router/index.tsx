@@ -1,8 +1,11 @@
 import { Navigate, useRoutes } from "react-router";
-import type { RouteObject } from "react-router";
 import { AdminLayout } from "@/layouts/AdminLayout";
+import { AppRouteGuard } from "@/router/AppRouteGuard";
 import Login from "@/routes/auth/login";
+import Exception403 from "@/routes/exception/403";
 import Exception404 from "@/routes/exception/404";
+import type { AppRouteObject } from "@/types";
+// 所有模块路由
 import { aboutRoutes } from "./modules/about";
 import { compRoutes } from "./modules/comp";
 import { dashboardRoutes } from "./modules/dashboard";
@@ -26,13 +29,14 @@ export const menuRoutes = [
   ...testRoutes,
 ];
 
-export const rootRoutes: RouteObject[] = [
-  // 登录页面 - 不需要布局
+export const rootRoutes: AppRouteObject[] = [
+  // 登录页面 - 公开路由
   {
     path: "/auth/login",
     element: <Login />,
+    meta: { ignoreAuth: true },
   },
-  // 主应用布局
+  // 主应用布局 - 需要登录
   {
     path: "/",
     element: <AdminLayout />,
@@ -43,10 +47,17 @@ export const rootRoutes: RouteObject[] = [
       },
       // 导入所有模块路由
       ...menuRoutes,
-      // 404 fallback
+      // 403 权限不足页面 - 公开路由
+      {
+        path: "/403",
+        element: <Exception403 />,
+        meta: { ignoreAuth: true },
+      },
+      // 404 fallback - 公开路由
       {
         path: "*",
         element: <Exception404 />,
+        meta: { ignoreAuth: true },
       },
     ],
   },
@@ -54,5 +65,5 @@ export const rootRoutes: RouteObject[] = [
 
 export const Router = () => {
   const routes = useRoutes(rootRoutes);
-  return routes;
+  return <AppRouteGuard>{routes}</AppRouteGuard>;
 };

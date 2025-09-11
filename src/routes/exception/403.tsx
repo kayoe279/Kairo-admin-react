@@ -1,17 +1,24 @@
-export default function Forbidden() {
+import { Button, Result } from "antd";
+import { useNavigate } from "react-router";
+
+export default function Exception403() {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold text-gray-300">403</h1>
-        <h2 className="mt-4 text-2xl font-bold text-gray-800">用户无权限</h2>
-        <p className="mt-2 text-gray-600">抱歉，您没有权限访问该页面。</p>
-        <a
-          href="/dashboard/workplace"
-          className="mt-4 inline-block rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-        >
-          返回首页
-        </a>
-      </div>
+    <div className="flex h-screen items-center justify-center">
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，您没有权限访问此页面。"
+        extra={
+          <div className="space-x-2">
+            <Button type="primary" onClick={() => navigate("/")}>
+              返回首页
+            </Button>
+            <Button onClick={() => navigate(-1)}>返回上一页</Button>
+          </div>
+        }
+      />
     </div>
   );
 }

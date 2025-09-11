@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { useMediaQuery } from "usehooks-ts";
 import { ButtonIcon, SvgIcon } from "@/components/ui";
 import { TAB_DATA_ID } from "@/lib/constants";
-import { useBetterScroll, useRouteInfo } from "@/lib/hooks";
+import { useBetterScroll, useRouteMatch } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import {
   useActiveTabId,
@@ -20,7 +20,7 @@ import { TabsDropdownMenu } from "./TabsDropdownMenu";
 export const Tabs = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { currentRoute } = useRouteInfo();
+  const currentRoute = useRouteMatch();
   const { multiTabsSetting, refreshing } = useAppSettings();
   const { refreshPage } = useAppActions();
   const activeTabId = useActiveTabId();
@@ -76,7 +76,7 @@ export const Tabs = ({ className }: { className?: string }) => {
 
   // 添加当前路由到标签页
   useEffect(() => {
-    if (currentRoute.name) {
+    if (currentRoute?.meta?.name) {
       addTab(currentRoute);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

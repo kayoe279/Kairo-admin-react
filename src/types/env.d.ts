@@ -51,6 +51,10 @@ interface ImportMetaEnv {
   readonly VITE_GLOB_APP_SHORT_NAME: string;
   /** 请求代理 */
   readonly VITE_PROXY: Array<[string, string]>;
+  /** 是否启用mock */
+  readonly VITE_USE_MOCK: boolean;
+  /** 是否启用logger mock */
+  readonly VITE_LOGGER_MOCK: boolean;
 }
 
 interface ImportMeta {

@@ -3,8 +3,6 @@ import type { RouteObject } from "react-router";
 
 /** React 路由的 meta 属性接口 */
 export interface MetaProps {
-  /** 菜单标识符 */
-  menu?: string;
   /** 路由名称 */
   name?: string;
   /** 页面标题 */
@@ -19,14 +17,14 @@ export interface MetaProps {
   affix?: boolean;
   /** 是否隐藏菜单项 */
   hidden?: boolean;
-  /** 是否是根路由 */
-  isRoot?: boolean;
   /** 访问角色权限 */
   roles?: string[];
   /** 外部链接 */
   isLink?: string;
   /** 忽略权限验证 */
   ignoreAuth?: boolean;
+  /** 是否需要登录验证 */
+  requireAuth?: boolean;
   /** 高亮的菜单项 */
   activeMenu?: string;
   /** 是否添加到Tab */

@@ -12,7 +12,6 @@ import { getUserInfo, removeUserInfo, setUserInfo } from "@/lib/storage";
 interface UserState {
   userInfo: Api.Login.Info | null;
   token: string | null;
-  // Internal methods for cross-store communication
   initRoutes?: () => Promise<void>;
   clearTabs?: () => void;
 }
@@ -34,13 +33,11 @@ type UserStore = UserState & { actions: UserActions };
 
 export const useUserStore = create<UserStore>()(
   immer((set, get) => ({
-    // Initial state
     userInfo: getUserInfo(),
     token: getUserToken() || null,
     initRoutes: undefined,
     clearTabs: undefined,
 
-    // Actions
     actions: {
       handleLoginInfo: async (result: Api.Login.Info, navigate?, redirectPath = "/") => {
         const { accessToken, refreshToken } = result;
@@ -86,15 +83,6 @@ export const useUserStore = create<UserStore>()(
     },
   }))
 );
-
-// Helper function to connect route and tabs store methods
-export const connectUserStore = (initRoutes: () => Promise<void>, clearTabs: () => void) => {
-  useUserStore.setState((state) => ({
-    ...state,
-    initRoutes,
-    clearTabs,
-  }));
-};
 
 // Selectors Hooks
 export const useUserInfo = () => useUserStore((s) => s.userInfo);

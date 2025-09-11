@@ -2,23 +2,26 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { PAGE } from "@/lib/constants";
-import type { RouteItem } from "@/lib/hooks";
+import type { AppRouteObject } from "@/types";
 
-export interface TabItem extends RouteItem {
+export type TabItem = {
+  name: string;
+  path: string;
   isFixed?: boolean;
-}
+  meta: AppRouteObject["meta"];
+};
 
 interface TabsState {
   activeTabId: string;
   tabsList: TabItem[];
-  getTabByRoute: (route: RouteItem) => TabItem;
+  getTabByRoute: (route: AppRouteObject | null) => TabItem | null;
   filterTabsByIds: (tabIds: string[], tabs: TabItem[]) => TabItem[];
   retainAffixRoute: (tabs: TabItem[]) => TabItem[];
 }
 
 interface TabsActions {
   setActiveTabId: (id: string) => void;
-  addTab: (route: RouteItem) => void;
+  addTab: (route: AppRouteObject | null) => void;
   initTabs: () => void;
   closeLeftTabs: (tabId: string, navigate?: (path: string) => void) => void;
   closeRightTabs: (tabId: string, navigate?: (path: string) => void) => void;
@@ -45,15 +48,14 @@ export const useTabsStore = create<TabsStore>()(
         return tabs.filter((item) => item?.meta?.affix ?? false);
       },
 
-      getTabByRoute: (route: RouteItem) => {
-        const { name, fullPath, hash, meta, params, path, query } = route;
+      getTabByRoute: (route: AppRouteObject | null) => {
+        if (!route) return null;
+
+        const { meta, path } = route;
+
         return {
-          name: meta?.name || name,
-          path,
-          fullPath,
-          hash,
-          params,
-          query,
+          name: meta?.name || "",
+          path: path || "",
           meta,
           isFixed: (meta?.affix as boolean) ?? false,
         };
@@ -75,12 +77,7 @@ export const useTabsStore = create<TabsStore>()(
             //  TODO: homeRoute 来自 router store 里面
             set((state) => {
               const homeTabItem = getTabByRoute({
-                name: "dashboardWorkplace",
                 path: PAGE.HOME_NAME_REDIRECT_PATH,
-                fullPath: PAGE.HOME_NAME_REDIRECT_PATH,
-                hash: PAGE.HOME_NAME_REDIRECT_PATH,
-                params: {},
-                query: {},
                 meta: { name: "dashboardWorkplace", keepAlive: true, affix: true },
               });
               if (homeTabItem) state.tabsList.unshift(homeTabItem);
@@ -89,7 +86,9 @@ export const useTabsStore = create<TabsStore>()(
         },
 
         // 添加新路由标签页
-        addTab: (route: RouteItem) => {
+        addTab: (route: AppRouteObject | null) => {
+          if (!route) return;
+
           const { meta } = route;
           if (meta?.withoutTab || meta?.hidden) return;
 
@@ -102,7 +101,10 @@ export const useTabsStore = create<TabsStore>()(
           if (isExists) return;
 
           set((state) => {
-            state.tabsList.push(getTabByRoute(route));
+            const tab = getTabByRoute(route);
+            if (tab) {
+              state.tabsList.push(tab);
+            }
           });
         },
 

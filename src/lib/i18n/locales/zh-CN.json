@@ -101,30 +101,39 @@
       "unpermittedError": "目前不允许使用剪贴板API"
     }
   },
-  "login": {
+  "auth": {
+    "title": "登录",
+    "subtitle": "欢迎回来，请登录您的账户",
     "username": "用户名",
     "password": "密码",
     "loginButton": "登录",
+    "loading": "登录中...",
+    "success": "登录成功，即将进入系统",
+    "failed": "登录失败，请检查用户名和密码",
+    "usernameRequired": "请输入用户名",
+    "passwordRequired": "请输入密码",
+    "usernameMinLength": "用户名至少3个字符",
+    "passwordMinLength": "密码至少6个字符",
     "usernamePlaceholder": "请输入用户名",
     "passwordPlaceholder": "请输入密码",
+    "tip": "使用您的账户信息登录系统",
     "rememberMe": "记住我",
     "forgotPassword": "忘记密码？",
     "register": "注册",
+    "registerButton": "注册",
     "noAccountText": "没有账号？",
     "haveAccountText": "已有账号？",
-    "checkPasswordRuleTip": "请再次确认密码",
-    "registerButton": "注册",
+    "checkPassword": "确认密码",
     "checkPasswordPlaceholder": "请再次输入密码",
-    "loginSuccess": "登录成功，即将进入系统",
-    "loginLoading": "登录中...",
-    "loginError": "登录失败",
-    "loginErrorTip": "请填写完整信息，并且进行验证码校验",
+    "checkPasswordRequired": "请再次确认密码",
     "userSetting": "用户设置",
     "logout": "退出登录",
     "logoutConfirm": {
       "content": "您确定要退出登录吗",
       "successMessage": "成功退出登录"
-    }
+    },
+    "permissionTip": "权限不足",
+    "loginTip": "您需要先登录"
   },
   "route": {
     "dashboard": "工作台",
