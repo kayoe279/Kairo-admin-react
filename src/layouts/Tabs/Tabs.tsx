@@ -20,7 +20,7 @@ import { TabsDropdownMenu } from "./TabsDropdownMenu";
 export const Tabs = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const currentRoute = useRouteMatch();
+  const { matchedRoute } = useRouteMatch();
   const { multiTabsSetting, refreshing } = useAppSettings();
   const { refreshPage } = useAppActions();
   const activeTabId = useActiveTabId();
@@ -76,11 +76,11 @@ export const Tabs = ({ className }: { className?: string }) => {
 
   // 添加当前路由到标签页
   useEffect(() => {
-    if (currentRoute?.meta?.name) {
-      addTab(currentRoute);
+    if (matchedRoute?.meta?.name) {
+      addTab(matchedRoute);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentRoute]);
+  }, [matchedRoute]);
 
   useEffect(() => {
     setTimeout(() => {

@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { useIsAuthenticated, useUserInfo } from "@/store/user";
+import { usePermission } from "./usePermission";
 
 type RouteGuardBeforeEnterResult = { path?: string; success: boolean } | void | null | undefined;
 
@@ -9,7 +10,7 @@ export interface RouteGuardOptions {
   /** 是否需要登录 */
   requireAuth?: boolean;
   /** 需要的角色权限 */
-  roles?: string[];
+  roles?: Entity.RoleType[];
   /** 路由进入前的回调 */
   beforeEnter?: (
     to: string,
@@ -44,6 +45,7 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
   const userInfo = useUserInfo();
   const isAuthenticated = useIsAuthenticated();
   const [isChecking, setIsChecking] = useState(false);
+  const { hasPermission } = usePermission();
 
   const { requireAuth, roles = [], beforeEnter } = options;
 
@@ -62,8 +64,7 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
 
     // 2. 检查角色权限 TODO: 这里需要根据角色权限来判断
     if (requireAuth && isAuthenticated && roles.length > 0 && userInfo?.roles) {
-      const userRoles = userInfo.roles.map((role) => role.toString());
-      const hasRequiredRole = roles.some((role) => userRoles.includes(role));
+      const hasRequiredRole = hasPermission(roles);
       if (!hasRequiredRole) {
         return {
           passed: false,
@@ -97,6 +98,7 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
     return { passed: true };
   }, [
     beforeEnter,
+    hasPermission,
     requireAuth,
     isAuthenticated,
     roles,
@@ -138,32 +140,3 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
     executeGuard,
   };
 }
-
-/**
- * 权限验证工具函数
- */
-export const routeGuardUtils = {
-  /**
-   * 检查用户是否有指定角色
-   */
-  hasRole: (userRoles: string[], requiredRoles: string[]): boolean => {
-    return requiredRoles.some((role) => userRoles.includes(role));
-  },
-
-  /**
-   * 检查用户是否有指定权限
-   */
-  hasPermission: (userPermissions: string[], requiredPermissions: string[]): boolean => {
-    return requiredPermissions.every((permission) => userPermissions.includes(permission));
-  },
-
-  /**
-   * 获取路由元信息
-   */
-  getRouteMeta: (pathname: string): any => {
-    // 这里可以根据实际路由配置来查找 meta 信息
-    // 简化实现，实际项目中可能需要更复杂的路由匹配逻辑
-    console.log("Getting route meta for:", pathname);
-    return null;
-  },
-};

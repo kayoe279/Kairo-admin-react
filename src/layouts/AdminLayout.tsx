@@ -3,15 +3,16 @@ import { Header, Logo } from "@/layouts/Header";
 import { AdminMenu } from "@/layouts/Menu/AdminMenu";
 import { Tabs } from "@/layouts/Tabs/Tabs";
 import { cn } from "@/lib";
-import { useDarkMode } from "@/lib/hooks";
+import { useDarkMode, useRouteMatch } from "@/lib/hooks";
 import { useAppSettings } from "@/store";
 import { PageMain } from "./PageMain";
 
 export const AdminLayout = () => {
   const { theme } = useDarkMode();
+  const { isRoot } = useRouteMatch();
   const { menuSetting, headerSetting, navMode, navTheme, collapsed } = useAppSettings();
 
-  const showSideMenu = navMode === "vertical" || navMode === "horizontal-mix";
+  const showSideMenu = navMode === "vertical" || (navMode === "horizontal-mix" && !isRoot);
 
   return (
     <Layout className="flex h-screen">

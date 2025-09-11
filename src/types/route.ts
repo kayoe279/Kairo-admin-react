@@ -7,6 +7,8 @@ export interface MetaProps {
   name?: string;
   /** 页面标题 */
   title?: string;
+  /** 是否是根路由 */
+  isRoot?: boolean;
   /** 图标组件 */
   icon?: React.ReactNode;
   /** 排序权重，数字越小越靠前 */

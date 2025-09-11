@@ -2,7 +2,7 @@ import { Menu } from "antd";
 import type { MenuProps } from "antd";
 import { useNavigate } from "react-router";
 import { useMixedMenu } from "@/lib/hooks/useMenu";
-import { findFirstLeafRoute, hasSubRoutes } from "@/lib/menu";
+import { findFirstLeafRoute, isRootMenu } from "@/lib/menu";
 import { cn } from "@/lib/utils";
 import { useAppActions } from "@/store";
 import type { AppRouteObject } from "@/types";
@@ -23,16 +23,12 @@ export const MixedTopMenu = ({ menuRoutes, className }: MixedTopMenuProps) => {
     const route = menuRoutes.find((r) => r.path === key);
     if (!route) return;
 
-    if (hasSubRoutes(route)) {
+    if (!isRootMenu(route)) {
       const leafRoute = findFirstLeafRoute(route);
       if (leafRoute?.path && leafRoute.path !== currentPath) {
         toggleCollapsed(false);
         navigate(leafRoute.path);
       }
-    } else {
-      // 没有子路由，直接导航
-      toggleCollapsed(true);
-      navigate(key);
     }
   };
 

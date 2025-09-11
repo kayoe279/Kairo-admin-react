@@ -1,65 +1,71 @@
-import { useCallback, useMemo } from "react";
-import { matchPath, useLocation } from "react-router";
-import { rootRoutes } from "@/router";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router";
+import { isRootMenu } from "@/lib/menu";
+import { menuRoutes } from "@/router";
 import type { AppRouteObject } from "@/types";
 
 /**
  * 根据当前路径匹配路由配置的 Hook
  * 支持 React Router 的所有路由类型
  */
-export function useRouteMatch(): AppRouteObject | null {
+export const useRouteMatch = () => {
   const location = useLocation();
 
-  const findMatchingRoute = useCallback(
-    (routes: AppRouteObject[], pathname: string): AppRouteObject | null => {
-      for (const route of routes) {
-        if (route.path) {
-          // 尝试匹配当前路由
-          const match = matchPath(
-            { path: route.path, caseSensitive: route.caseSensitive || false },
-            pathname
-          );
+  const [matchedRoute, setMatchedRoute] = useState<AppRouteObject | null>(null);
+  const [matchedRoutes, setMatchedRoutes] = useState<AppRouteObject[]>([]);
 
-          if (match) {
-            return route;
-          }
+  const findMatchingRoute = useCallback(
+    (routes: AppRouteObject[] = [], matchedRoutes: AppRouteObject[] = []) => {
+      for (const route of routes) {
+        const newMatchedRoutes = [...matchedRoutes, route];
+
+        if (route?.path === location.pathname) {
+          setMatchedRoute(route);
+          setMatchedRoutes(newMatchedRoutes);
+          return true;
         }
 
-        // 递归查找子路由
-        if (route.children) {
-          const childMatch = findMatchingRoute(route.children, pathname);
-          if (childMatch) {
-            return childMatch;
+        // 递归查找子菜单
+        if (route?.children && route?.children?.length > 0) {
+          if (findMatchingRoute(route?.children, newMatchedRoutes)) {
+            return true;
           }
         }
       }
-
-      return null;
+      return false;
     },
-    []
+    [location.pathname]
   );
 
-  const matchedRoute = useMemo(
-    () => findMatchingRoute(rootRoutes, location.pathname),
-    [location.pathname, findMatchingRoute]
+  useEffect(() => {
+    findMatchingRoute(menuRoutes, []);
+  }, [findMatchingRoute]);
+
+  const isRoot = useMemo(
+    () => !matchedRoutes[0]?.children?.length || isRootMenu(matchedRoutes[0]),
+    [matchedRoutes]
   );
 
-  return matchedRoute;
-}
+  return {
+    isRoot,
+    matchedRoute,
+    matchedRoutes,
+  };
+};
 
 /**
  * 获取当前路由的 meta 信息
  */
-export function useCurrentRouteMeta(): Record<string, any> {
-  const currentRoute = useRouteMatch();
-  return currentRoute?.meta || {};
+export function useRouteMetaMeta(): Record<string, any> {
+  const { matchedRoute } = useRouteMatch();
+  return matchedRoute?.meta || {};
 }
 
 /**
  * 检查当前路由是否需要权限验证
  */
-export function useRequiresAuth(): boolean {
-  const meta = useCurrentRouteMeta();
+export function useRequireAuth(): boolean {
+  const meta = useRouteMetaMeta();
 
   // 如果设置了 ignoreAuth，不需要验证
   if (meta.ignoreAuth) {
@@ -78,7 +84,7 @@ export function useRequiresAuth(): boolean {
 /**
  * 获取当前路由需要的角色
  */
-export function useRequiredRoles(): string[] {
-  const meta = useCurrentRouteMeta();
+export function useRequireRoles(): Entity.RoleType[] {
+  const meta = useRouteMetaMeta();
   return meta.roles || [];
 }

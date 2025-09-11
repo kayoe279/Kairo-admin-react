@@ -32,7 +32,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
               <span>{title}</span>
             </>
           ),
-          menu: { items: transformToMenus(route.children || [], t) || [] },
+          menu: { items: transformToMenus(route.children, { t }) || [] },
         };
       }
       return { title };

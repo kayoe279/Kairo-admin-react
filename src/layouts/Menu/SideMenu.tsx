@@ -44,7 +44,7 @@ export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
       setStateOpenKeys(openKeys);
       savedOpenKeysRef.current = openKeys;
     },
-    [menuSetting.accordion, menuItems, currentKeyPaths, collapsed, getMenuKeyPaths]
+    [menuSetting.accordion, currentKeyPaths, collapsed, menuItems, getMenuKeyPaths]
   );
 
   // 监听 collapsed 状态变化，处理菜单展开/收缩

@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { ButtonIcon } from "@/components/ui";
 import { AdminMenu, Collapsed } from "@/layouts/Menu";
 import { cn } from "@/lib";
+import { useRouteMatch } from "@/lib/hooks";
 import { appConfig } from "@/lib/settings/app";
 import { useAppSettings } from "@/store";
 import { AppSetting } from "./AppSetting/AppSetting";
@@ -14,8 +15,9 @@ import { User } from "./User";
 export const Header = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
   const { headerSetting, breadcrumbsSetting, navMode } = useAppSettings();
+  const { isRoot } = useRouteMatch();
 
-  const showCollapsed = navMode === "vertical" || navMode === "horizontal-mix";
+  const showCollapsed = navMode === "vertical" || (navMode === "horizontal-mix" && !isRoot);
   const showTopMenu = navMode === "horizontal" || navMode === "horizontal-mix";
   const showBreadcrumbs = navMode === "vertical" && breadcrumbsSetting.show;
 

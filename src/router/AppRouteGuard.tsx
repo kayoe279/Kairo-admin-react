@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, type ReactNode } from "react";
 import NProgress from "nprogress";
 import { useLocation } from "react-router";
-import { useRequiredRoles, useRequiresAuth } from "@/lib/hooks";
+import { useRequireAuth, useRequireRoles } from "@/lib/hooks";
 import { useRouteGuard, type RouteGuardOptions } from "@/lib/hooks/useRouteGuard";
 
 interface RouteGuardProps {
@@ -54,8 +54,8 @@ export function withRouteGuard<P extends object>(
 
 // 权限路由组件
 export const AppRouteGuard = ({ children }: { children: ReactNode }) => {
-  const requireAuth = useRequiresAuth();
-  const requiredRoles = useRequiredRoles();
+  const requireAuth = useRequireAuth();
+  const requiredRoles = useRequireRoles();
 
   const guardOptions: RouteGuardOptions = useMemo(
     () => ({

@@ -1,12 +1,12 @@
 import { Alert, Card, Divider, Tag, Typography } from "antd";
-import { useCurrentRouteMeta, useRequiredRoles, useRequiresAuth } from "@/lib/hooks/useRouteMatch";
+import { useRequireAuth, useRequireRoles, useRouteMetaMeta } from "@/lib/hooks/useRouteMatch";
 
 const { Text } = Typography;
 
 export const RouteMetaExample = () => {
-  const routeMeta = useCurrentRouteMeta();
-  const requireAuth = useRequiresAuth();
-  const requiredRoles = useRequiredRoles();
+  const routeMeta = useRouteMetaMeta();
+  const requireAuth = useRequireAuth();
+  const requiredRoles = useRequireRoles();
 
   return (
     <div className="space-y-6 p-6">
@@ -45,15 +45,15 @@ export const RouteMetaExample = () => {
               <pre className="mt-2 rounded bg-gray-100 p-3 text-sm">
                 {`import { 
   useRouteMatch, 
-  useCurrentRouteMeta, 
-  useRequiresAuth, 
-  useRequiredRoles 
+  useRouteMetaMeta, 
+  useRequireAuth, 
+  useRequireRoles 
 } from "@/lib/hooks/useRouteMatch";
 
 // 无需传参，自动使用 rootRoutes
-const requireAuth = useRequiresAuth();
-const requiredRoles = useRequiredRoles();
-const routeMeta = useCurrentRouteMeta();`}
+const requireAuth = useRequireAuth();
+const requiredRoles = useRequireRoles();
+const routeMeta = useRouteMetaMeta();`}
               </pre>
             </div>
             <div className="mt-4">

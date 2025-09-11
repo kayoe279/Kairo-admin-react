@@ -4,6 +4,7 @@ import type { ResourceKey, TFunction } from "i18next";
 import { Link } from "react-router";
 import { SvgIcon } from "@/components/ui/SvgIcon";
 import type { AppRouteObject } from "@/types";
+import { typedBoolean } from "./utils";
 
 export interface MenuItemType {
   key: string;
@@ -18,70 +19,51 @@ export interface TopMixedMenuItemType {
   icon?: React.ReactNode;
 }
 
-/**
- * 将路由数据转换为 Menu（侧边菜单, 顶部菜单）
- */
-export function transformToMenus(routes: AppRouteObject[], t: TFunction): MenuProps["items"] {
-  function buildAntMenuFromRoute(route: AppRouteObject) {
-    const meta = route.meta;
+//排除隐藏的route
+export function filterRoutes(routerMap: Array<AppRouteObject> = []) {
+  return routerMap?.filter((item) => !item?.meta?.hidden);
+}
 
-    if (!meta || meta.hidden) return null;
-
-    const menuItem = {
-      key: route.path || "",
-      label: t(`route.${meta.name}` as ResourceKey) || <></>,
-      icon: meta.icon ? <SvgIcon icon={meta.icon as string} /> : undefined,
-    } as SubMenuType;
-
-    // 递归处理子路由
-    if (route.children && route.children.length > 0) {
-      const childMenus = route.children
-        .map((child) => buildAntMenuFromRoute(child))
-        .filter((child) => child !== null);
-
-      if (menuItem && childMenus.length > 0) {
-        menuItem.children = childMenus;
-      }
-    } else {
-      menuItem.label = (
-        <Link to={route.path || ""}>{t(`route.${meta.name}` as ResourceKey) || ""}</Link>
-      );
-    }
-
-    return menuItem || [];
-  }
-
-  const menuItems = routes
-    .map((route) => buildAntMenuFromRoute(route))
-    .filter((item) => item !== null);
-
-  // 获取路由的 sort 值进行排序
-  return menuItems.sort((a, b) => {
-    const aRoute = routes.find((r) => r.path === a.key);
-    const bRoute = routes.find((r) => r.path === b.key);
-    return (aRoute?.meta?.sort || 0) - (bRoute?.meta?.sort || 0);
-  });
+// 是否根路由
+export function isRootMenu(item: AppRouteObject) {
+  const children = filterRoutes(item?.children || []);
+  return item?.meta?.isRoot || children.length === 1;
 }
 
 /**
- * 将路由数据转换为 Menu（顶部混合菜单）
+ * 将路由数据转换为 Menu（侧边菜单, 顶部菜单, 混合菜单）
  */
-export function transformToTopMixedMenus(
-  routes: AppRouteObject[],
-  t: TFunction
-): MenuProps["items"] {
-  return routes
-    .filter((route) => !route.meta?.hidden)
-    .map((route) => ({
+export function transformToMenus(
+  routes: AppRouteObject[] | undefined,
+  { t, onlyFirstLevel }: { t: TFunction; onlyFirstLevel?: boolean }
+): NonNullable<MenuProps["items"]> {
+  const menuItems = filterRoutes(routes || []).map((item) => {
+    const isRoot = isRootMenu(item);
+    const route = isRoot ? item.children?.[0] : item;
+
+    if (!route) return null;
+
+    const meta = { ...(item.meta || {}), ...(route.meta || {}) };
+    const hasChildren = route.children && route.children.length > 0;
+    const label = t(`route.${meta.name}` as ResourceKey);
+
+    const menuItem = {
       key: route.path || "",
-      label: t(`route.${route.meta?.name}` as ResourceKey) || "",
-      icon: route.meta?.icon ? <SvgIcon icon={route.meta.icon as string} /> : undefined,
-    }))
-    .sort((a, b) => {
-      const aRoute = routes.find((r) => r.path === a.key);
-      const bRoute = routes.find((r) => r.path === b.key);
-      return (aRoute?.meta?.sort || 0) - (bRoute?.meta?.sort || 0);
-    });
+      label: hasChildren ? label : <Link to={route.path || ""}>{label}</Link>,
+      icon: meta.icon ? <SvgIcon icon={meta.icon as string} /> : undefined,
+    } as SubMenuType;
+
+    if (hasChildren && !onlyFirstLevel) {
+      const childMenus = transformToMenus(route.children || [], { t, onlyFirstLevel });
+      if (menuItem && childMenus && childMenus.length > 0) {
+        menuItem.children = childMenus;
+      }
+    }
+
+    return menuItem;
+  });
+
+  return menuItems.filter(typedBoolean);
 }
 
 export type LevelKeysProps = {
@@ -148,13 +130,6 @@ export const getMenuKeyPaths = (menus: MenuProps["items"], targetKey: string): s
  */
 export function getAntMenuSelectedKeys(currentPath: string): string[] {
   return [currentPath];
-}
-
-/**
- * 检查路由是否有子路由
- */
-export function hasSubRoutes(route: AppRouteObject): boolean {
-  return Boolean(route.children && route.children.length > 0);
 }
 
 /**

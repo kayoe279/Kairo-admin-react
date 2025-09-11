@@ -1,15 +1,13 @@
 import { useMemo } from "react";
+import type { ItemType } from "antd/es/menu/interface";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { useDarkMode } from "@/lib/hooks";
 import {
-  findFirstLeafRoute,
   getAntMenuSelectedKeys,
   getLevelKeys,
   getMenuKeyPaths,
-  hasSubRoutes,
   transformToMenus,
-  transformToTopMixedMenus,
   type LevelKeysProps,
 } from "@/lib/menu";
 import type { AppRouteObject } from "@/types";
@@ -17,12 +15,12 @@ import type { AppRouteObject } from "@/types";
 /**
  * 菜单通用逻辑Hook
  */
-export function useMenu(menuRoutes: AppRouteObject[]) {
+export const useMenu = (menuRoutes: AppRouteObject[]) => {
   const location = useLocation();
   const { theme } = useDarkMode();
   const { t } = useTranslation();
 
-  const menuItems = useMemo(() => transformToMenus(menuRoutes, t), [menuRoutes, t]);
+  const menuItems = useMemo(() => transformToMenus(menuRoutes, { t }), [menuRoutes, t]);
 
   const selectedKeys = useMemo(
     () => getAntMenuSelectedKeys(location.pathname),
@@ -45,30 +43,36 @@ export function useMenu(menuRoutes: AppRouteObject[]) {
     currentPath: location.pathname,
     getMenuKeyPaths,
   };
-}
+};
 
 /**
  * 混合菜单激活路由Hook
  */
-export function useMixedMenu(menuRoutes: AppRouteObject[]) {
+export const useMixedMenu = (menuRoutes: AppRouteObject[]) => {
   const location = useLocation();
   const { theme } = useDarkMode();
   const { t } = useTranslation();
 
-  const topMixedMenuItems = useMemo(() => transformToTopMixedMenus(menuRoutes, t), [menuRoutes, t]);
+  const menuItems = useMemo(() => transformToMenus(menuRoutes, { t }), [menuRoutes, t]);
+
+  const topMixedMenuItems = useMemo(() => {
+    return menuItems.map((item) => ({ ...item, children: undefined })) as ItemType[];
+  }, [menuItems]);
 
   const activeTopMenu = useMemo(() => {
     const currentPath = location.pathname;
-    const activeRoute = menuRoutes.find(
-      (route) => currentPath === route.path || currentPath.startsWith((route.path || "") + "/")
+    const keyPaths = getMenuKeyPaths(menuItems, currentPath);
+
+    const activeMenu = menuItems?.find(
+      (item) => currentPath === item?.key || keyPaths[0] === item?.key
     );
+
     return {
-      activeRoute,
-      activeTopMenuKey: activeRoute?.path || "",
-      showSideMenu: activeRoute ? hasSubRoutes(activeRoute) : false,
-      firstLeafRoute: activeRoute ? findFirstLeafRoute(activeRoute) : null,
+      activeMenu,
+      activeTopMenuKey: (activeMenu?.key || "") as string,
+      showSideMenu: activeMenu ? keyPaths.length > 1 : false,
     };
-  }, [location.pathname, menuRoutes]);
+  }, [location.pathname, menuItems]);
 
   const topSelectedKeys = useMemo(
     () => [activeTopMenu.activeTopMenuKey],
@@ -83,11 +87,11 @@ export function useMixedMenu(menuRoutes: AppRouteObject[]) {
   }, [menuRoutes, activeTopMenu.activeTopMenuKey]);
 
   return {
-    ...activeTopMenu,
+    topMixedMenuItems,
     theme,
     currentPath: location.pathname,
     topSelectedKeys,
-    topMixedMenuItems,
     sideMenuRoutes,
+    ...activeTopMenu,
   };
-}
+};

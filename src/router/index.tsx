@@ -27,7 +27,9 @@ export const menuRoutes = [
   ...settingRoutes,
   ...aboutRoutes,
   ...testRoutes,
-];
+].sort((a, b) => {
+  return (a.meta?.sort || 0) - (b.meta?.sort || 0);
+});
 
 export const rootRoutes: AppRouteObject[] = [
   // 登录页面 - 公开路由
