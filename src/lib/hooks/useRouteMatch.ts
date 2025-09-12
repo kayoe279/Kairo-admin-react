@@ -3,6 +3,7 @@ import { useLocation } from "react-router";
 import { isRootMenu } from "@/lib/menu";
 import { findMatchingRoute } from "@/router/helper";
 import { useAuthRouteState } from "@/store";
+import type { RoleType } from "@/types";
 
 /**
  * 根据当前路径匹配路由配置的 Hook
@@ -61,7 +62,7 @@ export function useRequireAuth(): boolean {
 /**
  * 获取当前路由需要的角色
  */
-export function useRequireRoles(): Entity.RoleType[] {
+export function useRequireRoles(): RoleType[] {
   const meta = useRouteMetaMeta();
   return meta.roles || [];
 }

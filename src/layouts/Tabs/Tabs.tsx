@@ -11,6 +11,7 @@ import {
   useActiveTabId,
   useAppActions,
   useAppSettings,
+  useAuthRouteState,
   useTabsActions,
   useTabsList,
 } from "@/store";
@@ -22,6 +23,7 @@ export const Tabs = ({ className }: { className?: string }) => {
   const { matchedRoute } = useRouteMatch();
   const { multiTabsSetting, refreshing } = useAppSettings();
   const { refreshPage } = useAppActions();
+  const { getHomeRoute } = useAuthRouteState();
   const activeTabId = useActiveTabId();
   const tabsList = useTabsList();
   const { initTabs, addTab, closeCurrentTab, switchTabItem } = useTabsActions();
@@ -70,8 +72,8 @@ export const Tabs = ({ className }: { className?: string }) => {
 
   // 初始化标签页
   useEffect(() => {
-    initTabs();
-  }, [initTabs]);
+    initTabs(getHomeRoute());
+  }, [initTabs, getHomeRoute]);
 
   // 添加当前路由到标签页
   useEffect(() => {

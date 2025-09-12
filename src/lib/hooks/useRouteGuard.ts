@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { useIsAuthenticated, useUserInfo } from "@/store/user";
+import type { RoleType } from "@/types";
 import { usePermission } from "./usePermission";
 
 type RouteGuardBeforeEnterResult = { path?: string; success: boolean } | void | null | undefined;
@@ -10,7 +11,7 @@ export interface RouteGuardOptions {
   /** 是否需要登录 */
   requireAuth?: boolean;
   /** 需要的角色权限 */
-  roles?: Entity.RoleType[];
+  roles?: RoleType[];
   /** 路由进入前的回调 */
   beforeEnter?: (
     to: string,

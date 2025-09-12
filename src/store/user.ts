@@ -8,17 +8,18 @@ import {
   setUserToken,
 } from "@/lib/cookie";
 import { getUserInfo, removeUserInfo, setUserInfo } from "@/lib/storage";
+import type { UserInfo } from "@/types";
 import { useRouteStore } from "./route";
 import { useTabsStore } from "./tabs";
 
 interface UserState {
-  userInfo: Api.Login.Info | null;
+  userInfo: UserInfo | null;
   token: string | null;
   isAuthenticated: () => boolean;
 }
 
 interface UserActions {
-  updateUserInfo: (result: Api.Login.Info) => void;
+  updateUserInfo: (result: UserInfo) => void;
   logout: (
     navigate?: (path: string, options?: any) => void,
     currentPath?: string,
@@ -41,7 +42,7 @@ export const useUserStore = create<UserStore>()(
     },
 
     actions: {
-      updateUserInfo: (result: Api.Login.Info) => {
+      updateUserInfo: (result: UserInfo) => {
         const { accessToken, refreshToken } = result;
         setUserToken(accessToken);
         setRefreshToken(refreshToken);

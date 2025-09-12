@@ -2,16 +2,18 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { PAGE } from "@/lib";
 import { hasPermission } from "@/lib/hooks";
 import { getUserInfo } from "@/lib/storage";
 import { staticRoutes, transformRouteConfig } from "@/router";
 import { getUserRoutes } from "@/service/api";
 import { useUserActions, useUserInfo } from "@/store";
-import type { AppRouteObject } from "@/types";
+import type { AppRouteObject, RoleType, UserInfo } from "@/types";
 
 interface RouteState {
   authRoutes: AppRouteObject[];
   isInitAuthRoute: boolean;
+  getHomeRoute: () => AppRouteObject | undefined;
 }
 interface RouteActions {
   initAuthRoute: (routes: AppRouteObject[]) => Promise<void>;
@@ -22,9 +24,17 @@ interface RouteActions {
 type RouteStore = RouteState & { actions: RouteActions };
 
 export const useRouteStore = create<RouteStore>()(
-  immer<RouteStore>((set) => ({
+  immer<RouteStore>((set, get) => ({
     authRoutes: [],
     isInitAuthRoute: false,
+
+    getHomeRoute: () => {
+      const { authRoutes } = get();
+      const home = authRoutes.find((item) => item.meta?.name === PAGE.HOME_NAME);
+      return (home?.children as AppRouteObject[])?.find(
+        (item) => item.meta?.affix || item.meta?.name === PAGE.HOME_NAME_REDIRECT
+      );
+    },
 
     // Actions
     actions: {
@@ -69,7 +79,7 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
   const filterRoutes = useCallback((routes: AppRouteObject[]) => {
     const filterFunc = (routes: AppRouteObject[]): AppRouteObject[] => {
       return routes
-        .filter((route) => hasPermission((route.meta?.roles as Entity.RoleType[]) || []))
+        .filter((route) => hasPermission((route.meta?.roles as RoleType[]) || []))
         .map((route) => {
           const newRoute = { ...route };
 
@@ -86,7 +96,7 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
 
   //获取路由配置
   const fetchRoutes = useCallback(
-    async (user?: Api.Login.Info | null) => {
+    async (user?: UserInfo | null) => {
       setInitAuthRoute(true);
       setRouteError(null);
 

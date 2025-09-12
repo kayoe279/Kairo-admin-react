@@ -14,7 +14,7 @@ export type TabItem = {
 interface TabsState {
   activeTabId: string;
   tabsList: TabItem[];
-  getTabByRoute: (route: AppRouteObject | null) => TabItem | null;
+  getTabByRoute: (route: AppRouteObject | undefined) => TabItem | null;
   filterTabsByIds: (tabIds: string[], tabs: TabItem[]) => TabItem[];
   retainAffixRoute: (tabs: TabItem[]) => TabItem[];
 }
@@ -22,7 +22,7 @@ interface TabsState {
 interface TabsActions {
   setActiveTabId: (id: string) => void;
   addTab: (route: AppRouteObject | null) => void;
-  initTabs: () => void;
+  initTabs: (homeRoute: AppRouteObject | undefined) => void;
   closeLeftTabs: (tabId: string, navigate?: (path: string) => void) => void;
   closeRightTabs: (tabId: string, navigate?: (path: string) => void) => void;
   closeOtherTabs: (tabId: string, navigate?: (path: string) => void) => void;
@@ -48,7 +48,7 @@ export const useTabsStore = create<TabsStore>()(
         return tabs.filter((item) => item?.meta?.affix ?? false);
       },
 
-      getTabByRoute: (route: AppRouteObject | null) => {
+      getTabByRoute: (route) => {
         if (!route) return null;
 
         const { meta, path } = route;
@@ -70,16 +70,12 @@ export const useTabsStore = create<TabsStore>()(
         },
 
         // 初始化路由
-        initTabs: () => {
+        initTabs: (homeRoute: AppRouteObject | undefined) => {
           const { tabsList, getTabByRoute } = get();
           const homeTab = tabsList.some((item) => item.name === PAGE.HOME_NAME_REDIRECT);
           if (!homeTab) {
-            //  TODO: homeRoute 来自 router store 里面
             set((state) => {
-              const homeTabItem = getTabByRoute({
-                path: PAGE.HOME_NAME_REDIRECT_PATH,
-                meta: { name: "dashboardWorkplace", keepAlive: true, affix: true },
-              });
+              const homeTabItem = getTabByRoute(homeRoute);
               if (homeTabItem) state.tabsList.unshift(homeTabItem);
             });
           }

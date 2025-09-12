@@ -1,6 +1,6 @@
 import { message } from "antd";
 import { getRefreshToken, setRefreshToken, setUserToken } from "@/lib/cookie";
-import { refreshToken } from "@/service/api/auth/login";
+import { refreshToken } from "@/service/api";
 import { useUserStore } from "@/store";
 import { ERROR_NO_TIP_STATUS, ERROR_STATUS } from "./config";
 

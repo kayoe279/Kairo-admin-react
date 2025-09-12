@@ -3,14 +3,15 @@ import { useRequest } from "alova/client";
 import { App, Button, Card, Space, Spin, Typography } from "antd";
 import { usePermission } from "@/lib/hooks/usePermission";
 import { defaultLoginParams } from "@/lib/settings/app";
-import { login } from "@/service/api/auth/login";
+import { login } from "@/service/api";
 import { useAuthRoute, useUserActions, useUserInfo } from "@/store";
+import type { RoleType } from "@/types";
 
 const { Title } = Typography;
 
 // 权限指令的React版本 - 作为高阶组件
 const WithPermission: React.FC<{
-  permissions: Entity.RoleType[];
+  permissions: RoleType[];
   children: React.ReactNode;
 }> = ({ permissions, children }) => {
   const { hasPermission } = usePermission();
@@ -35,9 +36,9 @@ export default function PermissionExample() {
     immediate: false,
   });
 
-  const roleList: Entity.RoleType[] = ["super", "admin", "user"];
+  const roleList: RoleType[] = ["super", "admin", "user"];
 
-  const toggleUserRole = async (targetRole: Entity.RoleType) => {
+  const toggleUserRole = async (targetRole: RoleType) => {
     try {
       const result = await send({ ...defaultLoginParams, username: targetRole });
       if (result.data) {

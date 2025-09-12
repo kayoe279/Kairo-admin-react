@@ -1,5 +1,5 @@
 import { request } from "@/service";
-import type { DynamicRouteConfig } from "@/types";
+import type { DynamicRouteConfig, UserInfo } from "@/types";
 
 interface LoginParams {
   username: string;
@@ -7,7 +7,7 @@ interface LoginParams {
 }
 
 export const login = (data: LoginParams) => {
-  const methodInstance = request.Post<Service.ResponseResult<Api.Login.Info>>("/login", data);
+  const methodInstance = request.Post<Service.ResponseResult<UserInfo>>("/login", data);
   methodInstance.meta = {
     authRole: null,
   };
@@ -15,7 +15,7 @@ export const login = (data: LoginParams) => {
 };
 
 export const refreshToken = (data: any) => {
-  const method = request.Post<Service.ResponseResult<Api.Login.Info>>("/updateToken", data);
+  const method = request.Post<Service.ResponseResult<UserInfo>>("/updateToken", data);
   method.meta = {
     authRole: "refreshToken",
   };

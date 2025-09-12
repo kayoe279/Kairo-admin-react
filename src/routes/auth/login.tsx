@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { LanguageSwitch } from "@/layouts/Header/LanguageSwitch";
 import { ThemeSwitcher } from "@/layouts/Header/ThemeSwitcher";
-import { login } from "@/service/api/auth/login";
+import { login } from "@/service/api";
 import { useAuthRoute, useUserActions } from "@/store";
 
 type FieldType = {
