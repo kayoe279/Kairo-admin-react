@@ -1,5 +1,5 @@
 import { request } from "@/service";
-import type { AppRouteObject } from "@/types";
+import type { DynamicRouteConfig } from "@/types";
 
 interface LoginParams {
   username: string;
@@ -23,8 +23,11 @@ export const refreshToken = (data: any) => {
 };
 
 export const getUserRoutes = async (params: { id: number }) => {
-  const res = await request.Get<Service.ResponseResult<AppRouteObject[]>>("/getUserRoutes", {
-    params,
-  });
+  const res = await request.Get<Service.ResponseResult<DynamicRouteConfig[]>>(
+    "/getUserRoutes-react",
+    {
+      params,
+    }
+  );
   return res;
 };

@@ -297,7 +297,6 @@ export const routeConfig: DynamicRouteConfig[] = [
         component: "permissions/example",
         meta: {
           name: "permissionsExample",
-          roles: ["super", "admin"],
         },
       },
       {

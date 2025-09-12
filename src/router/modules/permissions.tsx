@@ -18,7 +18,6 @@ export const permissionsRoutes: AppRouteObject[] = [
         element: <PermissionsExample />,
         meta: {
           name: "permissionsExample",
-          roles: ["super", "admin"],
         },
       },
       {

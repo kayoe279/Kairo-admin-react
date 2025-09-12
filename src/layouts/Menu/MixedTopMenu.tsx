@@ -3,7 +3,8 @@ import type { MenuProps } from "antd";
 import { useNavigate } from "react-router";
 import { cn } from "@/lib";
 import { useMixedMenu } from "@/lib/hooks";
-import { findFirstLeafRoute, isRootMenu } from "@/lib/menu";
+import { isRootMenu } from "@/lib/menu";
+import { findFirstLeafRoute } from "@/router/helper";
 import { useAppActions } from "@/store";
 import type { AppRouteObject } from "@/types";
 

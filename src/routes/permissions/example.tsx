@@ -4,7 +4,7 @@ import { App, Button, Card, Space, Spin, Typography } from "antd";
 import { usePermission } from "@/lib/hooks/usePermission";
 import { defaultLoginParams } from "@/lib/settings/app";
 import { login } from "@/service/api/auth/login";
-import { useUserActions, useUserInfo } from "@/store";
+import { useAuthRoute, useUserActions, useUserInfo } from "@/store";
 
 const { Title } = Typography;
 
@@ -25,6 +25,7 @@ const WithPermission: React.FC<{
 export default function PermissionExample() {
   const userInfo = useUserInfo();
   const { updateUserInfo } = useUserActions();
+  const { refreshRoutes } = useAuthRoute({ immediate: false });
   const { hasPermission } = usePermission();
   const { message } = App.useApp();
 
@@ -41,6 +42,7 @@ export default function PermissionExample() {
       const result = await send({ ...defaultLoginParams, username: targetRole });
       if (result.data) {
         updateUserInfo(result.data);
+        await refreshRoutes(result.data);
         message.success(`已切换到 ${targetRole} 角色`);
       }
     } catch (error) {

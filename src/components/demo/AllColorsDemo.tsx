@@ -147,7 +147,7 @@ export const AllColorsDemo: React.FC = () => {
         <h3 className="text-xl font-semibold">Tailwind CSS 实际效果</h3>
 
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-6">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Base</h4>
               <div className="space-y-2">
@@ -171,21 +171,6 @@ export const AllColorsDemo: React.FC = () => {
                 </div>
                 <div className="text-primary border-primary rounded border px-3 py-2 text-sm">
                   text-primary
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Secondary</h4>
-              <div className="space-y-2">
-                <div className="bg-secondary rounded px-3 py-2 text-sm text-white">
-                  bg-secondary
-                </div>
-                <div className="bg-secondary-100 text-secondary-900 rounded px-3 py-2 text-sm">
-                  bg-secondary-100
-                </div>
-                <div className="text-secondary border-secondary rounded border px-3 py-2 text-sm">
-                  text-secondary
                 </div>
               </div>
             </div>

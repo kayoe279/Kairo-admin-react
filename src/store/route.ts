@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { usePermission } from "@/lib/hooks";
+import { hasPermission } from "@/lib/hooks";
+import { getUserInfo } from "@/lib/storage";
 import { staticRoutes, transformRouteConfig } from "@/router";
-import { routeConfig } from "@/router/routeConfig";
 import { getUserRoutes } from "@/service/api";
 import { useUserActions, useUserInfo } from "@/store";
 import type { AppRouteObject } from "@/types";
@@ -59,7 +59,6 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
   const { t } = useTranslation();
   const userInfo = useUserInfo();
   const { logout } = useUserActions();
-  const { hasPermission } = usePermission();
 
   const state = useRouteStore((state) => state);
 
@@ -67,48 +66,45 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
 
   const [routeError, setRouteError] = useState<string | null>(null);
 
-  const filterRoutes = useCallback(
-    (routes: AppRouteObject[]) => {
-      const filterFunc = (routes: AppRouteObject[]) => {
-        return routes.filter((route) => {
-          if (route.children?.length) {
-            route.children = filterFunc(route.children);
-          }
-          return hasPermission((route.meta?.roles as Entity.RoleType[]) || []);
-        });
-      };
+  const filterRoutes = useCallback((routes: AppRouteObject[]) => {
+    const filterFunc = (routes: AppRouteObject[]): AppRouteObject[] => {
+      return routes
+        .filter((route) => hasPermission((route.meta?.roles as Entity.RoleType[]) || []))
+        .map((route) => {
+          const newRoute = { ...route };
 
-      return filterFunc(routes).sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0));
-    },
-    [hasPermission]
-  );
+          if (newRoute.children && newRoute.children.length) {
+            newRoute.children = filterFunc(newRoute.children);
+          }
+
+          return newRoute;
+        });
+    };
+
+    return filterFunc(routes).sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0));
+  }, []);
 
   //获取路由配置
   const fetchRoutes = useCallback(
-    async (user: Api.Login.Info | null) => {
+    async (user?: Api.Login.Info | null) => {
       setInitAuthRoute(true);
       setRouteError(null);
 
       try {
         if (isDynamicRoute) {
-          if (!user || !user.id) {
+          const userInfo = user || getUserInfo();
+
+          if (!userInfo || !userInfo.id) {
             logout();
             return;
           }
 
-          const { data: dynamicRoutes } = await getUserRoutes({
-            id: user.id,
+          const { data } = await getUserRoutes({
+            id: userInfo.id,
           });
-          // TODO: 使用从API获取的动态路由，目前使用静态配置进行mock
-          // const routes = transformRouteConfig(dynamicRoutes);
-          const routes = transformRouteConfig(routeConfig);
-          console.log(
-            "%c [ routes ]-104",
-            "font-size:13px; background:pink; color:#bf2c9f;",
-            routes
-          );
+          const dynamicRoutes = transformRouteConfig(data || []);
 
-          initAuthRoute(filterRoutes(routes));
+          initAuthRoute(filterRoutes(dynamicRoutes));
         } else {
           initAuthRoute(filterRoutes(staticRoutes));
         }

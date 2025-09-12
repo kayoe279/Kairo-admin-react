@@ -59,8 +59,6 @@ export const useUserStore = create<UserStore>()(
         removeUserToken();
         removeRefreshToken();
         removeUserInfo();
-        routeActions.resetAuthRoute();
-        tabsActions.clearAllTabs();
 
         set((state) => {
           state.token = null;
@@ -72,6 +70,10 @@ export const useUserStore = create<UserStore>()(
             state: { redirect: currentPath },
           });
         }
+        setTimeout(() => {
+          routeActions.resetAuthRoute();
+          tabsActions.clearAllTabs();
+        }, 500);
       },
     },
   }))

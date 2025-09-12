@@ -55,12 +55,12 @@ export function withRouteGuard<P extends object>(
 // 权限路由组件
 export const AppRouteGuard = ({ children }: { children: ReactNode }) => {
   const requireAuth = useRequireAuth();
-  const requiredRoles = useRequireRoles();
+  const requireRoles = useRequireRoles();
 
   const guardOptions: RouteGuardOptions = useMemo(
     () => ({
       requireAuth: requireAuth,
-      roles: requiredRoles,
+      roles: requireRoles,
       beforeEnter: async (to, from) => {
         console.log(`路由守卫: 从 ${from} 导航到 ${to}`);
         NProgress.start();
@@ -79,7 +79,7 @@ export const AppRouteGuard = ({ children }: { children: ReactNode }) => {
         NProgress.done();
       },
     }),
-    [requireAuth, requiredRoles]
+    [requireAuth, requireRoles]
   );
 
   return <RouteGuard guardOptions={guardOptions}>{children}</RouteGuard>;

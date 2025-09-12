@@ -131,26 +131,3 @@ export const getMenuKeyPaths = (menus: MenuProps["items"], targetKey: string): s
 export function getAntMenuSelectedKeys(currentPath: string): string[] {
   return [currentPath];
 }
-
-/**
- * 递归查找最底层的第一个可访问路由
- * 如果一个路由有子路由，会继续递归查找直到找到没有子路由的叶子节点
- */
-export function findFirstLeafRoute(route: AppRouteObject): AppRouteObject | null {
-  if (route.meta?.hidden) {
-    return null;
-  }
-
-  if (!route.children || route.children.length === 0) {
-    return route;
-  }
-
-  for (const child of route.children) {
-    const leafRoute = findFirstLeafRoute(child);
-    if (leafRoute) {
-      return leafRoute;
-    }
-  }
-
-  return null;
-}

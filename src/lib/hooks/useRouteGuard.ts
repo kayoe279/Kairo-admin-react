@@ -62,7 +62,7 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
       };
     }
 
-    // 2. 检查角色权限 TODO: 这里需要根据角色权限来判断
+    // 2. 检查角色权限
     if (requireAuth && isAuthenticated && roles.length > 0 && userInfo?.roles) {
       const hasRequiredRole = hasPermission(roles);
       if (!hasRequiredRole) {

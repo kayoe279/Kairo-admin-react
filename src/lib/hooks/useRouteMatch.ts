@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLocation } from "react-router";
 import { isRootMenu } from "@/lib/menu";
+import { findMatchingRoute } from "@/router/helper";
 import { useAuthRouteState } from "@/store";
-import type { AppRouteObject } from "@/types";
 
 /**
  * 根据当前路径匹配路由配置的 Hook
@@ -12,45 +12,21 @@ export const useRouteMatch = () => {
   const location = useLocation();
   const { authRoutes } = useAuthRouteState();
 
-  const [matchedRoute, setMatchedRoute] = useState<AppRouteObject | null>(null);
-  const [matchedRoutes, setMatchedRoutes] = useState<AppRouteObject[]>([]);
-
-  const findMatchingRoute = useCallback(
-    (routes: AppRouteObject[] = [], matchedRoutes: AppRouteObject[] = []) => {
-      for (const route of routes) {
-        const newMatchedRoutes = [...matchedRoutes, route];
-
-        if (route?.path === location.pathname) {
-          setMatchedRoute(route);
-          setMatchedRoutes(newMatchedRoutes);
-          return true;
-        }
-
-        // 递归查找子菜单
-        if (route?.children && route?.children?.length > 0) {
-          if (findMatchingRoute(route?.children, newMatchedRoutes)) {
-            return true;
-          }
-        }
-      }
-      return false;
-    },
-    [location.pathname]
+  const result = useMemo(
+    () => findMatchingRoute(authRoutes, location.pathname),
+    [authRoutes, location.pathname]
   );
 
-  useEffect(() => {
-    findMatchingRoute(authRoutes, []);
-  }, [findMatchingRoute, authRoutes]);
-
   const isRoot = useMemo(
-    () => !matchedRoutes[0]?.children?.length || isRootMenu(matchedRoutes[0]),
-    [matchedRoutes]
+    () => !result?.matchedRoutes[0]?.children?.length || isRootMenu(result?.matchedRoutes[0]),
+    [result]
   );
 
   return {
     isRoot,
-    matchedRoute,
-    matchedRoutes,
+    matchedRoute: result?.matchedRoute || {},
+    matchedRoutes: result?.matchedRoutes || [],
+    params: result?.params || {},
   };
 };
 
