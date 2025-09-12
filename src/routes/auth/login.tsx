@@ -2,11 +2,11 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useRequest } from "alova/client";
 import { App, Button, Checkbox, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { LanguageSwitch } from "@/layouts/Header/LanguageSwitch";
 import { ThemeSwitcher } from "@/layouts/Header/ThemeSwitcher";
 import { login } from "@/service/api/auth/login";
-import { useUserActions } from "@/store";
+import { useAuthRoute, useUserActions } from "@/store";
 
 type FieldType = {
   username: string;
@@ -16,10 +16,13 @@ type FieldType = {
 
 export default function Login() {
   const { t } = useTranslation();
-  const [form] = Form.useForm<FieldType>();
-  const { handleLoginInfo } = useUserActions();
-  const { message } = App.useApp();
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const [form] = Form.useForm<FieldType>();
+  const { updateUserInfo } = useUserActions();
+  const { refreshRoutes } = useAuthRoute({ immediate: false });
+  const { message } = App.useApp();
 
   const {
     loading,
@@ -35,15 +38,18 @@ export default function Login() {
 
   const onFinish = async (values: FieldType) => {
     const result = await submitLogin(values);
-    if (result.data) {
+    const userInfo = result.data;
+    if (userInfo) {
+      const redirectUrl = location.state?.redirect || location.state?.from || "/";
+      updateUserInfo(userInfo);
+      await refreshRoutes(userInfo);
       message.success(t("auth.loginSuccess"));
-      handleLoginInfo(result.data, navigate);
+      navigate(redirectUrl, { replace: true });
     }
   };
 
   return (
     <div className="bg-background-root text-foreground flex min-h-screen">
-      {/* 右上角工具栏 */}
       <div className="absolute top-4 right-4 z-10 flex items-center gap-4">
         <LanguageSwitch />
         <ThemeSwitcher />

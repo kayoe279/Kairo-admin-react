@@ -51,3 +51,22 @@ export type AppRouteObject = RouteObject & {
   /** 路由引用，用于动画等 */
   nodeRef?: React.RefObject<unknown>;
 };
+
+/**
+ * 动态路由配置类型
+ * component: 对应 routes 目录下的组件路径，用于动态加载
+ */
+export type DynamicRouteConfig = {
+  path: string;
+  component?: string; // 组件路径，如 "dashboard/workplace"
+  meta?: {
+    name: string;
+    icon?: string;
+    sort?: number;
+    keepAlive?: boolean;
+    affix?: boolean;
+    hidden?: boolean;
+    roles?: string[];
+  };
+  children?: DynamicRouteConfig[];
+};

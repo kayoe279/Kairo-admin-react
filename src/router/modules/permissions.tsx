@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import PermissionsExample from "@/routes/permissions/example";
-import { Super } from "@/routes/permissions/super";
+import Super from "@/routes/permissions/super";
 import type { AppRouteObject } from "@/types";
 
 export const permissionsRoutes: AppRouteObject[] = [

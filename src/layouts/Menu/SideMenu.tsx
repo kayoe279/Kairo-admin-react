@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Menu } from "antd";
-import type { MenuProps } from "antd";
+import { Menu, type MenuProps } from "antd";
 import { cn } from "@/lib";
 import { useMenu } from "@/lib/hooks";
 import { useAppSettings, useThemeSettings } from "@/store";

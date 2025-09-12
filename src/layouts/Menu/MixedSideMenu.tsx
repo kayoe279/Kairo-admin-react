@@ -1,8 +1,14 @@
 import { useMixedMenu } from "@/lib/hooks/useMenu";
-import { menuRoutes } from "@/router";
+import type { AppRouteObject } from "@/types";
 import { SideMenu } from "./SideMenu";
 
-export const MixedSideMenu = ({ className }: { className?: string }) => {
+export const MixedSideMenu = ({
+  menuRoutes,
+  className,
+}: {
+  menuRoutes: AppRouteObject[];
+  className?: string;
+}) => {
   const { activeTopMenuKey, showSideMenu, sideMenuRoutes } = useMixedMenu(menuRoutes);
 
   return (

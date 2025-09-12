@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import { isRootMenu } from "@/lib/menu";
-import { menuRoutes } from "@/router";
+import { useAuthRouteState } from "@/store";
 import type { AppRouteObject } from "@/types";
 
 /**
@@ -10,6 +10,7 @@ import type { AppRouteObject } from "@/types";
  */
 export const useRouteMatch = () => {
   const location = useLocation();
+  const { authRoutes } = useAuthRouteState();
 
   const [matchedRoute, setMatchedRoute] = useState<AppRouteObject | null>(null);
   const [matchedRoutes, setMatchedRoutes] = useState<AppRouteObject[]>([]);
@@ -38,8 +39,8 @@ export const useRouteMatch = () => {
   );
 
   useEffect(() => {
-    findMatchingRoute(menuRoutes, []);
-  }, [findMatchingRoute]);
+    findMatchingRoute(authRoutes, []);
+  }, [findMatchingRoute, authRoutes]);
 
   const isRoot = useMemo(
     () => !matchedRoutes[0]?.children?.length || isRootMenu(matchedRoutes[0]),

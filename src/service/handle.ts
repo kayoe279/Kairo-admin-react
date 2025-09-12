@@ -6,8 +6,6 @@ import { ERROR_NO_TIP_STATUS, ERROR_STATUS } from "./config";
 
 type ErrorStatus = keyof typeof ERROR_STATUS;
 
-const logout = useUserStore.getState().actions.logout;
-
 export const showError = (error: Service.RequestError) => {
   // 如果error不需要提示,则跳过
   const code = Number(error.code);
@@ -73,6 +71,7 @@ export const handleServiceResult = (data: any, isSuccess: boolean = true) => {
 };
 
 export const handleRefreshToken = async () => {
+  const logout = useUserStore.getState().actions.logout;
   const isAutoRefresh = import.meta.env.VITE_AUTO_REFRESH_TOKEN === "Yes";
   if (!isAutoRefresh) {
     await logout();

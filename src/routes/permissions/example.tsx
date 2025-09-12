@@ -24,7 +24,7 @@ const WithPermission: React.FC<{
 
 export default function PermissionExample() {
   const userInfo = useUserInfo();
-  const { handleLoginInfo } = useUserActions();
+  const { updateUserInfo } = useUserActions();
   const { hasPermission } = usePermission();
   const { message } = App.useApp();
 
@@ -40,7 +40,7 @@ export default function PermissionExample() {
     try {
       const result = await send({ ...defaultLoginParams, username: targetRole });
       if (result.data) {
-        handleLoginInfo(result.data);
+        updateUserInfo(result.data);
         message.success(`已切换到 ${targetRole} 角色`);
       }
     } catch (error) {

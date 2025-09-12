@@ -6,17 +6,17 @@ import { useTranslation } from "react-i18next";
 import { matchRoutes, useLocation, type RouteObject } from "react-router";
 import { SvgIcon } from "@/components/ui";
 import { cn, transformToMenus } from "@/lib";
-import { menuRoutes } from "@/router";
-import { useAppSettings } from "@/store";
+import { useAppSettings, useAuthRouteState } from "@/store";
 import type { AppRouteObject } from "@/types";
 
 export const Breadcrumbs = ({ className }: { className?: string }) => {
   const location = useLocation();
   const { t } = useTranslation();
   const { breadcrumbsSetting } = useAppSettings();
+  const { authRoutes } = useAuthRouteState();
 
   const breadcrumbList = useMemo(() => {
-    const res = matchRoutes((menuRoutes || []) as RouteObject[], location.pathname) || [];
+    const res = matchRoutes(authRoutes as RouteObject[], location.pathname) || [];
     const result = res.map((item) => {
       const route = item.route as AppRouteObject;
       const title = t(`route.${route.meta?.name}` as ResourceKey) || "";
@@ -38,7 +38,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
       return { title };
     }) as BreadcrumbItemType[];
     return result;
-  }, [location.pathname, breadcrumbsSetting.showIcon, t]);
+  }, [location.pathname, breadcrumbsSetting.showIcon, authRoutes, t]);
 
   return (
     <Breadcrumb

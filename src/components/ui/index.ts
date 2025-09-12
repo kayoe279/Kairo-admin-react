@@ -4,3 +4,4 @@ export * from "./DarkModeSwitch";
 export * from "./ButtonIcon";
 export * from "./Drawer";
 export * from "./ColorPicker";
+export * from "./Loading";

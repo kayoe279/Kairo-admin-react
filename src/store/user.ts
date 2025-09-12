@@ -8,21 +8,17 @@ import {
   setUserToken,
 } from "@/lib/cookie";
 import { getUserInfo, removeUserInfo, setUserInfo } from "@/lib/storage";
+import { useRouteStore } from "./route";
+import { useTabsStore } from "./tabs";
 
 interface UserState {
   userInfo: Api.Login.Info | null;
   token: string | null;
-  initRoutes?: () => Promise<void>;
-  clearTabs?: () => void;
   isAuthenticated: () => boolean;
 }
 
 interface UserActions {
-  handleLoginInfo: (
-    result: Api.Login.Info,
-    navigate?: (path: string) => void,
-    redirectPath?: string
-  ) => Promise<void>;
+  updateUserInfo: (result: Api.Login.Info) => void;
   logout: (
     navigate?: (path: string, options?: any) => void,
     currentPath?: string,
@@ -36,8 +32,7 @@ export const useUserStore = create<UserStore>()(
   immer((set, get) => ({
     userInfo: getUserInfo(),
     token: getUserToken() || null,
-    initRoutes: undefined,
-    clearTabs: undefined,
+
     isAuthenticated: () => {
       const { token } = get();
       const userToken = getUserToken();
@@ -46,7 +41,7 @@ export const useUserStore = create<UserStore>()(
     },
 
     actions: {
-      handleLoginInfo: async (result: Api.Login.Info, navigate?, redirectPath = "/") => {
+      updateUserInfo: (result: Api.Login.Info) => {
         const { accessToken, refreshToken } = result;
         setUserToken(accessToken);
         setRefreshToken(refreshToken);
@@ -56,27 +51,17 @@ export const useUserStore = create<UserStore>()(
           state.token = accessToken;
           state.userInfo = result;
         });
-
-        // TODO: 初始化路由
-        // const { initRoutes } = get();
-        // if (initRoutes) {
-        //   await initRoutes();
-        // }
-        if (navigate) {
-          const toPath = decodeURIComponent(redirectPath);
-          navigate(toPath);
-        }
       },
 
       logout: async (navigate?, currentPath = "/", ignoreAuth = false) => {
+        const tabsActions = useTabsStore.getState().actions;
+        const routeActions = useRouteStore.getState().actions;
         removeUserToken();
         removeRefreshToken();
         removeUserInfo();
+        routeActions.resetAuthRoute();
+        tabsActions.clearAllTabs();
 
-        const { clearTabs } = get();
-        if (clearTabs) {
-          clearTabs();
-        }
         set((state) => {
           state.token = null;
           state.userInfo = null;

@@ -1,7 +1,6 @@
 import { Outlet } from "react-router";
 import DashboardAnalysis from "@/routes/dashboard/analysis";
 import DashboardMonitor from "@/routes/dashboard/monitor";
-import DashboardReport from "@/routes/dashboard/report";
 import DashboardWorkplace from "@/routes/dashboard/workplace";
 import type { AppRouteObject } from "@/types";
 
@@ -37,13 +36,6 @@ export const dashboardRoutes: AppRouteObject[] = [
         element: <DashboardMonitor />,
         meta: {
           name: "dashboardMonitor",
-        },
-      },
-      {
-        path: "/dashboard/report",
-        element: <DashboardReport />,
-        meta: {
-          name: "dashboardReport",
         },
       },
     ],
