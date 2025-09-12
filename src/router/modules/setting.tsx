@@ -1,5 +1,7 @@
 import { Outlet } from "react-router";
 import SettingAccount from "@/routes/setting/account";
+import SettingSecurity from "@/routes/setting/security";
+import SettingTheme from "@/routes/setting/theme";
 import type { AppRouteObject } from "@/types";
 
 export const settingRoutes: AppRouteObject[] = [
@@ -17,6 +19,20 @@ export const settingRoutes: AppRouteObject[] = [
         element: <SettingAccount />,
         meta: {
           name: "settingAccount",
+        },
+      },
+      {
+        path: "/setting/theme",
+        element: <SettingTheme />,
+        meta: {
+          name: "settingTheme",
+        },
+      },
+      {
+        path: "/setting/security",
+        element: <SettingSecurity />,
+        meta: {
+          name: "settingSecurity",
         },
       },
     ],

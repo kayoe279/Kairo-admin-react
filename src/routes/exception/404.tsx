@@ -1,17 +1,25 @@
+import { Button, Result } from "antd";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+
 export default function NotFound() {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold text-gray-300">404</h1>
-        <h2 className="mt-4 text-2xl font-bold text-gray-800">页面未找到</h2>
-        <p className="mt-2 text-gray-600">抱歉，您访问的页面不存在。</p>
-        <a
-          href="/dashboard/workplace"
-          className="mt-4 inline-block rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-        >
-          返回首页
-        </a>
-      </div>
+    <div className="flex h-full items-center justify-center">
+      <Result
+        status="404"
+        title={t("exception.404.title")}
+        subTitle={t("exception.404.subtitle")}
+        extra={
+          <div className="space-x-2">
+            <Button type="primary" onClick={() => navigate("/")}>
+              {t("exception.404.backHome")}
+            </Button>
+          </div>
+        }
+      />
     </div>
   );
 }

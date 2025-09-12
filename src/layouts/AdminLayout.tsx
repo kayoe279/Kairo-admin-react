@@ -36,8 +36,8 @@ export const AdminLayout = () => {
         )}
       >
         <Header className="shrink-0" />
-        <Tabs />
-        <PageMain className={cn(headerSetting.fixed && "min-h-0 flex-1 overflow-y-auto")} />
+        <Tabs className="shrink-0" />
+        <PageMain />
       </div>
     </Layout>
   );

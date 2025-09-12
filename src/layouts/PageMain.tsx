@@ -6,16 +6,26 @@ import { useAppSettings } from "@/store";
 
 export const PageMain = ({ className }: { className?: string }) => {
   const location = useLocation();
-  const { isPageAnimate, pageAnimateType, refreshKey } = useAppSettings();
+  const { isPageAnimate, pageAnimateType, refreshKey, headerSetting } = useAppSettings();
   const nodeRef = useRef<HTMLDivElement>(null);
   const outlet = useOutlet();
 
   if (!isPageAnimate) {
-    return <main className={cn("text-foreground p-4", className)}>{outlet}</main>;
+    return (
+      <main
+        className={cn(
+          "text-foreground relative p-4",
+          headerSetting.fixed && "min-h-0 flex-1 overflow-y-auto",
+          className
+        )}
+      >
+        {outlet}
+      </main>
+    );
   }
 
   return (
-    <main className={cn("text-foreground relative p-4", className)}>
+    <main className={cn("text-foreground flex min-h-0 flex-1 flex-col", className)}>
       <SwitchTransition>
         <CSSTransition
           key={`${location.pathname}-${refreshKey}`}
@@ -24,7 +34,12 @@ export const PageMain = ({ className }: { className?: string }) => {
           classNames={`page-${pageAnimateType}`}
           unmountOnExit
         >
-          <div ref={nodeRef}>{outlet}</div>
+          <div
+            ref={nodeRef}
+            className={cn("relative p-4", headerSetting.fixed && "min-h-0 flex-1 overflow-y-auto")}
+          >
+            {outlet}
+          </div>
         </CSSTransition>
       </SwitchTransition>
     </main>

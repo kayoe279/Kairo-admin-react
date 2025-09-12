@@ -1,5 +1,3 @@
-import { AllColorsDemo } from "@/components/demo/AllColorsDemo";
-
 export default function DashboardWorkplace() {
-  return <AllColorsDemo />;
+  return <div>工作台</div>;
 }

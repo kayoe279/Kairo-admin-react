@@ -8,7 +8,7 @@ export const aboutRoutes: AppRouteObject[] = [
     meta: {
       name: "aboutIndex",
       icon: "solar:info-circle-broken",
-      sort: 10,
+      sort: 8,
     },
   },
 ];

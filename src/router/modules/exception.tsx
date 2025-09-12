@@ -10,7 +10,7 @@ export const exceptionRoutes: AppRouteObject[] = [
     meta: {
       name: "exception",
       icon: "solar:confounded-circle-broken",
-      sort: 2,
+      sort: 4,
     },
     children: [
       {
