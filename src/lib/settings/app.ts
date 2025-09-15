@@ -31,7 +31,7 @@ export const appSetting = {
     //最小宽度
     minMenuWidth: 64,
     //菜单宽度
-    menuWidth: 200,
+    menuWidth: 220,
     //触发移动端侧边栏的宽度
     mobileWidth: 768,
     // 菜单手风琴模式

@@ -1,8 +1,9 @@
+import { Card } from "antd";
+
 export default function DashboardMonitor() {
   return (
-    <div>
-      <h1>实时监控</h1>
-      <p>系统实时监控仪表盘页面</p>
+    <div className="flex flex-col gap-4">
+      <Card title="实时监控">系统实时监控仪表盘页面</Card>
     </div>
   );
 }
