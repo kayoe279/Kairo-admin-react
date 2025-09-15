@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { InboxOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Input, message, Result, Select, Space, Upload } from "antd";
+import { App, Button, Card, Form, Input, Result, Select, Space, Upload } from "antd";
 import { StepForm, StepFormStep } from "@/components/ui/Form";
 
 const { Option } = Select;
@@ -25,6 +25,7 @@ interface StepFormData {
 }
 
 export default function FormStepExample() {
+  const { message } = App.useApp();
   const [current, setCurrent] = useState(0);
   const [formData, setFormData] = useState<StepFormData>({});
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Alert,
+  App,
   Button,
   Card,
   Checkbox,
@@ -9,7 +10,6 @@ import {
   Form,
   Input,
   InputNumber,
-  message,
   Radio,
   Row,
   Space,
@@ -19,6 +19,7 @@ import type { Rule } from "antd/es/form";
 const { TextArea } = Input;
 
 export default function FormValidationExample() {
+  const { message } = App.useApp();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 

@@ -3,7 +3,6 @@ import { createAlova } from "alova";
 import { createServerTokenAuthentication } from "alova/client";
 import adapterFetch from "alova/fetch";
 import ReactHook, { type ReactHookType } from "alova/react";
-import { message } from "antd";
 import { getUserToken } from "@/lib/cookie";
 import { DEFAULT_ALOVA_OPTIONS, DEFAULT_BACKEND_OPTIONS } from "./config";
 import {
@@ -113,7 +112,7 @@ export function createAlovaInstance(
       },
       onError: (error, method) => {
         const tip = `[${method.type}] - [${method.url}]  ${error?.message ? "-" + error.message : ""}`;
-        message.warning(tip);
+        console.error(tip);
       },
 
       onComplete: async () => {

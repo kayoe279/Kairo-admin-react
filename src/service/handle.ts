@@ -1,4 +1,3 @@
-import { message } from "antd";
 import { getRefreshToken, setRefreshToken, setUserToken } from "@/lib/cookie";
 import { refreshToken } from "@/service/api";
 import { useUserStore } from "@/store";
@@ -11,7 +10,7 @@ export const showError = (error: Service.RequestError) => {
   const code = Number(error.code);
   if (ERROR_NO_TIP_STATUS.includes(code)) return;
 
-  message.error(error.message);
+  console.error(error.message);
 };
 
 /**

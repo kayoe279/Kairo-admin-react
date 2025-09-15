@@ -45,6 +45,8 @@ export default function Login() {
       await refreshRoutes(userInfo);
       message.success(t("auth.loginSuccess"));
       navigate(redirectUrl, { replace: true });
+    } else {
+      message.error(t("auth.loginFailed"));
     }
   };
 

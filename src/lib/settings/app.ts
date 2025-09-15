@@ -35,7 +35,7 @@ export const appSetting = {
     //触发移动端侧边栏的宽度
     mobileWidth: 768,
     // 菜单手风琴模式
-    accordion: true,
+    accordion: false,
   },
   //面包屑
   breadcrumbsSetting: {

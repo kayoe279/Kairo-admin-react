@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import {
+  App,
   Button,
   Card,
   Col,
   Form,
   Input,
-  message,
   Row,
   Select,
   Space,
@@ -21,6 +21,7 @@ const { Option } = Select;
 export default function FormAdvancedExample() {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchForm] = Form.useForm();
+  const { message } = App.useApp();
 
   // 动态表单字段配置
   const dynamicFields: DynamicFormField[] = [

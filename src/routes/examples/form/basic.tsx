@@ -1,12 +1,12 @@
 import { useState } from "react";
 import {
+  App,
   Button,
   Card,
   Col,
   DatePicker,
   Form,
   Input,
-  message,
   Radio,
   Row,
   Select,
@@ -21,6 +21,7 @@ const { TextArea } = Input;
 export default function FormBasicExample() {
   const [form] = Form.useForm<UserFormData>();
   const [loading, setLoading] = useState(false);
+  const { message } = App.useApp();
 
   const handleFinish = async (values: UserFormData) => {
     setLoading(true);
@@ -54,7 +55,7 @@ export default function FormBasicExample() {
               layout="vertical"
               onFinish={handleFinish}
               autoComplete="off"
-              size="middle"
+              variant="filled"
             >
               <Row gutter={16}>
                 <Col span={12}>
