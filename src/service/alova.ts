@@ -112,7 +112,7 @@ export function createAlovaInstance(
         return handleServiceResult(errorResult, false);
       },
       onError: (error, method) => {
-        const tip = `[${method.type}] - [${method.url}] - ${error.message}`;
+        const tip = `[${method.type}] - [${method.url}]  ${error?.message ? "-" + error.message : ""}`;
         message.warning(tip);
       },
 

@@ -1,12 +1,12 @@
 // app theme preset color
 export const appThemeList: string[] = [
+  "#68a1f2",
+  "#0077b6",
+  "#3b82f6",
   "#30B092",
   "#22C55E",
   "#a7c957",
   "#8FD14F",
-  "#00b4d8",
-  "#0077b6",
-  "#3b82f6",
   "#8b5cf6",
   "#9c27b0",
   "#FAAD14",

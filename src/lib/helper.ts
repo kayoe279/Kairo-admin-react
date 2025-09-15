@@ -65,3 +65,21 @@ export const setValueByPath = (obj: Record<string, unknown>, path: string, value
     current[lastKey] = value;
   }
 };
+
+/**
+ * 将对象添加当作参数拼接到URL上面
+ * @param baseUrl 需要拼接的url
+ * @param obj 参数对象
+ * @returns {string} 拼接后的对象
+ * 例子:
+ *  let obj = {a: '3', b: '4'}
+ *  setObjToUrlParams('www.baidu.com', obj)
+ *  ==>www.baidu.com?a=3&b=4
+ */
+export const toURLSearchParams = <T extends Record<string, any>>(record: T) => {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(record)) {
+    params.append(key, value as string);
+  }
+  return params;
+};

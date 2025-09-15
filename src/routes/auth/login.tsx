@@ -28,7 +28,7 @@ export default function Login() {
     loading,
     send: submitLogin,
     onError,
-  } = useRequest((data: FieldType) => login(data), {
+  } = useRequest(login, {
     immediate: false,
   });
 

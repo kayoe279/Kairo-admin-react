@@ -15,8 +15,7 @@ function tableList(pageSize: number) {
       city: faker.location.city(),
       status: faker.helpers.arrayElement(["close", "refuse", "pass"]),
       type: faker.helpers.arrayElement(["person", "company"]),
-      // createDate: faker.helpers.arrayElement(dateStrs),
-      createDate: format(faker.date.anytime(), "YYYY-MM-DD HH:mm"),
+      createDate: format(faker.date.recent(), "yyyy-MM-dd HH:mm"),
     });
   });
   return result;
@@ -33,6 +32,7 @@ export default defineMock({
       pageSize: Number(pageSize),
       total: 600,
       list,
+      params: query,
     });
   },
 });
