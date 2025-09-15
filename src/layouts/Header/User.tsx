@@ -66,7 +66,7 @@ export const User = () => {
           <Avatar
             src={userInfo?.avatar || appConfig.avatar}
             size="default"
-            className="shadow-lg ring-2 ring-blue-100"
+            className="ring-primary/30 shadow-lg ring-2"
           />
           {userInfo?.nickname && <span>{userInfo.nickname}</span>}
         </div>
