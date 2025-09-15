@@ -4,7 +4,7 @@ import { UserSearchForm, UserTable } from "@/components/features";
 import { TableWrapper } from "@/components/ui/Table";
 import type { User } from "@/types";
 
-export default function TableAdvancedExample({ showSearchTips }: { showSearchTips: boolean }) {
+export default function TableAdvancedExample() {
   const { message: message, modal } = App.useApp();
 
   const [searchParams, setSearchParams] = useState<Record<string, any>>({});
@@ -15,13 +15,11 @@ export default function TableAdvancedExample({ showSearchTips }: { showSearchTip
     try {
       setSearchParams(values);
       // 这里可以添加一些搜索的提示
-      if (showSearchTips && Object.keys(values).length > 0) {
+      if (Object.keys(values).length > 0) {
         message.success("搜索完成");
       }
     } catch (error) {
-      if (showSearchTips) {
-        message.error("搜索失败");
-      }
+      message.error("搜索失败");
     } finally {
       setLoading(false);
     }
@@ -29,9 +27,7 @@ export default function TableAdvancedExample({ showSearchTips }: { showSearchTip
 
   const handleReset = () => {
     setSearchParams({});
-    if (showSearchTips) {
-      message.info("已重置搜索条件");
-    }
+    message.info("已重置搜索条件");
   };
 
   const handleEdit = (record: User) => {

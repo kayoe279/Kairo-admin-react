@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { COOKIE_ACCESS_TOKEN, COOKIE_REFRESH_TOKEN } from "./constants";
 
-const CACHE_EXPIRE = import.meta.env.VITE_CACHE_EXPIRE; // 7天
+const CACHE_EXPIRE = Number(import.meta.env.VITE_CACHE_EXPIRE) as number; // 7天
 
 // 用户token
 export const getUserToken = () => {
