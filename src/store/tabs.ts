@@ -106,8 +106,9 @@ export const useTabsStore = create<TabsStore>()(
 
         // 关闭左侧标签页
         closeLeftTabs: (tabId: string, navigate?) => {
-          const { tabsList } = get();
+          const { activeTabId, tabsList } = get();
           const index = tabsList.findIndex((item) => item.name === tabId);
+          const activeIndex = tabsList.findIndex((item) => item.name == activeTabId);
 
           set((state) => {
             state.tabsList = state.tabsList.filter(
@@ -116,16 +117,19 @@ export const useTabsStore = create<TabsStore>()(
           });
 
           const { tabsList: updatedTabsList } = get();
-          const shouldRoute = updatedTabsList.filter((item) => !item.meta?.affix)?.[0];
-          if (shouldRoute) {
-            navigate?.(shouldRoute.path);
+          if (activeIndex < index) {
+            const shouldRoute = updatedTabsList.filter((item) => !item.meta?.affix)?.[0];
+            if (shouldRoute) {
+              navigate?.(shouldRoute.path);
+            }
           }
         },
 
         // 关闭右侧标签页
         closeRightTabs: (tabId: string, navigate?) => {
-          const { tabsList } = get();
+          const { activeTabId, tabsList } = get();
           const index = tabsList.findIndex((item) => item.name === tabId);
+          const activeIndex = tabsList.findIndex((item) => item.name == activeTabId);
 
           set((state) => {
             state.tabsList = state.tabsList.filter(
@@ -134,9 +138,11 @@ export const useTabsStore = create<TabsStore>()(
           });
 
           const { tabsList: updatedTabsList } = get();
-          const shouldRoute = updatedTabsList[Math.max(0, updatedTabsList.length - 1)];
-          if (shouldRoute) {
-            navigate?.(shouldRoute.path);
+          if (activeIndex > index) {
+            const shouldRoute = updatedTabsList[Math.max(0, updatedTabsList.length - 1)];
+            if (shouldRoute) {
+              navigate?.(shouldRoute.path);
+            }
           }
         },
 
