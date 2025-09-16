@@ -29,8 +29,6 @@ export interface MetaProps {
   requireAuth?: boolean;
   /** 高亮的菜单项 */
   activeMenu?: string;
-  /** 是否添加到Tab */
-  withoutTab?: boolean;
   /** 菜单分组名称，用于自动生成层次菜单 */
   group?: string;
 }

@@ -86,7 +86,7 @@ export const useTabsStore = create<TabsStore>()(
           if (!route) return;
 
           const { meta } = route;
-          if (meta?.withoutTab || meta?.hidden) return;
+          if (meta?.hidden) return;
 
           const { tabsList, activeTabId, getTabByRoute, actions } = get();
           const name = meta?.name || "";
