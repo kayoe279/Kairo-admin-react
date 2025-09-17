@@ -138,14 +138,7 @@ export default function Login() {
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="primary"
-                loading={loading}
-                htmlType="submit"
-                size="large"
-                block
-                className="!mt-4"
-              >
+              <Button type="primary" loading={loading} htmlType="submit" size="large" block>
                 {t("auth.loginButton")}
               </Button>
             </Form.Item>
