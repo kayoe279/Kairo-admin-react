@@ -1,19 +1,32 @@
-import { Children, type ReactNode } from "react";
+import { Children, useMemo, type ReactNode } from "react";
 import { cn } from "@/lib";
+import { useAppSettings } from "@/store";
 
-const Root = ({ children, fixedHeight = true }: { children: ReactNode; fixedHeight?: boolean }) => {
+export const TableWrapper = ({
+  children,
+  fixedHeight = true,
+}: {
+  children: ReactNode;
+  fixedHeight?: boolean;
+}) => {
   const childrenArray = Children.toArray(children);
   const [top, main] = childrenArray;
+  const { headerSetting } = useAppSettings();
 
   const onlyOneChild = childrenArray.length === 1;
 
+  const fixed = useMemo(
+    () => fixedHeight && headerSetting.fixed,
+    [fixedHeight, headerSetting.fixed]
+  );
+
   const classNames = cn(
     "h-full",
-    fixedHeight && "table-wrapper min-h-0 flex-1 [&_.ant-card]:h-full [&_.ant-card-body]:h-full"
+    fixed && "table-wrapper shrink-0 min-h-0 flex-1 [&_.ant-card]:h-full [&_.ant-card-body]:h-full"
   );
 
   return (
-    <div className={cn("flex flex-col gap-4", fixedHeight && "h-full overflow-hidden")}>
+    <div className={cn("group/table flex flex-col gap-4", fixed && "h-full overflow-hidden")}>
       {onlyOneChild ? (
         <div className={classNames}>{top}</div>
       ) : (
@@ -25,13 +38,3 @@ const Root = ({ children, fixedHeight = true }: { children: ReactNode; fixedHeig
     </div>
   );
 };
-
-const Top = ({ children }: { children: ReactNode }) => {
-  return <>{children}</>;
-};
-
-const Main = ({ children }: { children: ReactNode }) => {
-  return <>{children}</>;
-};
-
-export const TableWrapper = Object.assign(Root, { Top, Main });

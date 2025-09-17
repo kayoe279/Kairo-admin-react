@@ -7,21 +7,13 @@ import type { User } from "@/types";
 export default function TableAdvancedExample() {
   const { message: message, modal } = App.useApp();
 
-  const [searchParams, setSearchParams] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(false);
+  const [searchParams, setSearchParams] = useState<Record<string, any>>({});
 
   const handleSearch = async (values: Record<string, any>) => {
-    setLoading(true);
-    try {
-      setSearchParams(values);
-      // 这里可以添加一些搜索的提示
-      if (Object.keys(values).length > 0) {
-        message.success("搜索完成");
-      }
-    } catch (error) {
-      message.error("搜索失败");
-    } finally {
-      setLoading(false);
+    setSearchParams(values);
+    if (Object.keys(values).length > 0) {
+      message.success("搜索完成");
     }
   };
 
@@ -55,22 +47,18 @@ export default function TableAdvancedExample() {
 
   return (
     <TableWrapper>
-      <TableWrapper.Top>
-        <Card title="高级表格示例">
-          <UserSearchForm onSearch={handleSearch} onReset={handleReset} loading={loading} />
-        </Card>
-      </TableWrapper.Top>
-      <TableWrapper.Main>
-        <Card>
-          <UserTable
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            onView={handleView}
-            showActions={true}
-            searchParams={searchParams}
-          />
-        </Card>
-      </TableWrapper.Main>
+      <Card title="高级表格示例">
+        <UserSearchForm loading={loading} onSearch={handleSearch} onReset={handleReset} />
+      </Card>
+      <Card>
+        <UserTable
+          searchParams={searchParams}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onView={handleView}
+          setLoading={setLoading}
+        />
+      </Card>
     </TableWrapper>
   );
 }

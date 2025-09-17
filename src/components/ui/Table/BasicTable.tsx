@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Table } from "antd";
 import { cn } from "@/lib";
 import { useTable } from "@/lib/hooks/useTable";
@@ -11,13 +12,18 @@ export function BasicTable<T = any>({
   size = "middle",
   bordered = true,
   className,
+  setLoading,
   ...restProps
 }: BasicTableProps<T>) {
-  const { tableProps, tableRef } = useTable<T>(apiFunction, {
+  const { tableProps, tableRef, loading } = useTable<T>(apiFunction, {
     immediate: true,
     searchParams,
     ...tableOptions,
   });
+
+  useEffect(() => {
+    setLoading?.(loading);
+  }, [loading, setLoading]);
 
   return (
     <Table<T>

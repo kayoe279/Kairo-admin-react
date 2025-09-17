@@ -5,3 +5,4 @@ export * from "./ButtonIcon";
 export * from "./Drawer";
 export * from "./ColorPicker";
 export * from "./Loading";
+export * from "./LoginBanner";

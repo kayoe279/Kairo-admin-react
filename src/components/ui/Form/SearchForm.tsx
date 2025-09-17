@@ -77,9 +77,9 @@ export function SearchForm({
           <Col span={24} flex="auto" className="!flex !justify-end gap-4">
             <Button
               type="primary"
+              loading={loading}
               icon={<SearchOutlined />}
               onClick={handleSearch}
-              loading={loading}
             >
               搜索
             </Button>

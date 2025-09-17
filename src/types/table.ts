@@ -19,6 +19,7 @@ export interface BasicTableProps<T = any>
   scroll?: { x?: number; y?: number };
   size?: "small" | "middle" | "large";
   fullHeight?: boolean;
+  setLoading?: (loading: boolean) => void;
 }
 
 // UserTable Props
