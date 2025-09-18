@@ -60,8 +60,10 @@ export const defaultLoginParams = {
 };
 
 export const appConfig = {
-  title: "Kairo Admin",
+  title: "Kairo Admin React",
+  description:
+    "Kairo Admin React 是一个基于 React 19、React Router 7、Vite、TypeScript 和 Antd 的中后台解决方案，它可以帮助你快速搭建企业级中后台项目，持续更新中。",
   avatar: avatarImage,
-  loginDesc: "kairo Admin中后台前端/设计解决方案",
-  github: "https://github.com/kayoe279",
+  github: "https://github.com/kayoe279/Kairo-admin-react",
+  preview: "https://kairo-admin-react.vercel.app",
 };
