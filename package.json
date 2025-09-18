@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "name": "Kayoe",
+    "email": "kayoe279@gmail.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -42,7 +46,6 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.12",
     "usehooks-ts": "^3.1.1",
-    "vaul": "^1.1.2",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

@@ -1,8 +1,12 @@
 import React, { useEffect, useMemo, type ReactNode } from "react";
+import type { ResourceKey } from "i18next";
 import NProgress from "nprogress";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
-import { useRequireAuth, useRequireRoles } from "@/lib/hooks";
+import { useRequireAuth, useRequireRoles, useRouteMetaMeta } from "@/lib/hooks";
 import { useRouteGuard, type RouteGuardOptions } from "@/lib/hooks/useRouteGuard";
+
+const title = import.meta.env.VITE_GLOB_APP_TITLE;
 
 interface RouteGuardProps {
   children: ReactNode;
@@ -56,6 +60,8 @@ export function withRouteGuard<P extends object>(
 export const AppRouteGuard = ({ children }: { children: ReactNode }) => {
   const requireAuth = useRequireAuth();
   const requireRoles = useRequireRoles();
+  const meta = useRouteMetaMeta();
+  const { t } = useTranslation();
 
   const guardOptions: RouteGuardOptions = useMemo(
     () => ({
@@ -69,6 +75,9 @@ export const AppRouteGuard = ({ children }: { children: ReactNode }) => {
       },
       afterEnter: (to, _from) => {
         console.log(`路由守卫: 成功进入 ${to}`);
+        if (meta.name) {
+          document.title = `${t(`route.${meta.name}` as ResourceKey)} - ${title}`;
+        }
         NProgress.done();
 
         // 可以在这里添加页面进入后的逻辑
@@ -79,7 +88,7 @@ export const AppRouteGuard = ({ children }: { children: ReactNode }) => {
         NProgress.done();
       },
     }),
-    [requireAuth, requireRoles]
+    [requireAuth, requireRoles, meta, t]
   );
 
   return <RouteGuard guardOptions={guardOptions}>{children}</RouteGuard>;

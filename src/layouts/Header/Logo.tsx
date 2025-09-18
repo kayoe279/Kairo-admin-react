@@ -33,7 +33,7 @@ export const Logo = ({ collapsed, className }: LogoProps) => {
           ease: [0.4, 0, 0.2, 1],
         }}
       >
-        <SvgIcon localIcon="logo" className="inline h-8 w-auto" />
+        <SvgIcon localIcon="logo" className="inline h-10 w-auto" />
       </motion.div>
 
       <AnimatePresence mode="wait">
