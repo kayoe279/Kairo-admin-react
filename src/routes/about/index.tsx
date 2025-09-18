@@ -1,6 +1,5 @@
 import { Card, Descriptions, Tag } from "antd";
 import { appConfig } from "@/lib/settings/app";
-import packageInfo from "../../../package.json";
 
 interface SchemaItem {
   field: string;
@@ -8,22 +7,20 @@ interface SchemaItem {
 }
 
 export default function About() {
-  const { dependencies, devDependencies, name, version, author } = packageInfo;
+  const { pkg, lastBuildTime } = appInfo;
+  const { dependencies, devDependencies, name, version, author } = pkg;
 
   // 构建依赖列表
   const schema: SchemaItem[] = [];
   const devSchema: SchemaItem[] = [];
 
   Object.keys(dependencies).forEach((key) => {
-    schema.push({ field: key, label: dependencies[key as keyof typeof dependencies] });
+    schema.push({ field: key, label: dependencies[key] });
   });
 
   Object.keys(devDependencies).forEach((key) => {
-    devSchema.push({ field: key, label: devDependencies[key as keyof typeof devDependencies] });
+    devSchema.push({ field: key, label: devDependencies[key] });
   });
-
-  // 获取当前构建时间
-  const lastBuildTime = new Date().toLocaleString("zh-CN");
 
   return (
     <div className="flex flex-col gap-4">
