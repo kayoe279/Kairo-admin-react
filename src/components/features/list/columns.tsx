@@ -1,4 +1,6 @@
 import {
+  CheckOutlined,
+  CloseOutlined,
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
@@ -151,11 +153,11 @@ export const createActionColumn = (actions: ColumnActions) => ({
         <Button
           size="small"
           variant="link"
-          color="pink"
-          icon={<EditOutlined />}
+          color="purple"
+          icon={record.disabled ? <CheckOutlined /> : <CloseOutlined />}
           onClick={() => actions.onDisable!(record)}
         >
-          禁用
+          {record.disabled ? "启用" : "禁用"}
         </Button>
       )}
       {actions.onDelete && (

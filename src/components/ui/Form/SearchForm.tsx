@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { DownOutlined, ReloadOutlined, SearchOutlined, UpOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  Loading3QuartersOutlined,
+  SearchOutlined,
+  UpOutlined,
+} from "@ant-design/icons";
 import { Button, Col, Form, Row } from "antd";
 import { useSearchParams } from "react-router";
 import { useClearQueryParams } from "@/hooks";
@@ -95,7 +100,7 @@ export function SearchForm({
               搜索
             </Button>
             <Button
-              icon={<ReloadOutlined />}
+              icon={<Loading3QuartersOutlined />}
               loading={!flag && loading}
               disabled={flag && loading}
               onClick={handleReset}

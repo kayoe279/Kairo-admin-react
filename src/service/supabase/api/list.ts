@@ -16,7 +16,7 @@ export interface ListQueryParams {
   keyword?: string;
   sortBy?: keyof NavListItem;
   sortOrder?: "asc" | "desc";
-  filters?: Partial<NavListItem>;
+  disabled?: string;
 }
 
 // API 响应类型
@@ -48,21 +48,15 @@ export class SupabaseListAPI {
       keyword,
       sortBy = "created_at",
       sortOrder = "desc",
-      filters,
+      disabled,
     } = params;
 
     try {
       let query = supabase.from("navList").select("*", { count: "exact" });
 
       // 应用筛选条件
-      if (filters) {
-        Object.entries(filters).forEach(([key, value]) => {
-          if (value !== undefined && value !== null && value !== "") {
-            if (key === "disabled") {
-              query = query.eq(key, value === "true" ? true : false);
-            }
-          }
-        });
+      if (disabled) {
+        query = query.eq("disabled", disabled === "true" ? true : false);
       }
 
       // 应用搜索条件

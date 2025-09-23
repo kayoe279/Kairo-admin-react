@@ -58,7 +58,7 @@ export const ListTable = ({
   });
 
   const { searchParams } = useTableQuery({
-    extendKeys: ["userType", "subscriptionType", "autoRenewal"],
+    extendKeys: ["disabled"],
   });
 
   const { data, total, isLoading } = useTableList(searchParams as ListQueryParams);
