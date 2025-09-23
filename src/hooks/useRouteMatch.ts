@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { useLocation } from "react-router";
 import { isRootMenu } from "@/lib/menu";
 import { findMatchingRoute } from "@/router/helper";
+import type { RoleType } from "@/service";
 import { useAuthRouteState } from "@/store";
-import type { RoleType } from "@/types";
 
 /**
  * 根据当前路径匹配路由配置的 Hook

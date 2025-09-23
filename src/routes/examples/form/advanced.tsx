@@ -13,8 +13,7 @@ import {
   Tabs,
   type FormInstance,
 } from "antd";
-import { DynamicForm, ModalForm, SearchForm } from "@/components/ui/Form";
-import type { DynamicFormField } from "@/types";
+import { DynamicForm, ModalForm, SearchForm, type DynamicFormField } from "@/components/ui/Form";
 
 const { Option } = Select;
 

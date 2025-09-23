@@ -1,31 +1,35 @@
-import Cookies from "js-cookie";
-import { COOKIE_ACCESS_TOKEN, COOKIE_REFRESH_TOKEN } from "./constants";
+import type { Session } from "@supabase/supabase-js";
+import { STORAGE_USER_INFO } from "./constants";
+import { local } from "./storage";
 
-const CACHE_EXPIRE = Number(import.meta.env.VITE_CACHE_EXPIRE) as number; // 7天
+// const CACHE_EXPIRE = Number(import.meta.env.VITE_CACHE_EXPIRE) as number; // 7天
 
-// 用户token
-export const getUserToken = () => {
-  return Cookies.get(COOKIE_ACCESS_TOKEN);
+// 用户信息
+export const getSession = () => {
+  return local.get(STORAGE_USER_INFO) as Session;
+};
+export const getUserInfo = () => {
+  return getSession()?.user;
+};
+export const removeUserInfo = () => {
+  local.remove(STORAGE_USER_INFO);
 };
 
-export const setUserToken = (token: string) => {
-  Cookies.set(COOKIE_ACCESS_TOKEN, token, {
-    expires: new Date(new Date().getTime() + CACHE_EXPIRE * 1000),
-  });
+// 校验是否过期
+export const isExpired = (expires_at: number) => {
+  const nowInSeconds = Math.floor(Date.now() / 1000);
+  const isExpired = nowInSeconds >= expires_at;
+  return isExpired;
 };
 
-export const removeUserToken = () => {
-  Cookies.remove(COOKIE_ACCESS_TOKEN);
-};
-// 刷新token
-export const getRefreshToken = () => {
-  return Cookies.get(COOKIE_REFRESH_TOKEN);
-};
-export const setRefreshToken = (refreshToken: string) => {
-  Cookies.set(COOKIE_REFRESH_TOKEN, refreshToken, {
-    expires: new Date(new Date().getTime() + CACHE_EXPIRE * 1000),
-  });
-};
-export const removeRefreshToken = () => {
-  Cookies.remove(COOKIE_REFRESH_TOKEN);
+// 获取 supabase access token
+export const getAccessToken = () => {
+  const data = getSession();
+  if (data) {
+    if (isExpired(data.expires_at || 0)) {
+      return null;
+    }
+    return data.access_token;
+  }
+  return null;
 };

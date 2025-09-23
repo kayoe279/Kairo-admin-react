@@ -2,13 +2,7 @@ import { Children, useMemo, type ReactNode } from "react";
 import { cn } from "@/lib";
 import { useAppSettings } from "@/store";
 
-export const TableWrapper = ({
-  children,
-  fixedHeight = true,
-}: {
-  children: ReactNode;
-  fixedHeight?: boolean;
-}) => {
+const Root = ({ children, fixedHeight = true }: { children: ReactNode; fixedHeight?: boolean }) => {
   const childrenArray = Children.toArray(children);
   const [top, main] = childrenArray;
   const { headerSetting } = useAppSettings();
@@ -38,3 +32,11 @@ export const TableWrapper = ({
     </div>
   );
 };
+
+const Operation = ({ children }: { children: ReactNode }) => {
+  return <div className="table-wrapper-operation mb-4">{children}</div>;
+};
+
+export const TableWrapper = Object.assign(Root, {
+  Operation,
+});

@@ -13,7 +13,7 @@ import {
   Space,
   Switch,
 } from "antd";
-import type { UserFormData } from "@/types";
+import type { UserFormData } from "@/components/ui/Form/type";
 
 const { Option } = Select;
 const { TextArea } = Input;

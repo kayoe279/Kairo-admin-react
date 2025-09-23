@@ -1,18 +1,10 @@
-import { useState } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { DownOutlined, ReloadOutlined, SearchOutlined, UpOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Row, type FormProps } from "antd";
-import type { FormInstance } from "antd/es/form";
-import { cn } from "@/lib";
-
-export interface SearchFormProps extends Omit<FormProps, "children"> {
-  children?: ReactNode | ((collapsed: boolean) => ReactNode);
-  onSearch?: (values: Record<string, any>) => void;
-  onReset?: () => void;
-  loading?: boolean;
-  showToggle?: boolean;
-  form?: FormInstance;
-}
+import { Button, Col, Form, Row } from "antd";
+import { useSearchParams } from "react-router";
+import { useClearQueryParams } from "@/hooks";
+import { cn, validValue } from "@/lib";
+import type { SearchFormProps } from "./type";
 
 export function SearchForm({
   children,
@@ -23,30 +15,47 @@ export function SearchForm({
   variant = "filled",
   size = "middle",
   form: externalForm,
+  prefix,
   className,
+  initialValues,
+  ...restProps
 }: SearchFormProps) {
   const [internalForm] = Form.useForm();
   const form = externalForm || internalForm;
+  const [flag, setFlag] = useState(true);
   const [collapsed, setCollapsed] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const { clearPageKey } = useClearQueryParams(prefix);
+
+  useEffect(() => {
+    const urlValues = Object.fromEntries(searchParams.entries());
+    form.setFieldsValue({ ...initialValues, ...urlValues });
+  }, [searchParams, form, initialValues]);
 
   const handleSearch = () => {
-    const values = form.getFieldsValue();
-    // 过滤空值
-    const filteredValues = Object.entries(values).reduce(
-      (acc, [key, value]) => {
-        if (value !== undefined && value !== null && value !== "") {
-          acc[key] = value;
+    const values = form.getFieldsValue() as Record<string, any>;
+    setFlag(true);
+    setSearchParams((prev) => {
+      const newParams = clearPageKey(new URLSearchParams(prev));
+      Object.entries(values).forEach(([key, value]) => {
+        if (newParams.get(key) && !value) {
+          newParams.delete(key);
+        } else if (validValue(value)) {
+          newParams.set(key, value);
         }
-        return acc;
-      },
-      {} as Record<string, any>
-    );
+      });
+      return newParams;
+    });
 
-    onSearch?.(filteredValues);
+    onSearch?.(values);
   };
 
   const handleReset = () => {
+    const newParams = new URLSearchParams();
+    setSearchParams(newParams);
     form.resetFields();
+    setFlag(false);
     onReset?.();
   };
 
@@ -70,6 +79,7 @@ export function SearchForm({
         autoComplete="off"
         variant={variant}
         size={size}
+        {...restProps}
       >
         <Row gutter={16}>{renderChildren()}</Row>
 
@@ -77,13 +87,19 @@ export function SearchForm({
           <Col span={24} flex="auto" className="!flex !justify-end gap-4">
             <Button
               type="primary"
-              loading={loading}
+              loading={flag && loading}
+              disabled={!flag && loading}
               icon={<SearchOutlined />}
               onClick={handleSearch}
             >
               搜索
             </Button>
-            <Button icon={<ReloadOutlined />} onClick={handleReset}>
+            <Button
+              icon={<ReloadOutlined />}
+              loading={!flag && loading}
+              disabled={flag && loading}
+              onClick={handleReset}
+            >
               重置
             </Button>
             {showToggle && (

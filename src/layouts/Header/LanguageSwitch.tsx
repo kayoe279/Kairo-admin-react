@@ -2,7 +2,7 @@ import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { ButtonIcon } from "@/components/ui";
-import { locales, setI18nLocale } from "@/lib/i18n";
+import { locales, setI18nLocale, type Locale } from "@/lib/i18n";
 
 export const LanguageSwitch = () => {
   const { t, i18n } = useTranslation();

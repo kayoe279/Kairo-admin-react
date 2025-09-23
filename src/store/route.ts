@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import { useTranslation } from "react-i18next";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { hasPermission } from "@/hooks";
 import { PAGE } from "@/lib";
-import { getUserInfo } from "@/lib/storage";
+import { getUserInfo } from "@/lib/cookie";
 import { staticRoutes, transformRouteConfig } from "@/router";
-import { getUserRoutes } from "@/service/api";
+import { getUserRoutes, type RoleType } from "@/service";
 import { useUserActions, useUserInfo } from "@/store";
-import type { AppRouteObject, RoleType, UserInfo } from "@/types";
+import type { AppRouteObject } from "@/types";
 
 interface RouteState {
   authRoutes: AppRouteObject[];
@@ -96,7 +97,7 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
 
   //获取路由配置
   const fetchRoutes = useCallback(
-    async (user?: UserInfo | null) => {
+    async (user?: User | null) => {
       setInitAuthRoute(true);
       setRouteError(null);
 

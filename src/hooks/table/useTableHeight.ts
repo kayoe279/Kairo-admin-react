@@ -24,6 +24,7 @@ export interface UseTableHeightOptions {
 // 常量定义
 const CONSTANTS = {
   TABLE_WRAPPER_SELECTOR: ".table-wrapper",
+  TABLE_WRAPPER_OPERATION_SELECTOR: ".table-wrapper-operation",
   TABLE_HEADER_SELECTOR: ".ant-table-header",
   PAGINATION_SELECTOR: ".ant-pagination",
   CONTAINER_PADDING: 48,
@@ -80,10 +81,16 @@ export function useTableHeight(tableRef: TableRef, options: UseTableHeightOption
       const { tableContainer } = elements;
 
       // 在表格容器内查找相关元素，避免全局查找
+      const tableOperation = tableContainer?.querySelector(
+        CONSTANTS.TABLE_WRAPPER_OPERATION_SELECTOR
+      ) as HTMLElement;
       const tableHeader = tableContainer.querySelector(
         CONSTANTS.TABLE_HEADER_SELECTOR
       ) as HTMLElement;
       const pagination = tableContainer.querySelector(CONSTANTS.PAGINATION_SELECTOR) as HTMLElement;
+      const tableOperationHeight = tableOperation?.offsetHeight
+        ? tableOperation.offsetHeight + 16
+        : 0;
 
       // 计算各部分高度
       const containerHeight = tableContainer.offsetHeight - CONSTANTS.CONTAINER_PADDING;
@@ -91,7 +98,8 @@ export function useTableHeight(tableRef: TableRef, options: UseTableHeightOption
       const paginationHeight = (pagination?.offsetHeight || 0) + CONSTANTS.PAGINATION_SPACING;
 
       // 计算可用高度
-      const availableHeight = containerHeight - tableHeaderHeight - paginationHeight + offset;
+      const availableHeight =
+        containerHeight - tableOperationHeight - tableHeaderHeight - paginationHeight + offset;
       const finalHeight = Math.max(availableHeight, CONSTANTS.MIN_HEIGHT);
 
       setTableHeight(finalHeight);
@@ -109,6 +117,12 @@ export function useTableHeight(tableRef: TableRef, options: UseTableHeightOption
       setTableHeight(undefined);
     }
   }, [enabled, offset, validateElements]);
+
+  const refreshTableHeight = useCallback(() => {
+    setTimeout(() => {
+      calculateHeight();
+    }, 50);
+  }, [calculateHeight]);
 
   // 使用 usehooks-ts 的防抖 hook
   const debouncedCalculateHeight = useDebounceCallback(calculateHeight, debounce);
@@ -181,6 +195,6 @@ export function useTableHeight(tableRef: TableRef, options: UseTableHeightOption
 
   return {
     tableHeight,
-    refresh: calculateHeight,
+    refreshTableHeight,
   };
 }

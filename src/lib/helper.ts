@@ -11,6 +11,10 @@ export const typedBoolean = <Value>(value: Value): value is Exclude<Value, False
   return Boolean(value);
 };
 
+export const validValue = (value: undefined | null | string | boolean) => {
+  return value !== undefined && value !== null && value !== "" && value !== false;
+};
+
 /**
  * 判断是否 url
  * */

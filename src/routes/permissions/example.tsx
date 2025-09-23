@@ -1,11 +1,8 @@
 import React from "react";
-import { useRequest } from "alova/client";
 import { App, Button, Card, Space, Spin, Typography } from "antd";
 import { usePermission } from "@/hooks/usePermission";
-import { defaultLoginParams } from "@/lib/settings/app";
-import { login } from "@/service/api";
+import { useSignIn, type RoleType } from "@/service";
 import { useAuthRoute, useUserActions, useUserInfo } from "@/store";
-import type { RoleType } from "@/types";
 
 const { Title } = Typography;
 
@@ -30,20 +27,27 @@ export default function PermissionExample() {
   const { hasPermission } = usePermission();
   const { message } = App.useApp();
 
-  const role = userInfo?.roles?.[0] || "";
+  const role = userInfo?.user_metadata?.roles?.[0] || "";
 
-  const { loading, send } = useRequest(login, {
-    immediate: false,
-  });
+  const { isPending, mutateAsync } = useSignIn();
 
   const roleList: RoleType[] = ["super", "admin", "user"];
 
+  const roleMap = {
+    super: "kayoe279@gmail.com",
+    admin: "knoxoe279@gmail.com",
+    user: "kayoe279@qq.com",
+  };
+
   const toggleUserRole = async (targetRole: RoleType) => {
     try {
-      const result = await send({ ...defaultLoginParams, username: targetRole });
-      if (result.data) {
-        updateUserInfo(result.data);
-        await refreshRoutes(result.data);
+      const result = await mutateAsync({
+        email: roleMap[targetRole],
+        password: "Qwe123456+",
+      });
+      if (result.user) {
+        updateUserInfo(result.user);
+        await refreshRoutes(result.user);
         message.success(`已切换到 ${targetRole} 角色`);
       }
     } catch (error) {
@@ -54,7 +58,7 @@ export default function PermissionExample() {
   return (
     <Card title="权限示例" className="p-4">
       <Title level={1}>当前权限：{role}</Title>
-      <Spin spinning={loading}>
+      <Spin spinning={isPending}>
         <Space wrap className="mb-6">
           {roleList.map((item) => (
             <Button

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { SvgIcon } from "@/components/ui";
 import { appConfig } from "@/lib/settings/app";
+import { useSignOut } from "@/service";
 import { useUserActions, useUserInfo } from "@/store/user";
 
 export const User = () => {
@@ -13,6 +14,10 @@ export const User = () => {
   const userInfo = useUserInfo();
   const { logout } = useUserActions();
   const { message, modal } = App.useApp();
+
+  const userMetadata = userInfo?.user_metadata;
+
+  const { mutateAsync } = useSignOut();
 
   // 用户下拉菜单选项
   const userMenuItems: MenuProps["items"] = [
@@ -49,6 +54,7 @@ export const User = () => {
       cancelText: t("common.cancel"),
       centered: true,
       onOk: async () => {
+        await mutateAsync();
         await logout(navigate, location.pathname);
         message.success(t("auth.logoutConfirm.successMessage"));
       },
@@ -64,11 +70,11 @@ export const User = () => {
       >
         <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-md px-2 py-1 text-sm transition-colors">
           <Avatar
-            src={userInfo?.avatar || appConfig.avatar}
+            src={appConfig.avatar}
             size="default"
             className="ring-primary/30 shadow-lg ring-2"
           />
-          {userInfo?.nickname && <span>{userInfo.nickname}</span>}
+          <span>{userMetadata?.full_name || userInfo?.email}</span>
         </div>
       </Dropdown>
     </div>

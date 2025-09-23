@@ -10,7 +10,7 @@ import {
   Space,
   Switch,
 } from "antd";
-import type { BaseFormProps, DynamicFormField } from "@/types";
+import type { BaseFormProps, DynamicFormField } from "./type";
 
 const { TextArea } = Input;
 const { Option } = Select;

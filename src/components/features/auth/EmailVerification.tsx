@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { App, Button, Form, Input, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import { SvgIcon } from "@/components/ui";
-import { SupabaseAuthAPI } from "@/service";
+import { useResendConfirmation, useVerifyOtp } from "@/service";
 
 const { Text } = Typography;
 
@@ -19,14 +18,14 @@ interface VerificationFormData {
 export const EmailVerification = ({ email, onVerifySuccess, onBack }: EmailVerificationProps) => {
   const { t } = useTranslation();
   const [form] = Form.useForm<VerificationFormData>();
-  const [loading, setLoading] = useState(false);
-  const [resendLoading, setResendLoading] = useState(false);
   const { message } = App.useApp();
 
+  const { isPending, mutateAsync: verifyOtp } = useVerifyOtp();
+  const { isPending: isResendPending, mutateAsync: resendConfirmation } = useResendConfirmation();
+
   const onFinish = async (values: VerificationFormData) => {
-    setLoading(true);
     try {
-      const result = await SupabaseAuthAPI.verifyOtp(email, values.token, "signup");
+      const result = await verifyOtp({ email, token: values.token, type: "signup" });
 
       if (result.error) {
         throw new Error(result.error.message);
@@ -41,15 +40,12 @@ export const EmailVerification = ({ email, onVerifySuccess, onBack }: EmailVerif
           errors: [error.message || t("auth.verifyFailed")],
         },
       ]);
-    } finally {
-      setLoading(false);
     }
   };
 
   const resendVerification = async () => {
-    setResendLoading(true);
     try {
-      const result = await SupabaseAuthAPI.resendConfirmation(email, "signup");
+      const result = await resendConfirmation({ email, type: "signup" });
 
       if (result.error) {
         throw new Error(result.error.message);
@@ -57,8 +53,6 @@ export const EmailVerification = ({ email, onVerifySuccess, onBack }: EmailVerif
       message.success(t("auth.resendCodeSuccess"));
     } catch (error) {
       message.error(`${t("auth.resendCodeFailed")}: ${error}`);
-    } finally {
-      setResendLoading(false);
     }
   };
 
@@ -97,7 +91,7 @@ export const EmailVerification = ({ email, onVerifySuccess, onBack }: EmailVerif
         <Form.Item>
           <Button
             type="primary"
-            loading={loading}
+            loading={isPending}
             htmlType="submit"
             size="large"
             block
@@ -116,7 +110,7 @@ export const EmailVerification = ({ email, onVerifySuccess, onBack }: EmailVerif
           <Button
             type="link"
             onClick={resendVerification}
-            loading={resendLoading}
+            loading={isResendPending}
             className="ml-1 p-0"
           >
             {t("auth.resendCode")}

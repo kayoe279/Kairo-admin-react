@@ -1,25 +1,18 @@
+import type { User } from "@supabase/supabase-js";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import {
-  getUserToken,
-  removeRefreshToken,
-  removeUserToken,
-  setRefreshToken,
-  setUserToken,
-} from "@/lib/cookie";
-import { getUserInfo, removeUserInfo, setUserInfo } from "@/lib/storage";
-import type { UserInfo } from "@/types";
+import { getAccessToken, getUserInfo, removeUserInfo } from "@/lib/cookie";
 import { useRouteStore } from "./route";
 import { useTabsStore } from "./tabs";
 
 interface UserState {
-  userInfo: UserInfo | null;
+  userInfo: User | null;
   token: string | null;
   isAuthenticated: () => boolean;
 }
 
 interface UserActions {
-  updateUserInfo: (result: UserInfo) => void;
+  updateUserInfo: (result: User) => void;
   logout: (
     navigate?: (path: string, options?: any) => void,
     currentPath?: string,
@@ -30,26 +23,19 @@ interface UserActions {
 type UserStore = UserState & { actions: UserActions };
 
 export const useUserStore = create<UserStore>()(
-  immer((set, get) => ({
+  immer((set) => ({
     userInfo: getUserInfo(),
-    token: getUserToken() || null,
+    token: getAccessToken() || null,
 
     isAuthenticated: () => {
-      const { token } = get();
-      const userToken = getUserToken();
       const userInfo = getUserInfo();
-      return !!userInfo && !!token && !!userToken && userToken === token;
+      const accessToken = getAccessToken();
+      return !!userInfo && !!accessToken;
     },
 
     actions: {
-      updateUserInfo: (result: UserInfo) => {
-        const { accessToken, refreshToken } = result;
-        setUserToken(accessToken);
-        setRefreshToken(refreshToken);
-        setUserInfo(result);
-
+      updateUserInfo: (result: User) => {
         set((state) => {
-          state.token = accessToken;
           state.userInfo = result;
         });
       },
@@ -57,8 +43,6 @@ export const useUserStore = create<UserStore>()(
       logout: async (navigate?, currentPath = "/", ignoreAuth = false) => {
         const tabsActions = useTabsStore.getState().actions;
         const routeActions = useRouteStore.getState().actions;
-        removeUserToken();
-        removeRefreshToken();
         removeUserInfo();
 
         set((state) => {

@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
+import type { RoleType } from "@/service";
 import { useIsAuthenticated, useUserInfo } from "@/store/user";
-import type { RoleType } from "@/types";
 import { usePermission } from "./usePermission";
 
 type RouteGuardBeforeEnterResult = { path?: string; success: boolean } | void | null | undefined;
@@ -64,7 +64,12 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
     }
 
     // 2. 检查角色权限
-    if (requireAuth && isAuthenticated && roles.length > 0 && userInfo?.roles) {
+    if (
+      requireAuth &&
+      isAuthenticated &&
+      roles.length > 0 &&
+      userInfo?.user_metadata?.roles?.length
+    ) {
       const hasRequiredRole = hasPermission(roles);
       if (!hasRequiredRole) {
         return {

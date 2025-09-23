@@ -1,6 +1,6 @@
 import { Steps } from "antd";
 import { cn } from "@/lib";
-import type { StepFormProps, StepFormStepProps } from "@/types";
+import type { StepFormProps, StepFormStepProps } from "./type";
 
 // 分步表单组件
 export function StepForm({ current, onChange, children, className }: StepFormProps) {

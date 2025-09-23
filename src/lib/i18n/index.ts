@@ -6,6 +6,8 @@ import zhCnTrans from "./locales/zh-CN.json";
 
 export const defaultLocale = import.meta.env.VITE_DEFAULT_LOCALE;
 
+export type Locale = "zh-CN" | "en-US";
+
 export const locales: Locale[] = ["zh-CN", "en-US"];
 
 export const resources = {

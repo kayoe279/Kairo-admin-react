@@ -1,5 +1,5 @@
 import { Form, Modal } from "antd";
-import type { ModalFormProps } from "@/types";
+import type { ModalFormProps } from "./type";
 
 // 模态框表单组件
 export function ModalForm({
