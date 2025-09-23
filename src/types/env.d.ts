@@ -8,16 +8,6 @@ type ServiceEnvType = "development" | "production";
 interface ImportMetaEnv {
   /** 端口 */
   readonly VITE_PORT: number;
-  /** 项目基本地址 */
-  readonly VITE_BASE_URL: string;
-  /** API 地址 */
-  readonly VITE_API_ENDPOINT: string;
-  /** mock API 地址 */
-  readonly VITE_MOCK_API_ENDPOINT: string;
-  /** 是否启用mock */
-  readonly VITE_USE_MOCK: boolean;
-  /** 是否启用logger mock */
-  readonly VITE_LOGGER_MOCK: boolean;
   /** APP标题 */
   readonly VITE_GLOB_APP_TITLE: string;
   /** 应用简称 */
@@ -36,10 +26,6 @@ interface ImportMetaEnv {
   readonly VITE_DEFAULT_LOCALE: "zh-CN" | "en-US";
   /** 后端服务的环境类型 */
   readonly MODE: ServiceEnvType;
-  /** Convex URL */
-  readonly VITE_CONVEX_URL: string;
-  /** Convex Key */
-  readonly VITE_CONVEX_KEY: string;
   /** Supabase URL */
   readonly VITE_SUPABASE_URL: string;
   /** Supabase Key */
