@@ -1,5 +1,5 @@
 import { Alert, Card, Divider, Tag, Typography } from "antd";
-import { useRequireAuth, useRequireRoles, useRouteMetaMeta } from "@/lib/hooks/useRouteMatch";
+import { useRequireAuth, useRequireRoles, useRouteMetaMeta } from "@/hooks/useRouteMatch";
 
 const { Text } = Typography;
 
@@ -48,7 +48,7 @@ export const RouteMetaExample = () => {
   useRouteMetaMeta, 
   useRequireAuth, 
   useRequireRoles 
-} from "@/lib/hooks/useRouteMatch";
+} from "@/hooks/useRouteMatch";
 
 // 无需传参，自动使用 rootRoutes
 const requireAuth = useRequireAuth();

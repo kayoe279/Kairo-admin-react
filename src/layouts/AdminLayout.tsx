@@ -1,9 +1,9 @@
 import { Layout } from "antd";
+import { useDarkMode, useRouteMatch } from "@/hooks";
 import { Header, Logo } from "@/layouts/Header";
 import { AdminMenu } from "@/layouts/Menu/AdminMenu";
 import { Tabs } from "@/layouts/Tabs/Tabs";
 import { cn } from "@/lib";
-import { useDarkMode, useRouteMatch } from "@/lib/hooks";
 import { useAppSettings } from "@/store";
 import { PageMain } from "./PageMain";
 

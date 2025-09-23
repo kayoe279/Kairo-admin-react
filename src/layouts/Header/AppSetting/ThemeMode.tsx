@@ -1,7 +1,7 @@
 import { Segmented, Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import { SvgIcon } from "@/components/ui";
-import { useDarkMode, type ThemeMode as ThemeModeType } from "@/lib/hooks";
+import { useDarkMode, type ThemeMode as ThemeModeType } from "@/hooks";
 import { useThemeActions, useThemeSettings } from "@/store";
 import { SettingItem } from "./SettingItem";
 

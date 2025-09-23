@@ -1,5 +1,5 @@
 import type { TableProps as AntdTableProps, ColumnsType } from "antd/es/table";
-import type { UseTableOptions } from "@/lib/hooks/useTable";
+import type { UseTableOptions } from "@/hooks/useTable";
 import type { User } from "@/types/api/user";
 
 // BasicTable Props

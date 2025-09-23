@@ -1,7 +1,7 @@
 import { useMemo, type ReactNode } from "react";
 import { App, ConfigProvider, theme, type ThemeConfig } from "antd";
+import { useDarkMode } from "@/hooks";
 import { hexToRgba } from "@/lib";
-import { useDarkMode } from "@/lib/hooks";
 import { useThemeSettings } from "@/store";
 
 export const AntConfigProvider = ({ children }: { children: ReactNode }) => {

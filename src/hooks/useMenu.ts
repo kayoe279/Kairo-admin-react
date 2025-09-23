@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import type { ItemType } from "antd/es/menu/interface";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
-import { useDarkMode } from "@/lib/hooks";
+import { useDarkMode } from "@/hooks";
 import {
   getAntMenuSelectedKeys,
   getLevelKeys,

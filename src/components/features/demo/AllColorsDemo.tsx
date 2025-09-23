@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { Button, Card, Progress } from "antd";
-import { useDarkMode } from "@/lib/hooks";
+import { useDarkMode } from "@/hooks";
 import { useThemeActions, useThemeSettings, type ThemeType } from "@/store/theme";
 
 export const AllColorsDemo: React.FC = () => {

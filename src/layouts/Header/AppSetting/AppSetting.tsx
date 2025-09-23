@@ -2,7 +2,7 @@ import { useState } from "react";
 import { App, Button, Divider } from "antd";
 import { useTranslation } from "react-i18next";
 import { ButtonIcon, Drawer } from "@/components/ui";
-import { useDarkMode } from "@/lib/hooks";
+import { useDarkMode } from "@/hooks";
 import { useAppActions, useAppSettings, useThemeActions } from "@/store";
 import { Animation } from "./Animation";
 import { LayoutMode } from "./LayoutMode";

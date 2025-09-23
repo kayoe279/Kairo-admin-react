@@ -1,7 +1,7 @@
 import React from "react";
 import { useRequest } from "alova/client";
 import { App, Button, Card, Space, Spin, Typography } from "antd";
-import { usePermission } from "@/lib/hooks/usePermission";
+import { usePermission } from "@/hooks/usePermission";
 import { defaultLoginParams } from "@/lib/settings/app";
 import { login } from "@/service/api";
 import { useAuthRoute, useUserActions, useUserInfo } from "@/store";

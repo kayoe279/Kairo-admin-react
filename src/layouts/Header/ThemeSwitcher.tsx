@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonIcon } from "@/components/ui";
-import { useDarkMode } from "@/lib/hooks";
+import { useDarkMode } from "@/hooks";
 import { useThemeActions } from "@/store";
 
 export const ThemeSwitcher = () => {

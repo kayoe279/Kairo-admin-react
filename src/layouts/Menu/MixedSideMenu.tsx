@@ -1,4 +1,4 @@
-import { useMixedMenu } from "@/lib/hooks/useMenu";
+import { useMixedMenu } from "@/hooks/useMenu";
 import type { AppRouteObject } from "@/types";
 import { SideMenu } from "./SideMenu";
 

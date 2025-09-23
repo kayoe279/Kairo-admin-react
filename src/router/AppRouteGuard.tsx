@@ -3,8 +3,8 @@ import type { ResourceKey } from "i18next";
 import NProgress from "nprogress";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
-import { useRequireAuth, useRequireRoles, useRouteMetaMeta } from "@/lib/hooks";
-import { useRouteGuard, type RouteGuardOptions } from "@/lib/hooks/useRouteGuard";
+import { useRequireAuth, useRequireRoles, useRouteMetaMeta } from "@/hooks";
+import { useRouteGuard, type RouteGuardOptions } from "@/hooks/useRouteGuard";
 
 const title = import.meta.env.VITE_GLOB_APP_TITLE;
 

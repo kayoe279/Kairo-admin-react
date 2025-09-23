@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { ButtonIcon } from "@/components/ui";
+import { useRouteMatch } from "@/hooks";
 import { AdminMenu, Collapsed } from "@/layouts/Menu";
 import { cn } from "@/lib";
-import { useRouteMatch } from "@/lib/hooks";
 import { appConfig } from "@/lib/settings/app";
 import { useAppSettings } from "@/store";
 import { AppSetting } from "./AppSetting/AppSetting";

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Table } from "antd";
+import { useTable } from "@/hooks/useTable";
 import { cn } from "@/lib";
-import { useTable } from "@/lib/hooks/useTable";
 import type { BasicTableProps } from "@/types/table";
 
 export function BasicTable<T = any>({

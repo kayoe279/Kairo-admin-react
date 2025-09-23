@@ -36,6 +36,14 @@ interface ImportMetaEnv {
   readonly VITE_DEFAULT_LOCALE: "zh-CN" | "en-US";
   /** 后端服务的环境类型 */
   readonly MODE: ServiceEnvType;
+  /** Convex URL */
+  readonly VITE_CONVEX_URL: string;
+  /** Convex Key */
+  readonly VITE_CONVEX_KEY: string;
+  /** Supabase URL */
+  readonly VITE_SUPABASE_URL: string;
+  /** Supabase Key */
+  readonly VITE_SUPABASE_KEY: string;
 }
 
 interface ImportMeta {
