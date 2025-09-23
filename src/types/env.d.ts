@@ -30,6 +30,10 @@ interface ImportMetaEnv {
   readonly VITE_SUPABASE_URL: string;
   /** Supabase Key */
   readonly VITE_SUPABASE_KEY: string;
+  /** 示例账号 */
+  readonly VITE_EXAMPLE_ACCOUNT: string;
+  /** 示例密码 */
+  readonly VITE_EXAMPLE_PASSWORD: string;
 }
 
 interface ImportMeta {

@@ -1,12 +1,12 @@
 import React from "react";
 import { App, Button, Card, Space, Spin, Typography } from "antd";
 import { usePermission } from "@/hooks/usePermission";
+import { tryParseJson } from "@/lib";
 import { useSignIn, type RoleType } from "@/service";
 import { useAuthRoute, useUserActions, useUserInfo } from "@/store";
 
 const { Title } = Typography;
 
-// 权限指令的React版本 - 作为高阶组件
 const WithPermission: React.FC<{
   permissions: RoleType[];
   children: React.ReactNode;
@@ -32,18 +32,20 @@ export default function PermissionExample() {
   const { isPending, mutateAsync } = useSignIn();
 
   const roleList: RoleType[] = ["super", "admin", "user"];
+  const accounts = tryParseJson(import.meta.env.VITE_EXAMPLE_ACCOUNT, []);
+  const password = import.meta.env.VITE_EXAMPLE_PASSWORD;
 
   const roleMap = {
-    super: "kayoe279@gmail.com",
-    admin: "knoxoe279@gmail.com",
-    user: "kayoe279@qq.com",
+    super: accounts[0],
+    admin: accounts[1],
+    user: accounts[2],
   };
 
   const toggleUserRole = async (targetRole: RoleType) => {
     try {
       const result = await mutateAsync({
         email: roleMap[targetRole],
-        password: "Qwe123456+",
+        password: password,
       });
       if (result.user) {
         updateUserInfo(result.user);

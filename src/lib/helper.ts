@@ -15,6 +15,14 @@ export const validValue = (value: undefined | null | string | boolean) => {
   return value !== undefined && value !== null && value !== "" && value !== false;
 };
 
+export const tryParseJson = (value: string, defaultValue?: unknown) => {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return defaultValue || null;
+  }
+};
+
 /**
  * 判断是否 url
  * */

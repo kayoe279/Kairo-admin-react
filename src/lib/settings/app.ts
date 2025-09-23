@@ -54,11 +54,6 @@ export const appSetting = {
 
 export type AppSettingProps = typeof appSetting;
 
-export const defaultLoginParams = {
-  username: "super",
-  password: "123456",
-};
-
 export const appConfig = {
   title: "Kairo Admin",
   description:
