@@ -7,7 +7,7 @@ export interface BaseFormProps extends Omit<FormProps, "children"> {
   children?: ReactNode;
   loading?: boolean;
   onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  onCancel?: () => void;
+  onReset?: () => void;
   form?: FormInstance;
 }
 
@@ -53,6 +53,8 @@ export interface DynamicFormField {
   options?: Array<{ label: string; value: any }>;
   placeholder?: string;
   required?: boolean;
+  allowClear?: boolean;
+  mode?: "multiple" | "tags";
 }
 
 // 模态框表单类型
@@ -75,21 +77,4 @@ export interface UserFormData {
   address?: string;
   role?: string;
   status?: "active" | "inactive";
-}
-
-// 登录表单数据类型
-export interface LoginFormData {
-  username: string;
-  password: string;
-  remember?: boolean;
-}
-
-// 注册表单数据类型
-export interface RegisterFormData {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  phone?: string;
-  agreement: boolean;
 }

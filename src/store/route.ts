@@ -83,11 +83,9 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
         .filter((route) => hasPermission((route.meta?.roles as RoleType[]) || []))
         .map((route) => {
           const newRoute = { ...route };
-
           if (newRoute.children && newRoute.children.length) {
             newRoute.children = filterFunc(newRoute.children);
           }
-
           return newRoute;
         });
     };

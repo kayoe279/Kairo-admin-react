@@ -153,11 +153,11 @@ export const createActionColumn = (actions: ColumnActions) => ({
         <Button
           size="small"
           variant="link"
-          color="purple"
-          icon={record.disabled ? <CheckOutlined /> : <CloseOutlined />}
+          color={record.disabled ? "purple" : "green"}
+          icon={record.disabled ? <CloseOutlined /> : <CheckOutlined />}
           onClick={() => actions.onDisable!(record)}
         >
-          {record.disabled ? "启用" : "禁用"}
+          {record.disabled ? "禁用" : "启用"}
         </Button>
       )}
       {actions.onDelete && (

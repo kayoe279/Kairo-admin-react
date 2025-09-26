@@ -148,6 +148,8 @@ const DynamicFormExample = ({
       <Col span={16}>
         <Card title="动态表单示例">
           <DynamicForm
+            colSize={24}
+            align="center"
             fields={dynamicFields}
             onSubmit={handleDynamicFormSubmit}
             submitText="提交动态表单"

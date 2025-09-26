@@ -2,7 +2,7 @@ export const DRAWER_WIDTH = 360;
 
 export const PAGE = {
   LOGIN_NAME: "login",
-  LOGIN_PATH: "/login",
+  LOGIN_PATH: "/auth/login",
   REDIRECT_NAME: "redirect",
   REDIRECT_PATH: "/redirect",
   ERROR_PAGE_NAME: "404",
@@ -22,3 +22,5 @@ export const DEFAULT_PAGE = 1;
 export const PAGE_SIZE_OPTIONS = [10, 20, 30, 40, 50, 100];
 export const PAGE_NAME = "page";
 export const PAGE_SIZE_NAME = "pageSize";
+export const SORT_BY_NAME = "sortBy";
+export const SORT_ORDER_NAME = "sortOrder";

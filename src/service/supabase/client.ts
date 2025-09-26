@@ -25,3 +25,5 @@ export const getSupabaseClient = (options?: SupabaseClientOptions<"public">) => 
 
   return supabaseClient;
 };
+
+export const supabase = getSupabaseClient();

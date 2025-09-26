@@ -1,6 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { PAGE } from "@/lib/constants";
 import { getAccessToken, getUserInfo, removeUserInfo } from "@/lib/cookie";
 import { useRouteStore } from "./route";
 import { useTabsStore } from "./tabs";
@@ -51,7 +52,7 @@ export const useUserStore = create<UserStore>()(
         });
 
         if (!ignoreAuth && navigate) {
-          navigate("/auth/login", {
+          navigate(PAGE.LOGIN_PATH, {
             state: { redirect: currentPath },
           });
         }

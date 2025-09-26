@@ -6,9 +6,8 @@ import {
   UpOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Form, Row } from "antd";
-import { useSearchParams } from "react-router";
-import { useClearQueryParams } from "@/hooks";
-import { cn, validValue } from "@/lib";
+import { useSearchQuery } from "@/hooks";
+import { cn } from "@/lib";
 import type { SearchFormProps } from "./type";
 
 export function SearchForm({
@@ -29,36 +28,22 @@ export function SearchForm({
   const form = externalForm || internalForm;
   const [flag, setFlag] = useState(true);
   const [collapsed, setCollapsed] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { clearPageKey } = useClearQueryParams(prefix);
+  const { searchQuery, setSearchQuery, resetSearchQuery } = useSearchQuery({ prefix });
 
   useEffect(() => {
-    const urlValues = Object.fromEntries(searchParams.entries());
-    form.setFieldsValue({ ...initialValues, ...urlValues });
-  }, [searchParams, form, initialValues]);
+    form.setFieldsValue({ ...initialValues, ...searchQuery });
+  }, [searchQuery, form, initialValues]);
 
   const handleSearch = () => {
     const values = form.getFieldsValue() as Record<string, any>;
     setFlag(true);
-    setSearchParams((prev) => {
-      const newParams = clearPageKey(new URLSearchParams(prev));
-      Object.entries(values).forEach(([key, value]) => {
-        if (newParams.get(key) && !value) {
-          newParams.delete(key);
-        } else if (validValue(value)) {
-          newParams.set(key, value);
-        }
-      });
-      return newParams;
-    });
-
+    setSearchQuery(values);
     onSearch?.(values);
   };
 
   const handleReset = () => {
-    const newParams = new URLSearchParams();
-    setSearchParams(newParams);
+    resetSearchQuery();
     form.resetFields();
     setFlag(false);
     onReset?.();

@@ -6,14 +6,14 @@ import {
   type UseMutationOptions,
   type UseQueryOptions,
 } from "@tanstack/react-query";
-import { queryKeysFactory } from "@/service/queryKey";
 import {
   SupabaseListAPI,
   type ListQueryParams,
   type ListResponse,
   type MutationResponse,
   type NavListInsert,
-} from "@/service/supabase";
+} from "@/service";
+import { queryKeysFactory } from "@/service/queryKey";
 
 const listKey = queryKeysFactory("list");
 

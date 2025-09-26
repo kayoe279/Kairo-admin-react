@@ -38,7 +38,7 @@ export const PageMain = ({ className }: { className?: string }) => {
             ref={nodeRef}
             className={cn("relative p-4", headerSetting.fixed && "min-h-0 flex-1 overflow-y-auto")}
           >
-            {outlet}
+            <div className="flex h-full flex-col gap-4">{outlet}</div>
           </div>
         </CSSTransition>
       </SwitchTransition>

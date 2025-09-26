@@ -4,5 +4,5 @@ export * from "./useBetterScroll";
 export * from "./useRouteMatch";
 export * from "./useRouteGuard";
 export * from "./usePermission";
-export * from "./useSearchParams";
+export * from "./useSearchQuery";
 export * from "./table";

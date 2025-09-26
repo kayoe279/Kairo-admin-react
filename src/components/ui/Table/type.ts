@@ -1,20 +1,15 @@
-import type { TableProps as AntdTableProps, ColumnsType } from "antd/es/table";
-import type { UseTableOptions } from "@/hooks/table";
+import type { ReactNode, RefObject } from "react";
+import type { TableProps as AntdTableProps, TableRef } from "antd/es/table";
+import type { DynamicFormField } from "@/components/ui/Form";
 
-// BasicTable Props
-export interface BasicTableProps<T = any>
-  extends Omit<AntdTableProps<T>, "dataSource" | "loading" | "pagination" | "onChange"> {
-  searchParams?: Record<string, any>;
-
-  // 表格配置
-  columns?: ColumnsType<T>;
-
-  // useTable 选项
-  tableOptions?: UseTableOptions;
-
+export interface BasicTableProps<T = any> extends AntdTableProps<T> {
+  filters: DynamicFormField[];
+  searchQuery: Record<string, string | undefined>;
+  tableRef?: RefObject<TableRef>;
   // 其他配置
-  scroll?: { x?: number; y?: number };
-  size?: "small" | "middle" | "large";
-  fullHeight?: boolean;
-  setLoading?: (loading: boolean) => void;
+  prefix?: string;
+  cardTitle?: string;
+  operation?: ReactNode;
+  fixedHeight?: boolean;
+  showActions?: boolean;
 }

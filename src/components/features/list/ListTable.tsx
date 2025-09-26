@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
-import { App, Table } from "antd";
-import type { BasicTableProps } from "@/components/ui/Table";
-import { useTable, useTableQuery } from "@/hooks";
+import { useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
+import { App, Button } from "antd";
+import { ButtonIcon } from "@/components/ui";
+import type { DynamicFormField } from "@/components/ui/Form";
+import { BasicTable } from "@/components/ui/Table";
+import { useSearchQuery, useTable } from "@/hooks";
 import { cn } from "@/lib";
 import { useTableList, type ListQueryParams, type NavListItem } from "@/service";
 import { createNavListTableColumns } from "./columns";
 
-interface UserTableProps extends BasicTableProps<NavListItem> {
-  showActions?: boolean;
-  className?: string;
-}
-
 export const ListTable = ({
-  setLoading,
-  showActions = true,
   className,
-  ...restProps
-}: UserTableProps) => {
+  cardTitle,
+  filters = [],
+}: {
+  className?: string;
+  cardTitle?: string;
+  filters?: DynamicFormField[];
+}) => {
   const { message, modal } = App.useApp();
 
   const [detailModalVisible, setDetailModalVisible] = useState(false);
@@ -24,8 +25,8 @@ export const ListTable = ({
 
   const handleDisable = (record: NavListItem) => {
     modal.confirm({
-      title: "确认禁用",
-      content: `确定要禁用${record.name}吗？`,
+      title: `确认${record.disabled ? "启用" : "禁用"}`,
+      content: `确定要${record.disabled ? "启用" : "禁用"}${record.name}吗？`,
       onOk: () => {
         message.success(`TODO 还没做: ${record.name}`);
       },
@@ -49,7 +50,7 @@ export const ListTable = ({
 
   // 创建 columns 配置
   const columns = createNavListTableColumns({
-    showActions,
+    showActions: true,
     actions: {
       onEdit: handleEdit,
       onDisable: handleDisable,
@@ -57,31 +58,45 @@ export const ListTable = ({
     },
   });
 
-  const { searchParams } = useTableQuery({
+  const { searchQuery } = useSearchQuery({
     extendKeys: ["disabled"],
   });
 
-  const { data, total, isLoading } = useTableList(searchParams as ListQueryParams);
+  const { list, total, isLoading, isFetching, refetch } = useTableList(
+    searchQuery as ListQueryParams
+  );
 
   const { tableProps } = useTable<NavListItem>({
-    data,
+    data: list,
     total,
     isLoading,
   });
 
-  useEffect(() => {
-    setLoading?.(isLoading);
-  }, [isLoading, setLoading]);
-
   return (
-    <>
-      <Table
-        columns={columns}
-        loading={isLoading}
-        className={cn(className)}
-        {...restProps}
-        {...tableProps}
+    <BasicTable<NavListItem>
+      filters={filters}
+      searchQuery={searchQuery}
+      columns={columns}
+      loading={isLoading}
+      cardTitle={cardTitle}
+      className={cn(className)}
+      operation={<Operation isFetching={isFetching} refetch={refetch} />}
+      {...tableProps}
+    />
+  );
+};
+
+const Operation = ({ isFetching, refetch }: { isFetching: boolean; refetch: () => void }) => {
+  return (
+    <div className="flex justify-between">
+      <Button type="primary" icon={<PlusOutlined />}>
+        创建
+      </Button>
+      <ButtonIcon
+        icon="ant-design:reload-outlined"
+        className={cn({ "pointer-events-none animate-spin opacity-50": isFetching })}
+        onClick={() => refetch()}
       />
-    </>
+    </div>
   );
 };

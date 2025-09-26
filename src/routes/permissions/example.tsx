@@ -1,5 +1,5 @@
 import React from "react";
-import { App, Button, Card, Space, Spin, Typography } from "antd";
+import { Alert, App, Button, Card, Space, Spin, Typography } from "antd";
 import { usePermission } from "@/hooks/usePermission";
 import { tryParseJson } from "@/lib";
 import { useSignIn, type RoleType } from "@/service";
@@ -42,6 +42,10 @@ export default function PermissionExample() {
   };
 
   const toggleUserRole = async (targetRole: RoleType) => {
+    if (targetRole === role) {
+      message.warning("当前角色与目标角色相同");
+      return;
+    }
     try {
       const result = await mutateAsync({
         email: roleMap[targetRole],
@@ -56,6 +60,18 @@ export default function PermissionExample() {
       message.error("角色切换失败");
     }
   };
+
+  if (accounts.length === 0 || !password) {
+    return (
+      <Card title="权限示例">
+        <Alert
+          message="警告"
+          description="请先在 .env.local 文件中配置示例账号和密码"
+          type="warning"
+        />
+      </Card>
+    );
+  }
 
   return (
     <Card title="权限示例" className="p-4">

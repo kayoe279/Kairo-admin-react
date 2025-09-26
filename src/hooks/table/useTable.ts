@@ -2,8 +2,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GetProp, Table, TableProps } from "antd";
 import type { SorterResult } from "antd/es/table/interface";
 import { useSearchParams } from "react-router";
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PAGE_NAME, PAGE_SIZE_NAME, validValue } from "@/lib";
-import { useTableHeight, type UseTableHeightOptions } from "./useTableHeight";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  PAGE_NAME,
+  PAGE_SIZE_NAME,
+  PAGE_SIZE_OPTIONS,
+  validValue,
+} from "@/lib";
 
 type TablePaginationConfig = Exclude<GetProp<TableProps, "pagination">, boolean>;
 
@@ -24,14 +30,13 @@ export interface UseTableOptions<T = []> {
   total?: number;
   searchParams?: Record<string, any>;
   isLoading?: boolean;
-  heightOptions?: UseTableHeightOptions;
 }
 
 export function useTable<T extends Record<string, any>>(
   options: UseTableOptions<T>,
   tableOptions: TableProps<T> = {}
 ) {
-  const { prefix, total, heightOptions } = options;
+  const { prefix, total } = options;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const pageKey = `${prefix ? `${prefix}_` : ""}${PAGE_NAME}`;
@@ -46,6 +51,7 @@ export function useTable<T extends Record<string, any>>(
     pagination: {
       current: page ? Number(page) : options.page || DEFAULT_PAGE,
       pageSize: pageSize ? Number(pageSize) : options.pageSize || DEFAULT_PAGE_SIZE,
+      pageSizeOptions: PAGE_SIZE_OPTIONS,
       total: total,
       showSizeChanger: true,
       showQuickJumper: true,
@@ -53,9 +59,6 @@ export function useTable<T extends Record<string, any>>(
       showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`,
     },
   });
-
-  // 使用高度计算 hook
-  const { tableHeight, refreshTableHeight } = useTableHeight(tableRef, heightOptions);
 
   const handleTableChange = useCallback(
     (
@@ -103,7 +106,6 @@ export function useTable<T extends Record<string, any>>(
   useEffect(() => {
     if (!options.isLoading) {
       setTableData(options.data || []);
-      refreshTableHeight();
 
       tableParams.current = {
         ...tableParams.current,
@@ -116,16 +118,7 @@ export function useTable<T extends Record<string, any>>(
         },
       };
     }
-  }, [
-    page,
-    pageSize,
-    total,
-    options.page,
-    options.pageSize,
-    options.data,
-    options.isLoading,
-    refreshTableHeight,
-  ]);
+  }, [page, pageSize, total, options.page, options.pageSize, options.data, options.isLoading]);
 
   const tableProps = useMemo(
     () =>
@@ -137,10 +130,9 @@ export function useTable<T extends Record<string, any>>(
         bordered: true,
         onChange: handleTableChange,
         rowKey: (record: T) => record.id,
-        scroll: tableHeight ? { y: tableHeight } : undefined,
         ...tableOptions,
       }) as TableProps<T>,
-    [tableRef, tableData, tableHeight, tableOptions, handleTableChange]
+    [tableRef, tableData, tableOptions, handleTableChange]
   );
 
   return {
@@ -148,7 +140,5 @@ export function useTable<T extends Record<string, any>>(
     tableParams,
     tableProps,
     pagination: tableParams.current.pagination,
-    tableHeight,
-    refreshTableHeight,
   };
 }
