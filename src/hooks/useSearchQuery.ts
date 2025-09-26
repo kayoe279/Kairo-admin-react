@@ -98,7 +98,7 @@ export function useQueryParams<T extends string>(keys: T[], prefix?: string): Qu
     const prefixedKey = prefix ? `${prefix}_${key}` : key;
     const value = params.get(prefixedKey) || undefined;
     if (validValue(value)) {
-      result[key] = value;
+      result[key] = value as string;
     }
   });
 

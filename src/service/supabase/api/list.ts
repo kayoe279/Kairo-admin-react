@@ -1,3 +1,4 @@
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "@/lib";
 import type {
   DetailResponse,
   ListQueryParams,
@@ -18,14 +19,10 @@ export class SupabaseListAPI {
    * @param params 查询参数
    */
   static async getList(params: ListQueryParams = {}): Promise<ListResponse> {
-    const {
-      page = 1,
-      pageSize = 10,
-      keyword,
-      sortBy = "created_at",
-      sortOrder = "desc",
-      disabled,
-    } = params;
+    const { keyword, sortBy = "created_at", sortOrder = "desc", disabled } = params;
+
+    const page = Number(params.page) || DEFAULT_PAGE;
+    const pageSize = Number(params.pageSize) || DEFAULT_PAGE_SIZE;
 
     try {
       let query = supabase.from("navList").select("*", { count: "exact" });

@@ -8,11 +8,11 @@ export type NavListUpdate = TablesUpdate<"navList">;
 
 // 查询参数类型
 export interface ListQueryParams {
-  page?: number;
-  pageSize?: number;
+  page?: string;
+  pageSize?: string;
   keyword?: string;
-  sortBy?: keyof NavListItem;
-  sortOrder?: "asc" | "desc";
+  sortBy?: keyof NavListItem | string;
+  sortOrder?: "asc" | "desc" | string;
   disabled?: string;
 }
 

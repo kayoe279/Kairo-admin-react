@@ -6,7 +6,7 @@ import type { DynamicFormField } from "@/components/ui/Form";
 import { BasicTable } from "@/components/ui/Table";
 import { useSearchQuery, useTable } from "@/hooks";
 import { cn } from "@/lib";
-import { useTableList, type ListQueryParams, type NavListItem } from "@/service";
+import { useTableList, type NavListItem } from "@/service";
 import { createNavListTableColumns } from "./columns";
 
 export const ListTable = ({
@@ -62,9 +62,7 @@ export const ListTable = ({
     extendKeys: ["disabled"],
   });
 
-  const { list, total, isLoading, isFetching, refetch } = useTableList(
-    searchQuery as ListQueryParams
-  );
+  const { list, total, isLoading, isFetching, refetch } = useTableList(searchQuery);
 
   const { tableProps } = useTable<NavListItem>({
     data: list,
