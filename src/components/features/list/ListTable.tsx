@@ -7,7 +7,7 @@ import { BasicTable } from "@/components/ui/Table";
 import { useSearchQuery, useTable } from "@/hooks";
 import { cn } from "@/lib";
 import { useTableList, type NavListItem } from "@/service";
-import { createNavListTableColumns } from "./columns";
+import { useListTableColumns } from "./columns";
 
 export const ListTable = ({
   className,
@@ -22,6 +22,14 @@ export const ListTable = ({
 
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState<NavListItem | null>(null);
+
+  const { searchQuery } = useSearchQuery({ extendKeys: ["disabled"] });
+  const { list, total, isLoading, isFetching, refetch } = useTableList(searchQuery);
+  const { tableProps } = useTable<NavListItem>({
+    data: list,
+    total,
+    isLoading,
+  });
 
   const handleDisable = (record: NavListItem) => {
     modal.confirm({
@@ -48,26 +56,13 @@ export const ListTable = ({
     });
   };
 
-  // 创建 columns 配置
-  const columns = createNavListTableColumns({
+  const columns = useListTableColumns({
     showActions: true,
     actions: {
       onEdit: handleEdit,
       onDisable: handleDisable,
       onDelete: handleDelete,
     },
-  });
-
-  const { searchQuery } = useSearchQuery({
-    extendKeys: ["disabled"],
-  });
-
-  const { list, total, isLoading, isFetching, refetch } = useTableList(searchQuery);
-
-  const { tableProps } = useTable<NavListItem>({
-    data: list,
-    total,
-    isLoading,
   });
 
   return (

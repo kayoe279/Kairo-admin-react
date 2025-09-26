@@ -176,7 +176,7 @@ export const createActionColumn = (actions: ColumnActions) => ({
 });
 
 // 完整的 columns 配置函数
-export const createNavListTableColumns = ({
+export const useListTableColumns = ({
   showActions = true,
   actions,
 }: {
