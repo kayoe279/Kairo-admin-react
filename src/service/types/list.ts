@@ -12,7 +12,7 @@ export interface ListQueryParams {
   pageSize?: string;
   keyword?: string;
   sortBy?: keyof NavListItem | string;
-  sortOrder?: "asc" | "desc" | string;
+  sortOrder?: "ascend" | "descend" | string;
   disabled?: string;
 }
 

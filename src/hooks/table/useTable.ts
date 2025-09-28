@@ -32,6 +32,8 @@ export interface UseTableOptions<T = []> {
   isLoading?: boolean;
 }
 
+const getPrefixedKey = (key: string, prefix?: string) => (prefix ? `${prefix}_${key}` : key);
+
 export function useTable<T extends Record<string, any>>(
   options: UseTableOptions<T>,
   tableOptions: TableProps<T> = {}
@@ -39,8 +41,8 @@ export function useTable<T extends Record<string, any>>(
   const { prefix, total } = options;
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const pageKey = `${prefix ? `${prefix}_` : ""}${PAGE_NAME}`;
-  const pageSizeKey = `${prefix ? `${prefix}_` : ""}${PAGE_SIZE_NAME}`;
+  const pageKey = getPrefixedKey(PAGE_NAME, prefix);
+  const pageSizeKey = getPrefixedKey(PAGE_SIZE_NAME, prefix);
   const page = searchParams.get(pageKey);
   const pageSize = searchParams.get(pageSizeKey);
 
@@ -92,15 +94,22 @@ export function useTable<T extends Record<string, any>>(
 
         for (const key of Object.keys(newParams)) {
           const value = newParams[key];
+          const prefixedKey = getPrefixedKey(key, prefix);
+          if (newSearch.has(prefixedKey) && !value) {
+            newSearch.delete(prefixedKey);
+          }
+          if (key === pageKey && !newSearch.get(pageKey) && Number(newParams.page) === 1) {
+            continue;
+          }
           if (validValue(value)) {
-            newSearch.set(`${prefix ? `${prefix}_` : ""}${key}`, String(value));
+            newSearch.set(prefixedKey, String(value));
           }
         }
 
         return newSearch;
       });
     },
-    [prefix, setSearchParams]
+    [prefix, pageKey, setSearchParams]
   );
 
   useEffect(() => {

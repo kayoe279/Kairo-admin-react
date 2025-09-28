@@ -3,7 +3,7 @@
 /* fade-slide 淡入滑动 */
 .page-fade-slide-enter {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(-30px);
 }
 
 .page-fade-slide-enter-active {
@@ -21,7 +21,7 @@
 
 .page-fade-slide-exit-active {
   opacity: 0;
-  transform: translateX(-30px);
+  transform: translateX(30px);
   transition:
     opacity 300ms ease-in-out,
     transform 300ms ease-in-out;

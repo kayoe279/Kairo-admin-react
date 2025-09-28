@@ -36,6 +36,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     dataIndex: "name",
     key: "name",
     width: 200,
+    sorter: true,
     ellipsis: {
       showTitle: false,
     },
@@ -71,7 +72,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     title: "关键词",
     dataIndex: "keywords",
     key: "keywords",
-    width: 250,
+    width: 350,
     render: (keywords: string[]) => (
       <div className="flex flex-wrap gap-1">
         {keywords?.map((keyword, index) => (
@@ -116,7 +117,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     sortDirections: ["ascend", "descend"],
     render: (date: string) => {
       if (!date) return "-";
-      return new Date(date).toLocaleString("zh-CN");
+      return new Date(date).toLocaleString();
     },
   },
 ];

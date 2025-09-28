@@ -19,7 +19,7 @@ export class SupabaseListAPI {
    * @param params 查询参数
    */
   static async getList(params: ListQueryParams = {}): Promise<ListResponse> {
-    const { keyword, sortBy = "created_at", sortOrder = "desc", disabled } = params;
+    const { keyword, sortBy = "created_at", sortOrder = "descend", disabled } = params;
 
     const page = Number(params.page) || DEFAULT_PAGE;
     const pageSize = Number(params.pageSize) || DEFAULT_PAGE_SIZE;
@@ -40,7 +40,7 @@ export class SupabaseListAPI {
       }
 
       // 应用排序
-      query = query.order(sortBy, { ascending: sortOrder === "asc" });
+      query = query.order(sortBy, { ascending: sortOrder === "ascend" });
 
       // 应用分页
       const from = (page - 1) * pageSize;
