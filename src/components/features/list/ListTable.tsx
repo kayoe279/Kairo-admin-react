@@ -23,7 +23,7 @@ export const ListTable = ({
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState<NavListItem | null>(null);
 
-  const { searchQuery } = useSearchQuery({ extendKeys: ["disabled"] });
+  const { searchQuery } = useSearchQuery({ extendKeys: ["disabled", "keyword"] });
   const { list, total, isLoading, isFetching, refetch } = useTableList(searchQuery);
   const { tableProps } = useTable<NavListItem>({
     data: list,

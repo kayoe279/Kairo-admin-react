@@ -12,13 +12,12 @@ type QueryParams<T extends string> = {
   [key in T]: string | undefined;
 };
 
-export const queryKeys = [PAGE_NAME, PAGE_SIZE_NAME, SORT_BY_NAME, SORT_ORDER_NAME, "keyword"];
+export const queryKeys = [PAGE_NAME, PAGE_SIZE_NAME, SORT_BY_NAME, SORT_ORDER_NAME];
 type QueryKeys =
   | typeof PAGE_NAME
   | typeof PAGE_SIZE_NAME
   | typeof SORT_BY_NAME
-  | typeof SORT_ORDER_NAME
-  | "keyword";
+  | typeof SORT_ORDER_NAME;
 
 const excludeResetKeys = [PAGE_SIZE_NAME, SORT_BY_NAME, SORT_ORDER_NAME] as const;
 

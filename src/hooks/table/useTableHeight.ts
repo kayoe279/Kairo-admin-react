@@ -76,9 +76,7 @@ export function useTableHeight(
         : 0;
       const containerHeight = tableContainer.offsetHeight - constants.containerPadding;
       const tableHeaderHeight = tableHeader?.offsetHeight || 0;
-      const paginationHeight = pagination?.offsetHeight
-        ? pagination?.offsetHeight + constants.paginationSpacing
-        : 0;
+      const paginationHeight = (pagination?.offsetHeight || 32) + constants.paginationSpacing;
 
       // 计算可用高度
       const tableHeight =
@@ -120,6 +118,6 @@ export function useTableHeight(
 
   return {
     tableHeight,
-    refreshTableHeight: debouncedCalculateHeight,
+    refreshTableHeight: calculateHeight,
   };
 }
