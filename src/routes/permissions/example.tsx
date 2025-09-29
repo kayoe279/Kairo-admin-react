@@ -75,13 +75,15 @@ export default function PermissionExample() {
 
   return (
     <Card title="权限示例" className="p-4">
-      <Title level={1}>当前权限：{role}</Title>
+      <Title level={2}>当前权限：{role}</Title>
       <Spin spinning={isPending}>
         <Space wrap className="mb-6">
           {roleList.map((item) => (
             <Button
               key={item}
-              type={role === item ? "primary" : "default"}
+              size="large"
+              variant="filled"
+              color={role === item ? "primary" : "default"}
               onClick={() => toggleUserRole(item)}
             >
               {item}
@@ -90,7 +92,7 @@ export default function PermissionExample() {
         </Space>
       </Spin>
 
-      <Title level={2}>权限指令用法</Title>
+      <Title level={3}>权限指令用法</Title>
       <Space wrap className="mb-6">
         <WithPermission permissions={["super"]}>
           <Button type="primary">仅super可见</Button>
@@ -112,7 +114,7 @@ export default function PermissionExample() {
         </WithPermission>
       </Space>
 
-      <Title level={2}>usePermission 函数用法</Title>
+      <Title level={3}>usePermission 函数用法</Title>
       <Space wrap>
         {hasPermission(["super"]) && (
           <Button variant="dashed" color="green">
