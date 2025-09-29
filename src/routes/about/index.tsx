@@ -28,7 +28,7 @@ export default function About() {
 
       {/* 项目信息 */}
       <Card title="项目信息" size="small">
-        <Descriptions bordered column={2} labelStyle={{ width: "140px" }}>
+        <Descriptions bordered column={2} styles={{ label: { width: "140px" } }}>
           <Descriptions.Item label="项目名称">{name}</Descriptions.Item>
           <Descriptions.Item label="版本">
             <Tag color="blue">{version}</Tag>
@@ -57,7 +57,7 @@ export default function About() {
 
       {/* 开发环境依赖 */}
       <Card title="开发环境依赖" size="small">
-        <Descriptions bordered column={2} labelStyle={{ width: "200px" }}>
+        <Descriptions bordered column={2} styles={{ label: { width: "200px" } }}>
           {devSchema.map((item) => (
             <Descriptions.Item key={item.field} label={item.field}>
               <Tag color="orange">{item.label}</Tag>
@@ -68,7 +68,7 @@ export default function About() {
 
       {/* 生产环境依赖 */}
       <Card title="生产环境依赖" size="small">
-        <Descriptions bordered column={2} labelStyle={{ width: "200px" }}>
+        <Descriptions bordered column={2} styles={{ label: { width: "200px" } }}>
           {schema.map((item) => (
             <Descriptions.Item key={item.field} label={item.field}>
               <Tag color="blue">{item.label}</Tag>

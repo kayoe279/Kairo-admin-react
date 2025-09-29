@@ -262,6 +262,11 @@
       "subtitle": "Sorry, you don't have permission to access this page.",
       "backHome": "Back to Home",
       "goBack": "Go Back"
+    },
+    "500": {
+      "title": "500",
+      "subtitle": "Internal Server Error",
+      "backLogin": "Back to Login"
     }
   }
 }

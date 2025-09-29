@@ -13,10 +13,7 @@ export interface RouteGuardOptions {
   /** 需要的角色权限 */
   roles?: RoleType[];
   /** 路由进入前的回调 */
-  beforeEnter?: (
-    to: string,
-    from: string
-  ) => RouteGuardBeforeEnterResult | Promise<RouteGuardBeforeEnterResult>;
+  beforeEnter?: (to: string, from: string) => RouteGuardBeforeEnterResult;
   /** 路由进入后的回调 */
   afterEnter?: (to: string, from: string) => void;
   /** 权限验证失败时的回调 */
@@ -51,7 +48,7 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
   const { requireAuth, roles = [], beforeEnter } = options;
 
   //检查用户权限
-  const checkPermission = useCallback(async (): Promise<RouteGuardResult> => {
+  const checkPermission = useCallback((): RouteGuardResult => {
     const currentPath = location.pathname;
 
     // 1. 检查是否需要登录
@@ -83,7 +80,7 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
     // 3. 执行自定义 beforeEnter 钩子
     if (beforeEnter) {
       try {
-        const result = await beforeEnter(currentPath, location.state?.from || "");
+        const result = beforeEnter(currentPath, location.state?.from || "");
         if (result && (result.path || !result.success)) {
           return {
             passed: false,
@@ -115,13 +112,13 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
   ]);
 
   //执行路由守卫检查
-  const executeGuard = useCallback(async () => {
+  const executeGuard = useCallback(() => {
     if (isChecking) return false;
 
     setIsChecking(true);
 
     try {
-      const result = await checkPermission();
+      const result = checkPermission();
 
       if (!result.passed) {
         // 权限验证失败

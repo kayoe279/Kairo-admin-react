@@ -9,6 +9,7 @@ export const PAGE = {
   HOME_NAME: "dashboard",
   HOME_NAME_REDIRECT: "dashboardWorkplace",
   HOME_NAME_REDIRECT_PATH: "/dashboard/workplace",
+  FORBIDDEN_PATH: "/403",
 } as const;
 
 export const IS_SCREEN_LOCKED = "IS-SCREEN-LOCKED"; // 是否锁屏

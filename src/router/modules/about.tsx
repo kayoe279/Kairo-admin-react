@@ -9,6 +9,7 @@ export const aboutRoutes: AppRouteObject[] = [
       name: "aboutIndex",
       icon: "solar:info-circle-broken",
       sort: 8,
+      roles: ["super"],
     },
   },
 ];

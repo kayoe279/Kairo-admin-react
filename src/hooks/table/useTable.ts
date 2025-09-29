@@ -32,7 +32,7 @@ export interface UseTableOptions<T = []> {
   isLoading?: boolean;
 }
 
-const getPrefixedKey = (key: string, prefix?: string) => (prefix ? `${prefix}_${key}` : key);
+export const getPrefixedKey = (key: string, prefix?: string) => (prefix ? `${prefix}_${key}` : key);
 
 export function useTable<T extends Record<string, any>>(
   options: UseTableOptions<T>,
@@ -98,7 +98,7 @@ export function useTable<T extends Record<string, any>>(
           if (newSearch.has(prefixedKey) && !value) {
             newSearch.delete(prefixedKey);
           }
-          if (key === pageKey && !newSearch.get(pageKey) && Number(newParams.page) === 1) {
+          if (prefixedKey === pageKey && !newSearch.get(pageKey) && Number(newParams.page) === 1) {
             continue;
           }
           if (validValue(value)) {

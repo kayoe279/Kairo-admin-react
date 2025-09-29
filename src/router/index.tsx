@@ -1,8 +1,9 @@
-import { Result } from "antd";
+import { Button, Result } from "antd";
 import { useTranslation } from "react-i18next";
-import { Navigate, useRoutes } from "react-router";
+import { Navigate, useNavigate, useRoutes } from "react-router";
 import { Loading } from "@/components/ui";
 import { AdminLayout } from "@/layouts/AdminLayout";
+import { PAGE } from "@/lib";
 import { AppRouteGuard } from "@/router/AppRouteGuard";
 import Login from "@/routes/auth/login";
 import Exception403 from "@/routes/exception/403";
@@ -33,7 +34,7 @@ export const staticRoutes = [
   ...exceptionRoutes,
 ];
 
-const getRootRoutes = (routes: AppRouteObject[]): AppRouteObject[] => {
+export const getRootRoutes = (routes: AppRouteObject[]): AppRouteObject[] => {
   return [
     // 登录页面 - 公开路由
     {
@@ -65,6 +66,7 @@ const getRootRoutes = (routes: AppRouteObject[]): AppRouteObject[] => {
 
 export const Router = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { routeError, isInitAuthRoute, authRoutes } = useAuthRoute({ immediate: true });
 
   const rootRoutes = getRootRoutes(authRoutes);
@@ -77,8 +79,11 @@ export const Router = () => {
 
   if (routeError) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen flex-col items-center justify-center">
         <Result status="500" title="500" subTitle={t("app.getRouteError")} />
+        <Button type="primary" onClick={() => navigate(PAGE.LOGIN_PATH)}>
+          {t("exception.500.backLogin")}
+        </Button>
       </div>
     );
   }

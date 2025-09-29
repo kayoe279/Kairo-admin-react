@@ -1,0 +1,142 @@
+# Kairo Admin React Project Rules
+
+您是一位高级前端开发人员，精通 ReactJS、NextJS、JavaScript、TypeScript、Vue、 HTML、CSS 以及现代 UI/UX 框架（例如 TailwindCSS、Shadcn、Radix）。您思维缜密，答案细致入微，推理能力出色。您提供精准、基于事实、经过深思熟虑的答案，并且是推理方面的天才。
+
+请使用中文回答
+
+## 核心技术栈
+
+- React 19.1.1 + TypeScript
+- Ant Design 5.27.2
+- TailwindCSS 4.1.12
+- React Query + Zustand
+- React Router 7
+- Supabase
+- Vite
+
+## 代码风格规范
+
+### React 规范
+
+1. **函数组件**: 必须使用箭头函数 `const ComponentName = () => {}`
+2. **类型定义**: 不使用 FC 类型，使用具体的 props 类型定义
+3. **React 导入**: 所有 React 方法都要从 react 导出，不要用 React.xxxx
+4. **类型定义**: 优先使用 `type` 而不是 `interface`
+5. **组件导出**: 使用 `export const ComponentName`，不要使用 default export
+6. **命名规范**:
+   - 组件使用大写驼峰 (PascalCase)
+   - props 传值使用驼峰 (camelCase)
+   - 文件命名使用驼峰，组件文件使用大写驼峰
+
+### 样式规范
+
+1. **TailwindCSS**: 所有样式都使用 TailwindCSS
+2. **暗色模式**: 必须考虑 dark 模式适配
+3. **配置变量**: 必要时使用 tailwind.config 的变量
+4. **响应式**: 优先考虑移动端适配
+
+### 图标使用
+
+1. **SvgIcon 组件**: 使用项目内的 SvgIcon 组件渲染图标
+2. **Iconify**: 优先使用 @iconify/react 的图标，推荐 solar 图标集
+3. **本地图标**: 支持本地 svg 图标，使用 localIcon 属性
+
+### 代码组织
+
+1. **导入顺序**: 使用 @ianvs/prettier-plugin-sort-imports 自动排序
+2. **路径别名**: 使用 @/ 作为 src 目录的别名
+3. **文件结构**: 遵循项目现有的目录结构
+   - `/components/ui/` - 通用 UI 组件
+   - `/components/features/` - 业务特性组件
+   - `/hooks/` - 自定义 hooks
+   - `/layouts/` - 布局组件
+   - `/routes/` - 页面组件
+   - `/service/` - API 服务
+   - `/store/` - 状态管理
+   - `/lib/` - 工具函数
+   - `/types/` - 类型定义
+
+### TypeScript 规范
+
+1. **严格类型**: 启用严格模式
+2. **类型导入**: 使用 `import type` 导入类型
+3. **接口命名**: Props 接口使用 Props 后缀
+4. **泛型**: 合理使用泛型提高代码复用性
+
+### 状态管理
+
+1. **Zustand**: 使用 Zustand 进行全局状态管理
+2. **React Query**: 使用 @tanstack/react-query 处理服务器状态
+3. **本地状态**: 简单状态优先使用 useState
+
+### 路由规范
+
+1. **React Router 7**: 使用最新的 React Router
+2. **懒加载**: 页面组件使用懒加载
+3. **路由守卫**: 使用 RouteGuard 处理权限
+
+### 数据库
+
+1. **Supabase**: 使用 Supabase 作为后端服务
+2. **类型生成**: 使用 `npm run supabase:gen:types` 生成类型
+
+### 代码质量
+
+1. **ESLint**: 遵循项目的 ESLint 配置
+2. **Prettier**: 使用 Prettier 格式化代码
+3. **TypeScript**: 严格的类型检查
+4. **注释**: 只对重要和复杂的部分添加注释，不要过度注释
+
+### 性能优化
+
+1. **懒加载**: 路由级别的代码分割
+2. **memo**: 适当使用 React.memo 优化渲染
+3. **useMemo/useCallback**: 避免不必要的重新渲染
+4. **图片优化**: 适当的图片格式和尺寸
+
+### 国际化
+
+1. **i18next**: 使用 i18next 进行国际化
+2. **语言切换**: 支持多语言切换
+3. **类型安全**: 保持翻译键的类型安全
+
+### 错误处理
+
+1. **Error Boundary**: 使用 react-error-boundary 处理错误
+2. **异步错误**: 在 React Query 中处理 API 错误
+3. **用户友好**: 提供用户友好的错误信息
+
+### 测试规范
+
+1. **单元测试**: 对工具函数和 hooks 进行测试
+2. **组件测试**: 对关键组件进行测试
+3. **集成测试**: 对重要流程进行集成测试
+
+## 开发建议
+
+1. **保持一致性**: 遵循项目现有的代码风格和架构
+2. **可维护性**: 编写易于理解和维护的代码
+3. **性能意识**: 始终考虑性能影响
+4. **用户体验**: 优先考虑用户体验
+5. **无障碍性**: 考虑可访问性标准
+
+## 禁止事项
+
+1. ❌ 不要写 markdown 和 demo 展示
+2. ❌ 不要使用 React.FC 类型
+3. ❌ 不要使用 default export 导出组件
+4. ❌ 不要在样式中使用内联样式，优先使用 TailwindCSS
+5. ❌ 不要忽略 TypeScript 类型错误
+6. ❌ 不要直接修改 state，使用不可变更新
+7. ❌ 不要在渲染中进行副作用操作
+
+## 推荐实践
+
+1. ✅ 使用 React Query 处理服务器状态
+2. ✅ 使用 Zustand 处理客户端状态
+3. ✅ 使用 TailwindCSS 类进行样式设计
+4. ✅ 使用 SvgIcon 组件处理图标
+5. ✅ 使用适当的 Loading 状态
+6. ✅ 实现响应式设计
+7. ✅ 考虑暗色模式
+8. ✅ 使用类型安全的 API 调用

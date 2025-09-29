@@ -38,4 +38,7 @@ export default defineConfig({
     // 应用信息
     appInfo: JSON.stringify(appInfo),
   },
+  server: {
+    port: 8001,
+  },
 });

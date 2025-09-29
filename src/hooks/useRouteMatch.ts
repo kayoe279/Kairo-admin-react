@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router";
 import { isRootMenu } from "@/lib/menu";
+import { getRootRoutes } from "@/router";
 import { findMatchingRoute } from "@/router/helper";
 import type { RoleType } from "@/service";
 import { useAuthRouteState } from "@/store";
@@ -12,10 +13,11 @@ import { useAuthRouteState } from "@/store";
 export const useRouteMatch = () => {
   const location = useLocation();
   const { authRoutes } = useAuthRouteState();
+  const rootRoutes = getRootRoutes(authRoutes);
 
   const result = useMemo(
-    () => findMatchingRoute(authRoutes, location.pathname),
-    [authRoutes, location.pathname]
+    () => findMatchingRoute(rootRoutes, location.pathname),
+    [rootRoutes, location.pathname]
   );
 
   const isRoot = useMemo(
