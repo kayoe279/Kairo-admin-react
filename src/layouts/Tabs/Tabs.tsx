@@ -4,7 +4,7 @@ import type { ResourceKey } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { ButtonIcon, SvgIcon } from "@/components/ui";
-import { useBetterScroll, useIsMobile, useRouteMatch } from "@/hooks";
+import { useBetterScroll, useMedia, useRouteMatch } from "@/hooks";
 import { cn, TAB_DATA_ID } from "@/lib";
 import {
   useActiveTabId,
@@ -36,8 +36,7 @@ export const Tabs = ({ className }: { className?: string }) => {
 
   const tabsRef = useRef<HTMLDivElement>(null);
 
-  // 移动端检测
-  const isMobile = useIsMobile();
+  const { isMobile } = useMedia();
 
   // 滚动状态
   const [scrollState, setScrollState] = useState({

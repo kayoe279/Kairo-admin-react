@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import { Drawer } from "@/components/ui";
-import { useDarkMode, useIsMobile, useRouteMatch } from "@/hooks";
+import { useDarkMode, useMedia, useRouteMatch } from "@/hooks";
 import { Header, Logo } from "@/layouts/Header";
 import { AdminMenu } from "@/layouts/Menu/AdminMenu";
 import { Tabs } from "@/layouts/Tabs/Tabs";
@@ -17,7 +17,7 @@ export const AdminLayout = () => {
   const showSideMenu =
     (navMode === "vertical" || (navMode === "horizontal-mix" && !isRoot)) && !fullScreen;
 
-  const isMobile = useIsMobile();
+  const { isMobile } = useMedia();
 
   return (
     <Layout className="flex h-screen">

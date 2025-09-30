@@ -1,7 +1,7 @@
 import { Menu } from "antd";
 import type { MenuProps } from "antd";
 import { useNavigate } from "react-router";
-import { useIsMobile, useMixedMenu } from "@/hooks";
+import { useMedia, useMixedMenu } from "@/hooks";
 import { cn } from "@/lib";
 import { isRootMenu } from "@/lib/menu";
 import { findFirstLeafRoute } from "@/router/helper";
@@ -16,7 +16,7 @@ type MixedTopMenuProps = {
 export const MixedTopMenu = ({ menuRoutes, className }: MixedTopMenuProps) => {
   const navigate = useNavigate();
   const { toggleCollapsed } = useAppActions();
-  const isMobile = useIsMobile();
+  const { isMobile } = useMedia();
 
   const { theme, currentPath, topSelectedKeys, topMixedMenuItems } = useMixedMenu(menuRoutes);
 
