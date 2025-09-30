@@ -26,7 +26,7 @@ export const AdminLayout = () => {
           {isMobile ? (
             <Drawer
               placement="left"
-              open={!collapsed}
+              open={collapsed}
               onClose={() => toggleCollapsed()}
               maskClosable
               blurMask={false}
@@ -36,7 +36,7 @@ export const AdminLayout = () => {
                 body: "!p-0",
               }}
             >
-              <Logo collapsed={collapsed} />
+              <Logo />
               <AdminMenu />
             </Drawer>
           ) : (
@@ -47,7 +47,7 @@ export const AdminLayout = () => {
               theme={navTheme === "dark" ? "dark" : theme}
               className="h-full overflow-y-auto"
             >
-              <Logo collapsed={collapsed} />
+              <Logo />
               <AdminMenu />
             </Layout.Sider>
           )}

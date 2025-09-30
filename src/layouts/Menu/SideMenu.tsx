@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu, type MenuProps } from "antd";
-import { useMenu } from "@/hooks";
+import { useMedia, useMenu } from "@/hooks";
 import { cn } from "@/lib";
 import { useAppSettings, useThemeSettings } from "@/store";
 import type { AppRouteObject } from "@/types";
@@ -11,10 +11,13 @@ type SideMenuProps = {
 };
 
 export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
-  const { collapsed, menuSetting } = useAppSettings();
+  const { collapsed: appCollapsed, menuSetting } = useAppSettings();
   const { darkNav } = useThemeSettings();
+  const { isMobile } = useMedia();
 
   const { theme, menuItems, selectedKeys, currentKeyPaths, getMenuKeyPaths } = useMenu(menuRoutes);
+
+  const collapsed = appCollapsed && !isMobile;
 
   // 初始化时根据accordion设置来决定展开逻辑
   const [stateOpenKeys, setStateOpenKeys] = useState<string[] | undefined>(

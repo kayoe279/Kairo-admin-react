@@ -7,10 +7,10 @@ import { appSetting, type AppSettingProps } from "@/lib/settings/app";
 import type { NestedKeyOf, PathValue } from "@/types";
 
 interface AppState extends AppSettingProps {
-  collapsed: boolean;
-  fullScreen: boolean;
-  refreshing: boolean;
-  refreshKey: number;
+  collapsed: boolean; // 菜单是否收缩
+  fullScreen: boolean; // 是否全屏
+  refreshing: boolean; // 是否刷新
+  refreshKey: number; // 刷新键
 }
 
 interface AppActions {

@@ -13,7 +13,7 @@ export const useIsDesktop = () => {
 };
 
 export const useMedia = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 640px)");
   const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1024px)");
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 

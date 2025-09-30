@@ -77,7 +77,7 @@ export function findMatchingRoute(
         if (isMatch) {
           return {
             matchedRoute: route,
-            matchedRoutes: currentMatchedRoutes,
+            matchedRoutes: currentMatchedRoutes.filter((item) => !!item.path),
             params,
           };
         }

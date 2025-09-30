@@ -1,17 +1,16 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { SvgIcon } from "@/components/ui";
+import { useMedia } from "@/hooks";
 import { cn } from "@/lib";
 import { appConfig } from "@/lib/settings/app";
 import { useAppSettings, useThemeSettings } from "@/store";
 
-type LogoProps = {
-  collapsed?: boolean;
-  className?: string;
-};
-
-export const Logo = ({ collapsed, className }: LogoProps) => {
+export const Logo = ({ className }: { className?: string }) => {
   const { darkNav } = useThemeSettings();
-  const { navMode } = useAppSettings();
+  const { navMode, collapsed: appCollapsed } = useAppSettings();
+  const { isMobile } = useMedia();
+
+  const collapsed = appCollapsed && !isMobile;
 
   return (
     <div
