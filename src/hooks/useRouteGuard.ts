@@ -1,11 +1,12 @@
-import { useCallback, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
+import { PAGE } from "@/lib";
 import type { RoleType } from "@/service";
 import { useIsAuthenticated, useUserInfo } from "@/store/user";
 import { usePermission } from "./usePermission";
 
-type RouteGuardBeforeEnterResult = { path?: string; success: boolean } | void | null | undefined;
+type RouteGuardBeforeEnterResult = { path?: string; success?: boolean } | void | null | undefined;
 
 export interface RouteGuardOptions {
   /** 是否需要登录 */
@@ -22,45 +23,52 @@ export interface RouteGuardOptions {
 
 export interface RouteGuardResult {
   /** 是否通过验证 */
-  passed: boolean;
+  canRender: boolean;
   /** 验证失败的原因 */
-  reason?: string;
+  failReason?: string;
   /** 重定向路径 */
-  redirectTo?: string;
+  redirectPath?: string;
 }
-
-const loginPath = "/auth/login";
-const forbiddenPath = "/403";
 
 /**
  * 路由守卫 Hook
  * 提供 beforeEnter/afterEnter 功能
  */
-export function useRouteGuard(options: RouteGuardOptions = {}) {
+export function useRouteGuard(guardOptions: RouteGuardOptions = {}) {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const userInfo = useUserInfo();
   const isAuthenticated = useIsAuthenticated();
-  const [isChecking, setIsChecking] = useState(false);
   const { hasPermission } = usePermission();
 
-  const { requireAuth, roles = [], beforeEnter } = options;
+  const { requireAuth, roles = [], beforeEnter, afterEnter, onAuthFailed } = guardOptions;
 
-  //检查用户权限
-  const checkPermission = useCallback((): RouteGuardResult => {
-    const currentPath = location.pathname;
-
-    // 1. 检查是否需要登录
-    if (requireAuth && !isAuthenticated) {
-      return {
-        passed: false,
-        reason: t("auth.loginTip"),
-        redirectTo: loginPath,
-      };
+  const result = useMemo(() => {
+    const pathname = location.pathname;
+    // beforeEnter 钩子
+    if (beforeEnter) {
+      const result = beforeEnter(pathname, location.state?.from || "");
+      if (result && result.path && result.path !== pathname) {
+        return { canRender: false, redirectPath: result.path };
+      }
+      if (result && result.success === false) {
+        return { canRender: false, redirectPath: PAGE.LOGIN_PATH };
+      }
     }
 
-    // 2. 检查角色权限
+    // 已登录但访问登录页
+    if (isAuthenticated && pathname === PAGE.LOGIN_PATH) {
+      return { canRender: false, redirectPath: PAGE.HOME_NAME_REDIRECT_PATH };
+    }
+
+    // 未登录但需要登录
+    if (requireAuth && !isAuthenticated) {
+      onAuthFailed?.(pathname, t("auth.loginTip"));
+      return { canRender: false, redirectPath: PAGE.LOGIN_PATH, failReason: "auth" };
+    }
+
+    // 已登录但缺少角色权限
     if (
       requireAuth &&
       isAuthenticated &&
@@ -69,77 +77,36 @@ export function useRouteGuard(options: RouteGuardOptions = {}) {
     ) {
       const hasRequiredRole = hasPermission(roles);
       if (!hasRequiredRole) {
-        return {
-          passed: false,
-          reason: t("auth.permissionTip"),
-          redirectTo: forbiddenPath,
-        };
+        onAuthFailed?.(pathname, t("auth.permissionTip"));
+        return { canRender: false, redirectPath: PAGE.FORBIDDEN_PATH, failReason: "role" };
       }
     }
 
-    // 3. 执行自定义 beforeEnter 钩子
-    if (beforeEnter) {
-      try {
-        const result = beforeEnter(currentPath, location.state?.from || "");
-        if (result && (result.path || !result.success)) {
-          return {
-            passed: false,
-            reason: t("auth.permissionTip"),
-            redirectTo: result.path || loginPath,
-          };
-        }
-      } catch (error) {
-        console.error("Route guard beforeEnter error:", error);
-        return {
-          passed: false,
-          reason: t("http.defaultTip"),
-          redirectTo: forbiddenPath,
-        };
-      }
-    }
+    afterEnter?.(pathname, location.state?.from || "");
 
-    return { passed: true };
+    return { canRender: true };
   }, [
-    beforeEnter,
-    hasPermission,
-    requireAuth,
+    t,
     isAuthenticated,
     roles,
-    location.pathname,
-    userInfo,
-    t,
     location.state?.from,
+    location.pathname,
+    requireAuth,
+    userInfo,
+    hasPermission,
+    beforeEnter,
+    afterEnter,
+    onAuthFailed,
   ]);
 
-  //执行路由守卫检查
-  const executeGuard = useCallback(() => {
-    if (isChecking) return false;
-
-    setIsChecking(true);
-
-    try {
-      const result = checkPermission();
-
-      if (!result.passed) {
-        // 权限验证失败
-        options.onAuthFailed?.(location.pathname, result.reason || t("http.defaultTip"));
-
-        if (result.redirectTo) {
-          navigate(result.redirectTo, { replace: true });
-        }
-        return false;
-      }
-
-      // 权限验证通过，执行 afterEnter
-      options.afterEnter?.(location.pathname, location.state?.from || "");
-      return true;
-    } finally {
-      setIsChecking(false);
+  // effect: 处理副作用（跳转、afterEnter 等）
+  useEffect(() => {
+    if (!result.canRender && result.redirectPath) {
+      navigate(result.redirectPath, { replace: true });
+    } else {
+      guardOptions.afterEnter?.(location.pathname, location.state?.from || "");
     }
-  }, [checkPermission, navigate, t, location.pathname, location.state?.from, isChecking, options]);
+  }, [result, navigate, guardOptions, location]);
 
-  return {
-    isChecking,
-    executeGuard,
-  };
+  return result.canRender;
 }

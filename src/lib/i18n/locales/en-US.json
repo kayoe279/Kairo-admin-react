@@ -227,7 +227,10 @@
     "settingTheme": "Theme Settings",
     "settingSecurity": "Security Settings",
     "about": "About",
-    "aboutIndex": "About Project"
+    "aboutIndex": "About Project",
+    "404": "404 Page Not Found",
+    "403": "403 Forbidden",
+    "500": "500 Internal Server Error"
   },
   "table": {
     "density": "Density",
