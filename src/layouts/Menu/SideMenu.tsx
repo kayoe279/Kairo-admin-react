@@ -88,7 +88,6 @@ export const SideMenu = ({ menuRoutes, className }: SideMenuProps) => {
       openKeys={stateOpenKeys}
       onOpenChange={onOpenChange}
       onClick={onClick}
-      inlineCollapsed={collapsed}
       items={menuItems}
       className={cn("flex flex-col !border-none", className)}
     />

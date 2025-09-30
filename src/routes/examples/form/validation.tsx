@@ -122,8 +122,8 @@ export default function FormValidationExample() {
         展示表单验证功能的使用方法，包含内置规则、自定义验证和异步验证
       </Card>
 
-      <Row gutter={24}>
-        <Col span={16}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={24} md={16}>
           <Card title="表单验证示例">
             <Alert
               message="验证规则说明"
@@ -317,7 +317,7 @@ export default function FormValidationExample() {
           </Card>
         </Col>
 
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Card title="验证规则说明">
             <div className="space-y-4 text-sm">
               <div>

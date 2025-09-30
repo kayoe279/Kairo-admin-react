@@ -5,4 +5,5 @@ export * from "./useRouteMatch";
 export * from "./useRouteGuard";
 export * from "./usePermission";
 export * from "./useSearchQuery";
+export * from "./useMedia";
 export * from "./table";

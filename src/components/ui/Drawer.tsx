@@ -11,7 +11,7 @@ export const Drawer = ({
 }: { children: ReactNode; blurMask?: boolean } & ComponentProps<typeof AntdDrawer>) => {
   const drawerClassNames: DrawerClassNames = {
     header: "text-center !py-2",
-    content: "rounded-l-lg",
+    content: props.placement === "left" ? "rounded-r-lg" : "rounded-l-lg",
     mask: blurMask ? "backdrop-blur-sm backdrop-saturate-300" : "",
     body: "flex flex-col",
     footer: "!py-4",

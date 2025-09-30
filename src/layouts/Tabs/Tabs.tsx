@@ -3,9 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { ResourceKey } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useMediaQuery } from "usehooks-ts";
 import { ButtonIcon, SvgIcon } from "@/components/ui";
-import { useBetterScroll, useRouteMatch } from "@/hooks";
+import { useBetterScroll, useIsMobile, useRouteMatch } from "@/hooks";
 import { cn, TAB_DATA_ID } from "@/lib";
 import {
   useActiveTabId,
@@ -21,8 +20,8 @@ export const Tabs = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { matchedRoute } = useRouteMatch();
-  const { multiTabsSetting, refreshing } = useAppSettings();
-  const { refreshPage } = useAppActions();
+  const { multiTabsSetting, refreshing, fullScreen } = useAppSettings();
+  const { refreshPage, toggleFullScreen } = useAppActions();
   const { getHomeRoute } = useAuthRouteState();
   const activeTabId = useActiveTabId();
   const tabsList = useTabsList();
@@ -38,7 +37,7 @@ export const Tabs = ({ className }: { className?: string }) => {
   const tabsRef = useRef<HTMLDivElement>(null);
 
   // 移动端检测
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useIsMobile();
 
   // 滚动状态
   const [scrollState, setScrollState] = useState({
@@ -139,11 +138,7 @@ export const Tabs = ({ className }: { className?: string }) => {
 
   // 全屏
   const handleFullScreen = () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    } else {
-      document.documentElement.requestFullscreen();
-    }
+    toggleFullScreen();
   };
 
   return (
@@ -161,8 +156,7 @@ export const Tabs = ({ className }: { className?: string }) => {
             ease: "easeOut",
           }}
           className={cn(
-            "bg-background flex w-full overflow-hidden",
-            isMobile ? "gap-x-2 px-2 py-1.5" : "gap-x-4 px-4 py-2",
+            "bg-background flex w-full gap-x-2 overflow-hidden px-2 py-1.5 sm:gap-x-4 sm:px-4 sm:py-2",
             className
           )}
         >
@@ -176,10 +170,7 @@ export const Tabs = ({ className }: { className?: string }) => {
               <div className="inline-block">
                 <div
                   ref={tabsRef}
-                  className={cn(
-                    "flex h-full items-center whitespace-nowrap",
-                    isMobile ? "gap-x-1.5" : "gap-x-2"
-                  )}
+                  className={cn("flex h-full items-center gap-x-1.5 whitespace-nowrap sm:gap-x-2")}
                   style={{ minWidth: "max-content" }}
                 >
                   {tabsList.map((tab) => (
@@ -187,9 +178,8 @@ export const Tabs = ({ className }: { className?: string }) => {
                       <button
                         className={cn(
                           "relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg",
-                          isMobile
-                            ? "h-7 px-3 py-1 text-xs"
-                            : "h-8 max-h-12 px-3 py-1.5 text-sm leading-8",
+                          "h-7 px-3 py-1 text-xs",
+                          "sm:h-8 sm:max-h-12 sm:px-3 sm:py-1.5 sm:text-sm sm:leading-8",
                           activeTabId === tab.name
                             ? "bg-primary/20 text-primary"
                             : "bg-default-100 text-foreground hover:bg-default-200/70"
@@ -202,19 +192,14 @@ export const Tabs = ({ className }: { className?: string }) => {
                         {tab?.meta?.affix ? (
                           <SvgIcon
                             icon="la:thumbtack"
-                            className={cn(
-                              "opacity-60",
-                              isMobile ? "ml-0.5 text-sm" : "ml-1 text-base"
-                            )}
+                            className={cn("ml-0.5 text-sm opacity-60 sm:ml-1 sm:text-base")}
                           />
                         ) : (
-                          !isMobile && (
-                            <SvgIcon
-                              icon="pajamas:close"
-                              className="text-sm"
-                              onClick={(e) => handleTabClose(e, tab.name)}
-                            />
-                          )
+                          <SvgIcon
+                            icon="pajamas:close"
+                            className="text-xs sm:text-sm"
+                            onClick={(e) => handleTabClose(e, tab.name)}
+                          />
                         )}
                       </button>
                     </TabsDropdownMenu>
@@ -229,7 +214,7 @@ export const Tabs = ({ className }: { className?: string }) => {
             )}
           </div>
 
-          <div className={cn("flex items-center", isMobile ? "gap-x-1" : "gap-x-4")}>
+          <div className={cn("flex items-center gap-x-2 sm:gap-x-4")}>
             {/* 刷新按钮 - 在移动端隐藏 */}
             {!isMobile && (
               <ButtonIcon
@@ -240,14 +225,16 @@ export const Tabs = ({ className }: { className?: string }) => {
               />
             )}
 
-            {/* 全屏按钮 - 在移动端隐藏 */}
-            {!isMobile && (
-              <ButtonIcon
-                title={t("app.fullScreen")}
-                icon="ant-design:fullscreen-outlined"
-                onClick={handleFullScreen}
-              />
-            )}
+            {/* 全屏按钮 */}
+            <ButtonIcon
+              title={t("app.fullScreen")}
+              icon={
+                fullScreen
+                  ? "ant-design:fullscreen-exit-outlined"
+                  : "ant-design:fullscreen-outlined"
+              }
+              onClick={handleFullScreen}
+            />
 
             {/* 标签页操作菜单按钮 */}
             <TabsDropdownMenu tabId={activeTabId} trigger={["hover"]}>

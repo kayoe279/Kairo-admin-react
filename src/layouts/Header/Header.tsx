@@ -39,13 +39,13 @@ export const Header = ({ className }: { className?: string }) => {
         {showCollapsed && <Collapsed />}
         {showTopMenu && (
           <>
-            {navMode === "horizontal" && <Logo className="shrink-0" />}
+            {navMode === "horizontal" && <Logo className="shrink-0 max-sm:hidden" />}
             <AdminMenu location="header" />
           </>
         )}
         {showBreadcrumbs && <Breadcrumbs />}
       </div>
-      <div className="flex h-full items-center gap-x-6">
+      <div className="flex h-full items-center gap-x-4 sm:gap-x-6">
         <ButtonIcon
           icon="proicons:github"
           title={t("app.github")}

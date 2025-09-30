@@ -74,7 +74,7 @@ export const User = () => {
             size="default"
             className="ring-primary/30 shadow-lg ring-2"
           />
-          <span>{userMetadata?.full_name || userInfo?.email}</span>
+          <span className="max-sm:hidden">{userMetadata?.full_name || userInfo?.email}</span>
         </div>
       </Dropdown>
     </div>

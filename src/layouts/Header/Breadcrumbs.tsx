@@ -42,7 +42,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
 
   return (
     <Breadcrumb
-      className={cn("cursor-pointer text-sm [&_.anticon-down]:!hidden", className)}
+      className={cn("cursor-pointer text-sm max-sm:hidden [&_.anticon-down]:!hidden", className)}
       items={breadcrumbList}
     />
   );

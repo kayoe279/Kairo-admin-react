@@ -144,8 +144,8 @@ const DynamicFormExample = ({
   handleDynamicFormSubmit: (values: Record<string, any>) => void;
 }) => {
   return (
-    <Row gutter={24}>
-      <Col span={16}>
+    <Row gutter={[16, 16]}>
+      <Col xs={24} sm={24} md={16}>
         <Card title="动态表单示例">
           <DynamicForm
             colSize={24}
@@ -156,7 +156,7 @@ const DynamicFormExample = ({
           />
         </Card>
       </Col>
-      <Col span={8}>
+      <Col xs={24} sm={24} md={8}>
         <Card title="动态表单说明">
           <div className="space-y-4 text-sm">
             <div>
@@ -185,8 +185,8 @@ const ModalFormExample = ({
   handleModalFormSubmit: (values: Record<string, any>) => void;
 }) => {
   return (
-    <Row gutter={24}>
-      <Col span={16}>
+    <Row gutter={[16, 16]}>
+      <Col xs={24} sm={24} md={16}>
         <Card title="模态框表单示例">
           <Space>
             <Button type="primary" icon={<PlusOutlined />} onClick={() => setModalVisible(true)}>
@@ -224,7 +224,7 @@ const ModalFormExample = ({
           </ModalForm>
         </Card>
       </Col>
-      <Col span={8}>
+      <Col xs={24} sm={24} md={8}>
         <Card title="模态框表单说明">
           <div className="space-y-4 text-sm">
             <div>
@@ -253,8 +253,8 @@ const SearchFormExample = ({
   handleSearchReset: () => void;
 }) => {
   return (
-    <Row gutter={24}>
-      <Col span={16}>
+    <Row gutter={[16, 16]}>
+      <Col xs={24} sm={24} md={16}>
         <Card title="搜索表单示例">
           <SearchForm
             form={searchForm}
@@ -304,7 +304,7 @@ const SearchFormExample = ({
           </SearchForm>
         </Card>
       </Col>
-      <Col span={8}>
+      <Col xs={24} sm={24} md={8}>
         <Card title="搜索表单说明">
           <div className="space-y-4 text-sm">
             <div>

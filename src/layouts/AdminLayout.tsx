@@ -1,32 +1,57 @@
 import { Layout } from "antd";
-import { useDarkMode, useRouteMatch } from "@/hooks";
+import { Drawer } from "@/components/ui";
+import { useDarkMode, useIsMobile, useRouteMatch } from "@/hooks";
 import { Header, Logo } from "@/layouts/Header";
 import { AdminMenu } from "@/layouts/Menu/AdminMenu";
 import { Tabs } from "@/layouts/Tabs/Tabs";
 import { cn } from "@/lib";
-import { useAppSettings } from "@/store";
+import { useAppActions, useAppSettings } from "@/store";
 import { PageMain } from "./PageMain";
 
 export const AdminLayout = () => {
   const { theme } = useDarkMode();
   const { isRoot } = useRouteMatch();
-  const { menuSetting, headerSetting, navMode, navTheme, collapsed } = useAppSettings();
+  const { menuSetting, headerSetting, navMode, navTheme, collapsed, fullScreen } = useAppSettings();
+  const { toggleCollapsed } = useAppActions();
 
-  const showSideMenu = navMode === "vertical" || (navMode === "horizontal-mix" && !isRoot);
+  const showSideMenu =
+    (navMode === "vertical" || (navMode === "horizontal-mix" && !isRoot)) && !fullScreen;
+
+  const isMobile = useIsMobile();
 
   return (
     <Layout className="flex h-screen">
       {showSideMenu && (
-        <Layout.Sider
-          collapsed={collapsed}
-          width={menuSetting.menuWidth}
-          collapsedWidth={menuSetting.minMenuWidth}
-          theme={navTheme === "dark" ? "dark" : theme}
-          className="h-full overflow-y-auto"
-        >
-          <Logo collapsed={collapsed} />
-          <AdminMenu />
-        </Layout.Sider>
+        <>
+          {isMobile ? (
+            <Drawer
+              placement="left"
+              open={!collapsed}
+              onClose={() => toggleCollapsed()}
+              maskClosable
+              blurMask={false}
+              closable={false}
+              width={menuSetting.menuWidth}
+              classNames={{
+                body: "!p-0",
+              }}
+            >
+              <Logo collapsed={collapsed} />
+              <AdminMenu />
+            </Drawer>
+          ) : (
+            <Layout.Sider
+              collapsed={collapsed}
+              width={menuSetting.menuWidth}
+              collapsedWidth={menuSetting.minMenuWidth}
+              theme={navTheme === "dark" ? "dark" : theme}
+              className="h-full overflow-y-auto"
+            >
+              <Logo collapsed={collapsed} />
+              <AdminMenu />
+            </Layout.Sider>
+          )}
+        </>
       )}
 
       <div
@@ -35,7 +60,7 @@ export const AdminLayout = () => {
           headerSetting.fixed ? "overflow-hidden" : "!h-auto overflow-y-auto"
         )}
       >
-        <Header className="shrink-0" />
+        {!fullScreen && <Header className="shrink-0" />}
         <Tabs className="shrink-0" />
         <PageMain />
       </div>

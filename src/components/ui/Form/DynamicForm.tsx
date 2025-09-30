@@ -90,12 +90,13 @@ export function DynamicForm({
   const getColSize = () => {
     if (colSize >= 24) {
       return {
+        xs: 12,
         lg: 24,
       };
     }
 
     return {
-      xs: 24,
+      xs: 12,
       sm: colSize + 4,
       md: colSize + 2,
       lg: colSize,

@@ -47,8 +47,8 @@ export default function FormBasicExample() {
     <div className="flex flex-col gap-4">
       <Card title="基础表单示例">展示基础表单组件的使用方法，包含常用的表单控件和布局</Card>
 
-      <Row gutter={24}>
-        <Col span={16}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={24} md={16}>
           <Card title="用户信息表单">
             <Form
               form={form}
@@ -141,8 +141,8 @@ export default function FormBasicExample() {
           </Card>
         </Col>
 
-        <Col span={8}>
-          <Card title="表单说明">
+        <Col xs={24} sm={24} md={8}>
+          <Card title="表单说明" className="w-full">
             <div className="space-y-4 text-sm">
               <div>
                 <h4 className="mb-2 font-semibold">功能特性：</h4>

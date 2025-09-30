@@ -7,8 +7,9 @@ import {
   GithubOutlined,
   LinkOutlined,
 } from "@ant-design/icons";
-import { Button, Space, Tag, Tooltip, Typography } from "antd";
+import { Button, Space, Tag, Tooltip, Typography, type Breakpoint } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useIsMobile } from "@/hooks";
 import type { NavListItem } from "@/service";
 
 const { Text, Link } = Typography;
@@ -128,6 +129,7 @@ export const createActionColumn = (actions: ColumnActions) => ({
   key: "action",
   width: 250,
   fixed: "right" as const,
+  responsive: ["sm"] as Breakpoint[],
   render: (_: any, record: NavListItem) => (
     <Space size="small">
       {actions.onView && (

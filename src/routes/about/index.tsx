@@ -7,8 +7,8 @@ interface SchemaItem {
 }
 
 export default function About() {
-  const { pkg, lastBuildTime } = appInfo;
-  const { dependencies, devDependencies, name, version, author } = pkg;
+  const { pkg } = appInfo;
+  const { dependencies, devDependencies } = pkg;
 
   // 构建依赖列表
   const schema: SchemaItem[] = [];
@@ -23,58 +23,50 @@ export default function About() {
   });
 
   return (
-    <div className="flex flex-col gap-4">
-      <Card title="关于">{appConfig.description}</Card>
-
-      {/* 项目信息 */}
-      <Card title="项目信息" size="small">
-        <Descriptions bordered column={2} styles={{ label: { width: "140px" } }}>
-          <Descriptions.Item label="项目名称">{name}</Descriptions.Item>
-          <Descriptions.Item label="版本">
-            <Tag color="blue">{version}</Tag>
-          </Descriptions.Item>
-          <Descriptions.Item label="作者">
-            {typeof author === "string" ? author : author?.name || "Unknown"}
-          </Descriptions.Item>
-          <Descriptions.Item label="邮箱">
-            {typeof author === "object" && author?.email ? author.email : "N/A"}
-          </Descriptions.Item>
-          <Descriptions.Item label="最后构建时间">
-            <Tag color="green">{lastBuildTime}</Tag>
-          </Descriptions.Item>
-          <Descriptions.Item label="预览地址">
-            <a href={appConfig.preview} target="_blank" rel="noopener noreferrer">
-              查看预览地址
-            </a>
-          </Descriptions.Item>
-          <Descriptions.Item label="Github" span={2}>
-            <a href={appConfig.github} target="_blank" rel="noopener noreferrer">
-              查看Github地址
-            </a>
-          </Descriptions.Item>
-        </Descriptions>
+    <div className="flex flex-col gap-3 sm:gap-4">
+      {/* 关于信息 */}
+      <Card title="关于" className="[&_.ant-card-body]:p-2 [&_.ant-card-body]:sm:p-4">
+        <div className="text-sm leading-relaxed sm:text-base">{appConfig.description}</div>
       </Card>
 
       {/* 开发环境依赖 */}
-      <Card title="开发环境依赖" size="small">
-        <Descriptions bordered column={2} styles={{ label: { width: "200px" } }}>
-          {devSchema.map((item) => (
-            <Descriptions.Item key={item.field} label={item.field}>
-              <Tag color="orange">{item.label}</Tag>
-            </Descriptions.Item>
-          ))}
-        </Descriptions>
+      <Card title="开发环境依赖" className="[&_.ant-card-body]:p-2 [&_.ant-card-body]:sm:p-4">
+        <div className="overflow-x-auto">
+          <Descriptions
+            bordered
+            column={{ xs: 1, sm: 2 }}
+            size="small"
+            className="[&_.ant-descriptions-item-content]:text-xs [&_.ant-descriptions-item-content]:sm:text-sm [&_.ant-descriptions-item-label]:w-32 [&_.ant-descriptions-item-label]:text-xs [&_.ant-descriptions-item-label]:sm:w-48 [&_.ant-descriptions-item-label]:sm:text-sm"
+          >
+            {devSchema.map((item) => (
+              <Descriptions.Item key={item.field} label={item.field}>
+                <Tag color="orange" className="text-xs">
+                  {item.label}
+                </Tag>
+              </Descriptions.Item>
+            ))}
+          </Descriptions>
+        </div>
       </Card>
 
       {/* 生产环境依赖 */}
-      <Card title="生产环境依赖" size="small">
-        <Descriptions bordered column={2} styles={{ label: { width: "200px" } }}>
-          {schema.map((item) => (
-            <Descriptions.Item key={item.field} label={item.field}>
-              <Tag color="blue">{item.label}</Tag>
-            </Descriptions.Item>
-          ))}
-        </Descriptions>
+      <Card title="生产环境依赖" className="[&_.ant-card-body]:p-2 [&_.ant-card-body]:sm:p-4">
+        <div className="overflow-x-auto">
+          <Descriptions
+            bordered
+            column={{ xs: 1, sm: 2 }}
+            size="small"
+            className="[&_.ant-descriptions-item-content]:text-xs [&_.ant-descriptions-item-content]:sm:text-sm [&_.ant-descriptions-item-label]:w-32 [&_.ant-descriptions-item-label]:text-xs [&_.ant-descriptions-item-label]:sm:w-48 [&_.ant-descriptions-item-label]:sm:text-sm"
+          >
+            {schema.map((item) => (
+              <Descriptions.Item key={item.field} label={item.field}>
+                <Tag color="blue" className="text-xs">
+                  {item.label}
+                </Tag>
+              </Descriptions.Item>
+            ))}
+          </Descriptions>
+        </div>
       </Card>
     </div>
   );

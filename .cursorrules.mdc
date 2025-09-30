@@ -34,6 +34,7 @@
 2. **暗色模式**: 必须考虑 dark 模式适配
 3. **配置变量**: 必要时使用 tailwind.config 的变量
 4. **响应式**: 优先考虑移动端适配
+5. **组件库antd design**: https://ant.design/components/overview-cn/
 
 ### 图标使用
 
@@ -79,6 +80,7 @@
 
 1. **Supabase**: 使用 Supabase 作为后端服务
 2. **类型生成**: 使用 `npm run supabase:gen:types` 生成类型
+3. **Supabase文档**: https://supabase.com/docs
 
 ### 代码质量
 
