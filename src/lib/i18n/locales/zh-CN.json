@@ -137,7 +137,6 @@
     "passwordStrengthError": "密码必须包含至少一个小写字母、大写字母和数字",
     "registerSuccess": "注册成功, 请检查您的邮箱并确认账户",
     "registerFailed": "注册失败",
-    "verifyEmail": "验证邮箱",
     "verifyEmailTitle": "验证您的邮箱",
     "verifyEmailDesc": "我们已向您的邮箱{{email}}发送了验证码，请检查您的邮箱并输入验证码",
     "verificationCode": "验证码",

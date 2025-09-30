@@ -137,7 +137,6 @@
     "passwordStrengthError": "Password must contain at least one lowercase letter, uppercase letter, and number",
     "registerSuccess": "Registration successful, please check your email and confirm your account",
     "registerFailed": "Registration failed",
-    "verifyEmail": "Verify Email",
     "verifyEmailTitle": "Verify Your Email",
     "verifyEmailDesc": "We have sent you a verification code to {{email}}, please check your email and enter the code",
     "verificationCode": "Verification Code",

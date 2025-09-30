@@ -8,14 +8,13 @@ const { Text } = Typography;
 interface EmailVerificationProps {
   email: string;
   onVerifySuccess: () => void;
-  onBack: () => void;
 }
 
 interface VerificationFormData {
   token: string;
 }
 
-export const EmailVerification = ({ email, onVerifySuccess, onBack }: EmailVerificationProps) => {
+export const EmailVerification = ({ email, onVerifySuccess }: EmailVerificationProps) => {
   const { t } = useTranslation();
   const [form] = Form.useForm<VerificationFormData>();
   const { message } = App.useApp();
@@ -111,15 +110,11 @@ export const EmailVerification = ({ email, onVerifySuccess, onBack }: EmailVerif
             type="link"
             onClick={resendVerification}
             loading={isResendPending}
-            className="ml-1 p-0"
+            className="!pl-1"
           >
             {t("auth.resendCode")}
           </Button>
         </div>
-
-        <Button type="link" onClick={onBack} className="p-0">
-          {t("auth.backToRegister")}
-        </Button>
       </div>
     </div>
   );

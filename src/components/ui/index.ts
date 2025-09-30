@@ -6,3 +6,4 @@ export * from "./Drawer";
 export * from "./ColorPicker";
 export * from "./Loading";
 export * from "./LoginBanner";
+export * from "./AdminLogo";
