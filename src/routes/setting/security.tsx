@@ -1,8 +1,5 @@
+import { Card } from "antd";
+
 export default function SettingSecurity() {
-  return (
-    <div>
-      <h1>安全设置</h1>
-      <p>系统安全配置设置页面</p>
-    </div>
-  );
+  return <Card title="安全设置">系统安全配置设置页面</Card>;
 }

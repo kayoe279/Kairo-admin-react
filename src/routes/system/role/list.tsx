@@ -1,8 +1,5 @@
+import { Card } from "antd";
+
 export default function SystemRoleList() {
-  return (
-    <div>
-      <h1>角色列表</h1>
-      <p>系统角色管理列表页面</p>
-    </div>
-  );
+  return <Card title="角色列表">系统角色管理列表页面</Card>;
 }
