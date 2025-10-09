@@ -2,6 +2,8 @@
 
 一个基于 React 19、TypeScript 和 Vite 构建的现代化管理后台系统。
 
+测试账号: kayoe279@qq.com  密码: Qwe123456+
+
 ## ✨ 特性
 
 - 🚀 **现代技术栈** - React 19 + TypeScript + Vite + Bun + Tailwind CSS
