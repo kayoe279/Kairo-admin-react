@@ -9,10 +9,10 @@ import {
 import { SvgIcon } from "@/components/ui";
 import type { RegisterCredentials } from "@/service";
 
-interface RegisterFormProps {
+type RegisterFormProps = {
   loading: boolean;
   onFinish: (values: RegisterCredentials) => void;
-}
+};
 
 export const RegisterForm = ({ loading, onFinish }: RegisterFormProps) => {
   const { t } = useTranslation();

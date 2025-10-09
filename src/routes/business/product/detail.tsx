@@ -1,8 +1,5 @@
+import { Card } from "antd";
+
 export default function ProductDetail() {
-  return (
-    <div>
-      <h1>商品详情</h1>
-      <p>商品详情页面</p>
-    </div>
-  );
+  return <Card title="商品详情">商品详情页面</Card>;
 }

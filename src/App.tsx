@@ -19,7 +19,7 @@ function App() {
     <AntConfigProvider>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <ErrorBoundary fallbackRender={() => null}>
+          <ErrorBoundary fallback={null}>
             <Router />
           </ErrorBoundary>
         </QueryClientProvider>

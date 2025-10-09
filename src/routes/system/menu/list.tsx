@@ -1,8 +1,5 @@
+import { Card } from "antd";
+
 export default function SystemMenuList() {
-  return (
-    <div>
-      <h1>菜单列表</h1>
-      <p>系统菜单管理列表页面</p>
-    </div>
-  );
+  return <Card title="菜单列表">系统菜单管理列表页面</Card>;
 }

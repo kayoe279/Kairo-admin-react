@@ -5,14 +5,14 @@ import { useResendConfirmation, useVerifyOtp } from "@/service";
 
 const { Text } = Typography;
 
-interface EmailVerificationProps {
+type EmailVerificationProps = {
   email: string;
   onVerifySuccess: () => void;
-}
+};
 
-interface VerificationFormData {
+type VerificationFormData = {
   token: string;
-}
+};
 
 export const EmailVerification = ({ email, onVerifySuccess }: EmailVerificationProps) => {
   const { t } = useTranslation();
