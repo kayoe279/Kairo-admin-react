@@ -4,11 +4,11 @@ import { getEmailRules, getPasswordRules } from "@/components/features/auth/vali
 import { SvgIcon } from "@/components/ui";
 import type { LoginCredentials } from "@/service";
 
-interface LoginFormProps {
+type LoginFormProps = {
   loading: boolean;
   onFinish: (values: LoginCredentials) => void;
   initialValues?: Partial<LoginCredentials>;
-}
+};
 
 export const LoginForm = ({ loading, onFinish, initialValues }: LoginFormProps) => {
   const { t } = useTranslation();
