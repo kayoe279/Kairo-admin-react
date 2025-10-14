@@ -16,7 +16,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
   } = useThemeSettings();
   const { isDarkMode } = useDarkMode();
 
-  const primaryStr = hexToRgba(primaryColor, 0.15);
+  const primaryStr = hexToRgba(primaryColor, 0.2);
 
   const config: ThemeConfig = useMemo(
     () => ({
@@ -44,6 +44,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
           dropdownWidth: 120,
           subMenuItemBg: "transparent",
           darkSubMenuItemBg: "transparent",
+          itemSelectedBg: primaryStr,
           darkItemSelectedBg: primaryStr,
           darkItemSelectedColor: primaryColor,
           darkItemHoverBg: "rgba(255, 255, 255, 0.09)",
