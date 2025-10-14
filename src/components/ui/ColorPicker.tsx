@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { ColorPicker as AntColorPicker } from "antd";
 import type { ColorPickerProps } from "antd";
 import { ErrorBoundary } from "react-error-boundary";
+import { appThemeList } from "@/lib/settings/theme";
 
 type Presets = Required<ColorPickerProps>["presets"][number];
 type OnChange = Required<ColorPickerProps>["onChange"];
@@ -15,24 +16,7 @@ interface Props {
 const defaultPalettes = [
   {
     label: "Colors",
-    colors: [
-      "#3b82f6",
-      "#6366f1",
-      "#8b5cf6",
-      "#a855f7",
-      "#0ea5e9",
-      "#06b6d4",
-      "#f43f5e",
-      "#ef4444",
-      "#d946ef",
-      "#f97316",
-      "#f59e0b",
-      "#eab308",
-      "#84cc16",
-      "#22c55e",
-      "#10b981",
-      "#30B092",
-    ],
+    colors: appThemeList,
   },
 ] as Presets[];
 

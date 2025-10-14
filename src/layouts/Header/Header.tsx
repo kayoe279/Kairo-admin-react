@@ -7,6 +7,7 @@ import { appConfig } from "@/lib/settings/app";
 import { useAppSettings } from "@/store";
 import { AppSetting } from "./AppSetting/AppSetting";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { FullScreen } from "./FullScreen";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { Logo } from "./Logo";
 import { ThemeSwitcher } from "./ThemeSwitcher";
@@ -51,6 +52,7 @@ export const Header = ({ className }: { className?: string }) => {
           title={t("app.github")}
           onClick={() => onIconClick("github")}
         />
+        <FullScreen />
         <LanguageSwitch />
         <ThemeSwitcher />
         <AppSetting />

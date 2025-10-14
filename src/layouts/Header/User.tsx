@@ -68,7 +68,7 @@ export const User = () => {
         trigger={["hover"]}
         placement="bottomRight"
       >
-        <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-md px-2 py-1 text-sm transition-colors">
+        <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-md text-sm transition-colors">
           <Avatar
             src={appConfig.avatar}
             size="default"

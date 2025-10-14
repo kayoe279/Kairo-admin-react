@@ -9,6 +9,8 @@ export const appThemeList: string[] = [
   "#8FD14F",
   "#8b5cf6",
   "#9c27b0",
+  "#a855f7",
+  "#6366f1",
   "#FAAD14",
   "#ff9800",
   "#FC5404",
