@@ -1,4 +1,4 @@
-# Kairo Admin React
+# Kairo Admin React2
 
 一个基于 React 19、TypeScript 和 Vite 构建的现代化管理后台系统。
 
