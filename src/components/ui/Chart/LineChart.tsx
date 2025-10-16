@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { BaseChart, type BaseChartProps } from "./BaseChart";
 import {
   CHART_COLORS,
@@ -7,7 +7,7 @@ import {
   DEFAULT_LEGEND,
   DEFAULT_TITLE,
   DEFAULT_TOOLTIP,
-  getGradientColor,
+  getGradientColor
 } from "./chartConfig";
 
 export interface LineChartData {
@@ -51,7 +51,7 @@ export const LineChart: React.FC<LineChartProps> = ({
     title: title
       ? {
           ...DEFAULT_TITLE,
-          text: title,
+          text: title
         }
       : undefined,
 
@@ -62,8 +62,8 @@ export const LineChart: React.FC<LineChartProps> = ({
         type: "cross",
         lineStyle: {
           color: CHART_COLORS.border,
-          type: "dashed",
-        },
+          type: "dashed"
+        }
       },
       formatter: (params: any[]) => {
         const axisValue = params[0]?.axisValue;
@@ -83,14 +83,14 @@ export const LineChart: React.FC<LineChartProps> = ({
 
         content += `</div>`;
         return content;
-      },
+      }
     },
 
     legend:
       data.length > 1
         ? {
             ...DEFAULT_LEGEND,
-            data: data.map((item) => item.name),
+            data: data.map((item) => item.name)
           }
         : undefined,
 
@@ -102,8 +102,8 @@ export const LineChart: React.FC<LineChartProps> = ({
       data: xAxisData,
       boundaryGap: false, // 折线图不需要边界间隙
       splitLine: {
-        show: false,
-      },
+        show: false
+      }
     },
 
     yAxis: {
@@ -111,8 +111,8 @@ export const LineChart: React.FC<LineChartProps> = ({
       type: "value",
       splitLine: {
         ...DEFAULT_AXIS.splitLine,
-        show: true,
-      },
+        show: true
+      }
     },
 
     series: data.map((series, index) => ({
@@ -126,21 +126,21 @@ export const LineChart: React.FC<LineChartProps> = ({
       // 线条样式
       lineStyle: {
         width: lineWidth,
-        color: CHART_COLORS.primary[index % CHART_COLORS.primary.length],
+        color: CHART_COLORS.primary[index % CHART_COLORS.primary.length]
       },
 
       // 数据点样式
       itemStyle: {
         color: CHART_COLORS.primary[index % CHART_COLORS.primary.length],
         borderWidth: 2,
-        borderColor: "#ffffff",
+        borderColor: "#ffffff"
       },
 
       // 区域填充配置
       areaStyle: showArea
         ? {
             color: getGradientColor(index),
-            opacity: 0.3,
+            opacity: 0.3
           }
         : undefined,
 
@@ -148,19 +148,19 @@ export const LineChart: React.FC<LineChartProps> = ({
       emphasis: {
         focus: "series",
         lineStyle: {
-          width: lineWidth + 1,
+          width: lineWidth + 1
         },
         itemStyle: {
           shadowBlur: 10,
-          shadowColor: "rgba(0, 0, 0, 0.2)",
-        },
+          shadowColor: "rgba(0, 0, 0, 0.2)"
+        }
       },
 
       // 动画配置
       animationDuration: 1500,
       animationEasing: "cubicOut",
-      animationDelay: (idx: number) => idx * 50, // 逐个动画
-    })),
+      animationDelay: (idx: number) => idx * 50 // 逐个动画
+    }))
   };
 
   return <BaseChart option={option} {...chartProps} />;

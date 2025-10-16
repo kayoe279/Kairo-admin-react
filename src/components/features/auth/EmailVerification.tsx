@@ -36,8 +36,8 @@ export const EmailVerification = ({ email, onVerifySuccess }: EmailVerificationP
       form.setFields([
         {
           name: "token",
-          errors: [error.message || t("auth.verifyFailed")],
-        },
+          errors: [error.message || t("auth.verifyFailed")]
+        }
       ]);
     }
   };
@@ -76,7 +76,7 @@ export const EmailVerification = ({ email, onVerifySuccess }: EmailVerificationP
           name="token"
           rules={[
             { required: true, message: t("auth.verificationCodeRequired") },
-            { len: 6, message: t("auth.verificationCodeLength") },
+            { len: 6, message: t("auth.verificationCodeLength") }
           ]}
         >
           <Input

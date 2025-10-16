@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { App, Button } from "antd";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { EmailVerification, LoginForm, RegisterForm } from "@/components/features";
@@ -9,11 +9,11 @@ import { LanguageSwitch, ThemeSwitcher } from "@/layouts/Header";
 import { cn } from "@/lib";
 import { appConfig } from "@/lib/settings/app";
 import {
-  useSignIn,
-  useSignUp,
   type LoginCredentials,
   type RegisterCredentials,
   type RoleType,
+  useSignIn,
+  useSignUp
 } from "@/service";
 import { useAuthRoute, useUserActions } from "@/store";
 
@@ -71,7 +71,7 @@ export default function Login() {
     try {
       const result = await signIn({
         email: values.email,
-        password: values.password,
+        password: values.password
       });
 
       if (result.error) {
@@ -101,9 +101,9 @@ export default function Login() {
         options: {
           data: {
             full_name: (values as any)?.fullName,
-            roles: ["admin", "user"] as RoleType[],
-          },
-        },
+            roles: ["admin", "user"] as RoleType[]
+          }
+        }
       });
 
       if (result.error) {
@@ -128,15 +128,15 @@ export default function Login() {
         animate={{
           scale: 1,
           opacity: 1,
-          height: currentView === "verify" ? 610 : currentView === "register" ? 650 : 520,
+          height: currentView === "verify" ? 610 : currentView === "register" ? 650 : 520
         }}
         transition={{
           duration: 0.3,
           height: {
             duration: 0.5,
             ease: [0.25, 0.1, 0.25, 1],
-            delay: 0.15,
-          },
+            delay: 0.15
+          }
         }}
         onMouseEnter={() => onCardHover(true)}
         onMouseLeave={() => onCardHover(false)}
@@ -165,24 +165,24 @@ export default function Login() {
               initial={{
                 opacity: 0,
                 y: 30,
-                scale: 0.95,
+                scale: 0.95
               }}
               animate={{
                 opacity: 1,
                 y: 0,
-                scale: 1,
+                scale: 1
               }}
               exit={{
                 opacity: 0,
                 y: -30,
-                scale: 0.95,
+                scale: 0.95
               }}
               transition={{
                 duration: 0.5,
                 ease: [0.25, 0.1, 0.25, 1],
                 opacity: { duration: 0.3 },
                 y: { duration: 0.5 },
-                scale: { duration: 0.4 },
+                scale: { duration: 0.4 }
               }}
             >
               {currentView === "login" ? (
@@ -202,7 +202,7 @@ export default function Login() {
           animate={{ opacity: 1 }}
           transition={{
             duration: 0.6,
-            delay: 0.8,
+            delay: 0.8
           }}
         >
           <AnimatePresence mode="wait">
@@ -214,7 +214,7 @@ export default function Login() {
               transition={{
                 duration: 0.3,
                 ease: [0.25, 0.1, 0.25, 1],
-                delay: 0.1,
+                delay: 0.1
               }}
             >
               {currentView === "login" && (

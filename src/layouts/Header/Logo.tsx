@@ -25,11 +25,11 @@ export const Logo = ({ className }: { className?: string }) => {
       <motion.div
         initial={{ marginRight: 8 }}
         animate={{
-          marginRight: collapsed ? 0 : 8,
+          marginRight: collapsed ? 0 : 8
         }}
         transition={{
           duration: 0.4,
-          ease: [0.4, 0, 0.2, 1],
+          ease: [0.4, 0, 0.2, 1]
         }}
       >
         <SvgIcon localIcon="logo" className="inline h-10 w-auto" />
@@ -41,23 +41,23 @@ export const Logo = ({ className }: { className?: string }) => {
             initial={{
               width: 0,
               opacity: 0,
-              x: -10,
+              x: -10
             }}
             animate={{
               width: "auto",
               opacity: 1,
-              x: 0,
+              x: 0
             }}
             exit={{
               width: 0,
               opacity: 0,
-              x: -10,
+              x: -10
             }}
             transition={{
               duration: 0.4,
               ease: [0.4, 0, 0.2, 1],
               opacity: { duration: 0.3 },
-              x: { duration: 0.3 },
+              x: { duration: 0.3 }
             }}
             className="font-poppins m-0 inline text-xl whitespace-nowrap"
           >

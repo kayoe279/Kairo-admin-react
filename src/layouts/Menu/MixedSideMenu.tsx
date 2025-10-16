@@ -4,7 +4,7 @@ import { SideMenu } from "./SideMenu";
 
 export const MixedSideMenu = ({
   menuRoutes,
-  className,
+  className
 }: {
   menuRoutes: AppRouteObject[];
   className?: string;

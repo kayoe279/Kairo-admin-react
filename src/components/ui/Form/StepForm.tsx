@@ -6,7 +6,7 @@ import type { StepFormProps, StepFormStepProps } from "./type";
 export function StepForm({ current, onChange, children, className }: StepFormProps) {
   const steps = children.map((child: any) => ({
     title: child.props.title,
-    description: child.props.description,
+    description: child.props.description
   }));
 
   return (

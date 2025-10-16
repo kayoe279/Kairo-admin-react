@@ -3,7 +3,7 @@ import type {
   AuthResponse,
   LoginCredentials,
   RegisterCredentials,
-  UpdateUserData,
+  UpdateUserData
 } from "@/service/types";
 import { supabase } from "../client";
 
@@ -15,17 +15,17 @@ export class SupabaseAuthAPI {
    * 用户注册
    * @param credentials 注册凭证
    */
-  static async signUp(credentials: RegisterCredentials): Promise<AuthResponse> {
+  async signUp(credentials: RegisterCredentials): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.signUp({
       email: credentials.email,
       password: credentials.password,
-      options: credentials.options,
+      options: credentials.options
     });
 
     return {
       user: data.user,
       session: data.session,
-      error,
+      error
     };
   }
 
@@ -33,28 +33,28 @@ export class SupabaseAuthAPI {
    * 用户登录
    * @param credentials 登录凭证
    */
-  static async signIn(credentials: LoginCredentials): Promise<AuthResponse> {
+  async signIn(credentials: LoginCredentials): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: credentials.email,
-      password: credentials.password,
+      password: credentials.password
     });
 
     return {
       user: data.user,
       session: data.session,
-      error,
+      error
     };
   }
 
   /**
    * 第三方登录 (Google)
    */
-  static async signInWithGoogle(): Promise<{ error: AuthError | null }> {
+  async signInWithGoogle(): Promise<{ error: AuthError | null }> {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin,
-      },
+        redirectTo: window.location.origin
+      }
     });
 
     return { error };
@@ -63,12 +63,12 @@ export class SupabaseAuthAPI {
   /**
    * 第三方登录 (GitHub)
    */
-  static async signInWithGitHub(): Promise<{ error: AuthError | null }> {
+  async signInWithGitHub(): Promise<{ error: AuthError | null }> {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: window.location.origin,
-      },
+        redirectTo: window.location.origin
+      }
     });
 
     return { error };
@@ -77,7 +77,7 @@ export class SupabaseAuthAPI {
   /**
    * 用户登出
    */
-  static async signOut(): Promise<{ error: AuthError | null }> {
+  async signOut(): Promise<{ error: AuthError | null }> {
     const { error } = await supabase.auth.signOut();
     return { error };
   }
@@ -85,9 +85,9 @@ export class SupabaseAuthAPI {
   /**
    * 获取当前用户
    */
-  static async getCurrentUser(): Promise<User | null> {
+  async getCurrentUser(): Promise<User | null> {
     const {
-      data: { user },
+      data: { user }
     } = await supabase.auth.getUser();
     return user;
   }
@@ -95,9 +95,9 @@ export class SupabaseAuthAPI {
   /**
    * 获取当前会话
    */
-  static async getCurrentSession(): Promise<Session | null> {
+  async getCurrentSession(): Promise<Session | null> {
     const {
-      data: { session },
+      data: { session }
     } = await supabase.auth.getSession();
     return session;
   }
@@ -106,13 +106,13 @@ export class SupabaseAuthAPI {
    * 更新用户信息
    * @param updates 更新数据
    */
-  static async updateUser(updates: UpdateUserData): Promise<AuthResponse> {
+  async updateUser(updates: UpdateUserData): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.updateUser(updates);
 
     return {
       user: data.user,
       session: null,
-      error,
+      error
     };
   }
 
@@ -120,9 +120,9 @@ export class SupabaseAuthAPI {
    * 重置密码 - 发送重置邮件
    * @param email 用户邮箱
    */
-  static async resetPassword(email: string): Promise<{ error: AuthError | null }> {
+  async resetPassword(email: string): Promise<{ error: AuthError | null }> {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: `${window.location.origin}/reset-password`
     });
 
     return { error };
@@ -132,15 +132,15 @@ export class SupabaseAuthAPI {
    * 更新密码
    * @param newPassword 新密码
    */
-  static async updatePassword(newPassword: string): Promise<AuthResponse> {
+  async updatePassword(newPassword: string): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.updateUser({
-      password: newPassword,
+      password: newPassword
     });
 
     return {
       user: data.user,
       session: null,
-      error,
+      error
     };
   }
 
@@ -148,20 +148,20 @@ export class SupabaseAuthAPI {
    * 监听认证状态变化
    * @param callback 状态变化回调函数
    */
-  static onAuthStateChange(callback: (event: string, session: Session | null) => void) {
+  onAuthStateChange(callback: (event: string, session: Session | null) => void) {
     return supabase.auth.onAuthStateChange(callback);
   }
 
   /**
    * 刷新会话
    */
-  static async refreshSession(): Promise<AuthResponse> {
+  async refreshSession(): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.refreshSession();
 
     return {
       user: data.user,
       session: data.session,
-      error,
+      error
     };
   }
 
@@ -171,10 +171,10 @@ export class SupabaseAuthAPI {
    * @param token 验证令牌
    * @param type 验证类型
    */
-  static async verifyOtp({
+  async verifyOtp({
     email,
     token,
-    type = "signup",
+    type = "signup"
   }: {
     email: string;
     token: string;
@@ -183,13 +183,13 @@ export class SupabaseAuthAPI {
     const { data, error } = await supabase.auth.verifyOtp({
       email,
       token,
-      type,
+      type
     });
 
     return {
       user: data.user,
       session: data.session,
-      error,
+      error
     };
   }
 
@@ -198,16 +198,16 @@ export class SupabaseAuthAPI {
    * @param email 用户邮箱
    * @param type 邮件类型
    */
-  static async resendConfirmation({
+  async resendConfirmation({
     email,
-    type = "signup",
+    type = "signup"
   }: {
     email: string;
     type: "signup" | "email_change";
   }): Promise<{ error: AuthError | null }> {
     const { error } = await supabase.auth.resend({
       type,
-      email,
+      email
     });
 
     return { error };
@@ -215,6 +215,6 @@ export class SupabaseAuthAPI {
 }
 
 // TODO: 获取用户路由
-export const getUserRoutes = async (params: { id: string }) => {
+export const getUserRoutes = async (_params: { id: string }) => {
   return { data: [] };
 };

@@ -1,15 +1,15 @@
-import React from "react";
-import ReactEChartsCore from "echarts-for-react/lib/core";
 import { BarChart, LineChart, PieChart } from "echarts/charts";
 import {
   DataZoomComponent,
   GridComponent,
   LegendComponent,
   TitleComponent,
-  TooltipComponent,
+  TooltipComponent
 } from "echarts/components";
 import * as echarts from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
+import ReactEChartsCore from "echarts-for-react/lib/core";
+import type React from "react";
 
 // 注册必要的组件
 echarts.use([
@@ -21,7 +21,7 @@ echarts.use([
   BarChart,
   LineChart,
   PieChart,
-  CanvasRenderer,
+  CanvasRenderer
 ]);
 
 export interface BaseChartProps {
@@ -58,7 +58,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
   theme,
   notMerge = false,
   lazyUpdate = false,
-  onEvents = {},
+  onEvents = {}
 }) => {
   return (
     <ReactEChartsCore

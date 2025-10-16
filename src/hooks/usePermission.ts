@@ -24,6 +24,6 @@ export const hasEveryPermission = (accesses: RoleType[]) => {
 export const usePermission = () => {
   return {
     hasPermission,
-    hasEveryPermission,
+    hasEveryPermission
   };
 };

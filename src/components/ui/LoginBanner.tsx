@@ -19,6 +19,8 @@ export const LoginBanner = ({ className }: { className: string }) => {
         preserveAspectRatio="none"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        aria-label="Login Banner"
+        role="img"
       >
         <g filter="url(#filter0_f_3283_101175)">
           <rect

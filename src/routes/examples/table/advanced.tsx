@@ -8,7 +8,7 @@ export default function UserList() {
       name: "keyword",
       type: "input",
       placeholder: "请输入关键词",
-      allowClear: true,
+      allowClear: true
     },
     {
       label: "状态",
@@ -18,9 +18,9 @@ export default function UserList() {
       allowClear: true,
       options: [
         { label: "启用", value: "false" },
-        { label: "禁用", value: "true" },
-      ],
-    },
+        { label: "禁用", value: "true" }
+      ]
+    }
   ];
 
   return <ListTable filters={filters} cardTitle="高级表格示例" />;

@@ -1,38 +1,38 @@
-import * as React from "react";
 import { motion } from "framer-motion";
+import * as React from "react";
 
 export const defaultProperties = {
   dark: {
     circle: {
-      r: 9,
+      r: 9
     },
     mask: {
       cx: "50%",
-      cy: "23%",
+      cy: "23%"
     },
     svg: {
-      transform: "rotate(40deg)",
+      transform: "rotate(40deg)"
     },
     lines: {
-      opacity: 0,
-    },
+      opacity: 0
+    }
   },
   light: {
     circle: {
-      r: 5,
+      r: 5
     },
     mask: {
       cx: "100%",
-      cy: "0%",
+      cy: "0%"
     },
     svg: {
-      transform: "rotate(90deg)",
+      transform: "rotate(90deg)"
     },
     lines: {
-      opacity: 1,
-    },
+      opacity: 1
+    }
   },
-  springConfig: { mass: 4, tension: 250, friction: 35 },
+  springConfig: { mass: 4, tension: 250, friction: 35 }
 };
 
 let REACT_TOGGLE_DARK_MODE_GLOBAL_ID = 0;
@@ -67,7 +67,7 @@ export const DarkModeSwitch: React.FC<Props> = ({
   React.useEffect(() => {
     REACT_TOGGLE_DARK_MODE_GLOBAL_ID += 1;
     setId(REACT_TOGGLE_DARK_MODE_GLOBAL_ID);
-  }, [setId]);
+  }, []);
 
   const properties = React.useMemo(() => {
     if (animationProperties !== defaultProperties) {
@@ -81,19 +81,19 @@ export const DarkModeSwitch: React.FC<Props> = ({
 
   const svgMotion = {
     ...svg,
-    transition: { mass: 4, tension: 250, friction: 35 },
+    transition: { mass: 4, tension: 250, friction: 35 }
   };
   const centerCircleMotion = {
     ...circle,
-    transition: { mass: 4, tension: 250, friction: 35 },
+    transition: { mass: 4, tension: 250, friction: 35 }
   };
   const maskedCircleMotion = {
     ...mask,
-    transition: { mass: 4, tension: 250, friction: 35 },
+    transition: { mass: 4, tension: 250, friction: 35 }
   };
   const linesMotion = {
     ...lines,
-    transition: { mass: 4, tension: 250, friction: 35 },
+    transition: { mass: 4, tension: 250, friction: 35 }
   };
 
   const toggle = () => onChange(!checked);
@@ -116,8 +116,10 @@ export const DarkModeSwitch: React.FC<Props> = ({
       animate={svgMotion}
       style={{
         cursor: "pointer",
-        ...style,
+        ...style
       }}
+      aria-label="Dark Mode Switch"
+      role="img"
       {...rest}
     >
       <mask id={uniqueMaskId}>

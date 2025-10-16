@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
 import BScroll, { type Options } from "@better-scroll/core";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useBetterScroll(
   options?: Options,
@@ -8,6 +8,7 @@ export function useBetterScroll(
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [bs, setBs] = useState<BScroll | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: biome ignore
   useEffect(() => {
     if (!wrapperRef.current) return;
 
@@ -18,7 +19,6 @@ export function useBetterScroll(
       instance.destroy();
       setBs(null);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 手动 refresh
@@ -58,13 +58,12 @@ export function useBetterScroll(
 
       scrollBy(update, 0, 300);
     },
-    [bs, wrapperRef]
+    [bs]
   );
 
   // 内容变化时自动 refresh
   useEffect(() => {
     bsRefresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bsRefresh, ...deps]);
 
   return { wrapperRef, bs, bsRefresh, bsScrollTo, bsScrollToElement, scrollByClientX };

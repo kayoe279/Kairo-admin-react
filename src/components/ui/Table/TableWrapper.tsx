@@ -1,4 +1,4 @@
-import { Children, useMemo, type ReactNode } from "react";
+import { Children, type ReactNode, useMemo } from "react";
 import { cn } from "@/lib";
 import { useAppSettings } from "@/store";
 
@@ -38,5 +38,5 @@ const Operation = ({ children }: { children: ReactNode }) => {
 };
 
 export const TableWrapper = Object.assign(Root, {
-  Operation,
+  Operation
 });

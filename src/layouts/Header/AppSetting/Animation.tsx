@@ -15,7 +15,7 @@ export const Animation = () => {
     { value: "fade-bottom", label: t("app.animation.fadeBottom") },
     { value: "bounce-in", label: t("app.animation.bounceIn") },
     { value: "zoom-fade", label: t("app.animation.zoomFade") },
-    { value: "rotate-fade", label: t("app.animation.rotateFade") },
+    { value: "rotate-fade", label: t("app.animation.rotateFade") }
   ];
 
   const handleAnimateToggle = (value: boolean) => {

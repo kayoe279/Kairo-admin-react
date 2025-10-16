@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Alert,
   App,
@@ -12,9 +11,10 @@ import {
   InputNumber,
   Radio,
   Row,
-  Space,
+  Space
 } from "antd";
 import type { Rule } from "antd/es/form";
+import { useState } from "react";
 
 const { TextArea } = Input;
 
@@ -32,7 +32,7 @@ export default function FormValidationExample() {
           return Promise.resolve();
         }
         return Promise.reject(new Error("两次输入的密码不一致!"));
-      },
+      }
     }),
 
     // 手机号验证
@@ -46,7 +46,7 @@ export default function FormValidationExample() {
           return Promise.resolve();
         }
         return Promise.reject(new Error("请输入有效的手机号码!"));
-      },
+      }
     }),
 
     // 年龄验证
@@ -59,7 +59,7 @@ export default function FormValidationExample() {
           return Promise.resolve();
         }
         return Promise.reject(new Error("年龄必须在18-65岁之间!"));
-      },
+      }
     }),
 
     // 异步验证用户名是否存在
@@ -80,8 +80,8 @@ export default function FormValidationExample() {
             }
           }, 1000);
         });
-      },
-    }),
+      }
+    })
   };
 
   const handleFinish = async (values: any) => {
@@ -91,7 +91,7 @@ export default function FormValidationExample() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log("表单数据:", values);
       message.success("表单验证通过并提交成功！");
-    } catch (error) {
+    } catch {
       message.error("提交失败，请重试");
     } finally {
       setLoading(false);
@@ -154,7 +154,7 @@ export default function FormValidationExample() {
                       { required: true, message: "请输入用户名!" },
                       { min: 3, max: 20, message: "用户名长度为3-20个字符!" },
                       { pattern: /^[a-zA-Z0-9_]+$/, message: "用户名只能包含字母、数字和下划线!" },
-                      customValidators.asyncUsername(),
+                      customValidators.asyncUsername()
                     ]}
                   >
                     <Input placeholder="请输入用户名（试试 admin）" />
@@ -168,7 +168,7 @@ export default function FormValidationExample() {
                     hasFeedback
                     rules={[
                       { required: true, message: "请输入邮箱!" },
-                      { type: "email", message: "请输入有效的邮箱地址!" },
+                      { type: "email", message: "请输入有效的邮箱地址!" }
                     ]}
                   >
                     <Input placeholder="请输入邮箱" />
@@ -187,8 +187,8 @@ export default function FormValidationExample() {
                       { min: 6, message: "密码至少6个字符!" },
                       {
                         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]+$/,
-                        message: "密码必须包含大小写字母和数字!",
-                      },
+                        message: "密码必须包含大小写字母和数字!"
+                      }
                     ]}
                   >
                     <Input.Password placeholder="请输入密码" />
@@ -202,7 +202,7 @@ export default function FormValidationExample() {
                     hasFeedback
                     rules={[
                       { required: true, message: "请确认密码!" },
-                      customValidators.confirmPassword({ getFieldValue: form.getFieldValue }),
+                      customValidators.confirmPassword({ getFieldValue: form.getFieldValue })
                     ]}
                   >
                     <Input.Password placeholder="请再次输入密码" />
@@ -263,7 +263,7 @@ export default function FormValidationExample() {
                 label="兴趣爱好"
                 rules={[
                   { required: true, message: "请至少选择一项兴趣爱好!" },
-                  { type: "array", min: 1, message: "请至少选择一项!" },
+                  { type: "array", min: 1, message: "请至少选择一项!" }
                 ]}
               >
                 <Checkbox.Group>
@@ -280,7 +280,7 @@ export default function FormValidationExample() {
                 label="个人介绍"
                 rules={[
                   { max: 500, message: "个人介绍不能超过500字!" },
-                  { min: 10, message: "个人介绍至少10个字!" },
+                  { min: 10, message: "个人介绍至少10个字!" }
                 ]}
               >
                 <TextArea placeholder="请输入个人介绍" rows={4} showCount maxLength={500} />
@@ -292,13 +292,13 @@ export default function FormValidationExample() {
                 rules={[
                   {
                     validator: (_, value) =>
-                      value ? Promise.resolve() : Promise.reject(new Error("请同意用户协议!")),
-                  },
+                      value ? Promise.resolve() : Promise.reject(new Error("请同意用户协议!"))
+                  }
                 ]}
               >
                 <Checkbox>
                   我已阅读并同意{" "}
-                  <a href="#" className="text-blue-500">
+                  <a href="/" className="text-blue-500">
                     用户协议
                   </a>
                 </Checkbox>

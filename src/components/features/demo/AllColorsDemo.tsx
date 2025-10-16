@@ -1,7 +1,8 @@
-import React, { useCallback } from "react";
 import { Button, Card, Progress } from "antd";
+import type React from "react";
+import { useCallback } from "react";
 import { useDarkMode } from "@/hooks";
-import { useThemeActions, useThemeSettings, type ThemeType } from "@/store/theme";
+import { type ThemeType, useThemeActions, useThemeSettings } from "@/store/theme";
 
 export const AllColorsDemo: React.FC = () => {
   const settings = useThemeSettings();
@@ -13,26 +14,26 @@ export const AllColorsDemo: React.FC = () => {
       name: "Primary",
       type: "primary" as const,
       value: settings.primaryColor,
-      presets: ["#30B092", "#3b82f6", "#8b5cf6", "#22C55E", "#FAAD14", "#F5222D"],
+      presets: ["#30B092", "#3b82f6", "#8b5cf6", "#22C55E", "#FAAD14", "#F5222D"]
     },
     {
       name: "Success",
       type: "success" as const,
       value: settings.successColor,
-      presets: ["#17c964", "#22C55E", "#10b981", "#059669", "#16a34a", "#15803d"],
+      presets: ["#17c964", "#22C55E", "#10b981", "#059669", "#16a34a", "#15803d"]
     },
     {
       name: "Warning",
       type: "warning" as const,
       value: settings.warningColor,
-      presets: ["#f5a524", "#FAAD14", "#f59e0b", "#d97706", "#ca8a04", "#a16207"],
+      presets: ["#f5a524", "#FAAD14", "#f59e0b", "#d97706", "#ca8a04", "#a16207"]
     },
     {
       name: "Error",
       type: "error" as const,
       value: settings.errorColor,
-      presets: ["#f31260", "#F5222D", "#ef4444", "#dc2626", "#b91c1c", "#991b1b"],
-    },
+      presets: ["#f31260", "#F5222D", "#ef4444", "#dc2626", "#b91c1c", "#991b1b"]
+    }
   ];
 
   const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
@@ -99,6 +100,7 @@ export const AllColorsDemo: React.FC = () => {
                   <div className="flex flex-wrap gap-2">
                     {colorType.presets.map((color) => (
                       <button
+                        type="button"
                         key={color}
                         onClick={() => setThemeColor({ type: colorType.type, color, isDarkMode })}
                         className={`h-8 w-8 rounded border-2 hover:scale-110 ${

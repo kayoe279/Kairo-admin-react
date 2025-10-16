@@ -1,9 +1,9 @@
-import { useMemo } from "react";
 import { Breadcrumb } from "antd";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
 import type { ResourceKey } from "i18next";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { matchRoutes, useLocation, type RouteObject } from "react-router";
+import { matchRoutes, type RouteObject, useLocation } from "react-router";
 import { SvgIcon } from "@/components/ui";
 import { cn, transformToMenus } from "@/lib";
 import { useAppSettings, useAuthRouteState } from "@/store";
@@ -32,7 +32,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
               <span>{title}</span>
             </>
           ),
-          menu: { items: transformToMenus(route.children, { t }) || [] },
+          menu: { items: transformToMenus(route.children, { t }) || [] }
         };
       }
       return { title };

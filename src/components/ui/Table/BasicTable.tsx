@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef } from "react";
 import { Card, Table } from "antd";
+import { useEffect, useMemo, useRef } from "react";
 import { DynamicForm } from "@/components/ui/Form";
 import { useSearchQuery, useTableHeight } from "@/hooks";
 import { cn } from "@/lib";
@@ -20,7 +20,7 @@ export function BasicTable<T>({
 }: BasicTableProps<T>) {
   const { headerSetting } = useAppSettings();
   const { noQuery, setSearchQuery, resetSearchQuery } = useSearchQuery({
-    prefix,
+    prefix
   });
 
   const fixed = useMemo(
@@ -30,7 +30,7 @@ export function BasicTable<T>({
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const { tableHeight, refreshTableHeight } = useTableHeight(tableContainerRef, {
-    enabled: fixed,
+    enabled: fixed
   });
 
   const isLoading = useMemo(() => loading && !noQuery, [loading, noQuery]);

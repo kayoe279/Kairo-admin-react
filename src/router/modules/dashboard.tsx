@@ -11,7 +11,7 @@ export const dashboardRoutes: AppRouteObject[] = [
     meta: {
       name: "dashboard",
       icon: "solar:chart-square-broken",
-      sort: 0,
+      sort: 0
     },
     children: [
       {
@@ -20,24 +20,24 @@ export const dashboardRoutes: AppRouteObject[] = [
         meta: {
           name: "dashboardWorkplace",
           keepAlive: true,
-          affix: true,
-        },
+          affix: true
+        }
       },
       {
         path: "/dashboard/analysis",
         element: <DashboardAnalysis />,
         meta: {
           name: "dashboardAnalysis",
-          keepAlive: true,
-        },
+          keepAlive: true
+        }
       },
       {
         path: "/dashboard/monitor",
         element: <DashboardMonitor />,
         meta: {
-          name: "dashboardMonitor",
-        },
-      },
-    ],
-  },
+          name: "dashboardMonitor"
+        }
+      }
+    ]
+  }
 ];

@@ -12,11 +12,11 @@ export const locales: Locale[] = ["zh-CN", "en-US"];
 
 export const resources = {
   "zh-CN": {
-    translation: zhCnTrans,
+    translation: zhCnTrans
   },
   "en-US": {
-    translation: enUsTrans,
-  },
+    translation: enUsTrans
+  }
 } as const;
 
 export type Resources = typeof resources;
@@ -29,14 +29,14 @@ i18n
     lng: defaultLocale,
     fallbackLng: defaultLocale,
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
     debug: false,
     detection: {
       // 👇 配置优先级
       order: ["localStorage", "cookie", "navigator"],
-      caches: ["localStorage"], // 存储到 localStorage
-    },
+      caches: ["localStorage"] // 存储到 localStorage
+    }
   });
 
 export function setI18nLocale(locale: Locale) {

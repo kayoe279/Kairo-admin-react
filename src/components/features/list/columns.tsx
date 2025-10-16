@@ -5,11 +5,10 @@ import {
   EditOutlined,
   EyeOutlined,
   GithubOutlined,
-  LinkOutlined,
+  LinkOutlined
 } from "@ant-design/icons";
-import { Button, Space, Tag, Tooltip, Typography, type Breakpoint } from "antd";
+import { type Breakpoint, Button, Space, Tag, Tooltip, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useIsMobile } from "@/hooks";
 import type { NavListItem } from "@/service";
 
 const { Text, Link } = Typography;
@@ -30,7 +29,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     key: "id",
     width: 80,
     sorter: true,
-    render: (id: number) => <Text strong>{id}</Text>,
+    render: (id: number) => <Text strong>{id}</Text>
   },
   {
     title: "名称",
@@ -39,13 +38,13 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     width: 200,
     sorter: true,
     ellipsis: {
-      showTitle: false,
+      showTitle: false
     },
     render: (name: string) => (
       <Tooltip title={name}>
         <Text strong>{name}</Text>
       </Tooltip>
-    ),
+    )
   },
   {
     title: "链接",
@@ -53,7 +52,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     key: "link",
     width: 300,
     ellipsis: {
-      showTitle: false,
+      showTitle: false
     },
     render: (link: string) => (
       <Tooltip title={link}>
@@ -67,7 +66,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
           {link}
         </Link>
       </Tooltip>
-    ),
+    )
   },
   {
     title: "关键词",
@@ -82,7 +81,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
           </Tag>
         )) || "-"}
       </div>
-    ),
+    )
   },
   {
     title: "仓库",
@@ -90,7 +89,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     key: "repository",
     width: 200,
     ellipsis: {
-      showTitle: false,
+      showTitle: false
     },
     render: (repository: string | null) => {
       if (!repository) return <Text type="secondary">-</Text>;
@@ -107,7 +106,7 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
           </Link>
         </Tooltip>
       );
-    },
+    }
   },
   {
     title: "创建时间",
@@ -119,8 +118,8 @@ export const createNavListColumns = (): ColumnsType<NavListItem> => [
     render: (date: string) => {
       if (!date) return "-";
       return new Date(date).toLocaleString();
-    },
-  },
+    }
+  }
 ];
 
 // 创建操作列
@@ -175,13 +174,13 @@ export const createActionColumn = (actions: ColumnActions) => ({
         </Button>
       )}
     </Space>
-  ),
+  )
 });
 
 // 完整的 columns 配置函数
 export const useListTableColumns = ({
   showActions = true,
-  actions,
+  actions
 }: {
   showActions?: boolean;
   actions?: ColumnActions;

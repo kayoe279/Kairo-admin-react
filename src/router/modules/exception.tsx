@@ -10,23 +10,23 @@ export const exceptionRoutes: AppRouteObject[] = [
     meta: {
       name: "exception",
       icon: "solar:confounded-circle-broken",
-      sort: 4,
+      sort: 4
     },
     children: [
       {
         path: "/exception/403",
         element: <Exception403 />,
         meta: {
-          name: "exception403",
-        },
+          name: "exception403"
+        }
       },
       {
         path: "/exception/404",
         element: <Exception404 />,
         meta: {
-          name: "exception404",
-        },
-      },
-    ],
-  },
+          name: "exception404"
+        }
+      }
+    ]
+  }
 ];

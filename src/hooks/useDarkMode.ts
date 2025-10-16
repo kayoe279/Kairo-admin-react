@@ -16,24 +16,24 @@ export function useDarkMode(options: DarkModeOptions = {}) {
   const {
     defaultValue = "light",
     localStorageKey = LOCAL_STORAGE_KEY,
-    initializeWithValue = true,
+    initializeWithValue = true
   } = options;
 
   const themeModeMap = {
     light: "light",
     dark: "dark",
-    system: "system",
+    system: "system"
   } as const;
 
   // 跟随系统
   const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY, {
     initializeWithValue,
-    defaultValue: false,
+    defaultValue: false
   });
 
   // 保存用户选择的模式
   const [themeMode, setThemeMode] = useLocalStorage<ThemeMode>(localStorageKey, defaultValue, {
-    initializeWithValue,
+    initializeWithValue
   });
 
   // 计算最终是否 dark
@@ -65,6 +65,6 @@ export function useDarkMode(options: DarkModeOptions = {}) {
     themeMode,
     isDarkMode,
     setThemeMode,
-    toggle,
+    toggle
   };
 }

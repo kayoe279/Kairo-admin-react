@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { BaseChart, type BaseChartProps } from "./BaseChart";
 import {
   CHART_COLORS,
@@ -8,7 +8,7 @@ import {
   DEFAULT_TITLE,
   DEFAULT_TOOLTIP,
   getFlatStyle,
-  getGradientColor,
+  getGradientColor
 } from "./chartConfig";
 
 export interface BarChartData {
@@ -52,7 +52,7 @@ export const BarChart: React.FC<BarChartProps> = ({
     title: title
       ? {
           ...DEFAULT_TITLE,
-          text: title,
+          text: title
         }
       : undefined,
 
@@ -68,7 +68,7 @@ export const BarChart: React.FC<BarChartProps> = ({
             </div>
           </div>
         `;
-      },
+      }
     },
 
     legend: data.length > 1 ? DEFAULT_LEGEND : undefined,
@@ -83,17 +83,17 @@ export const BarChart: React.FC<BarChartProps> = ({
             type: "value",
             splitLine: {
               ...DEFAULT_AXIS.splitLine,
-              show: true,
-            },
+              show: true
+            }
           },
           yAxis: {
             ...DEFAULT_AXIS,
             type: "category",
             data: xAxisData || data.map((item) => item.name),
             splitLine: {
-              show: false,
-            },
-          },
+              show: false
+            }
+          }
         }
       : {
           xAxis: {
@@ -101,17 +101,17 @@ export const BarChart: React.FC<BarChartProps> = ({
             type: "category",
             data: xAxisData || data.map((item) => item.name),
             splitLine: {
-              show: false,
-            },
+              show: false
+            }
           },
           yAxis: {
             ...DEFAULT_AXIS,
             type: "value",
             splitLine: {
               ...DEFAULT_AXIS.splitLine,
-              show: true,
-            },
-          },
+              show: true
+            }
+          }
         }),
 
     series: [
@@ -127,7 +127,7 @@ export const BarChart: React.FC<BarChartProps> = ({
         // 颜色配置
         itemStyle: {
           ...getFlatStyle().itemStyle,
-          color: useGradient ? getGradientColor(0) : CHART_COLORS.primary[0],
+          color: useGradient ? getGradientColor(0) : CHART_COLORS.primary[0]
         },
 
         // 数值标签配置
@@ -138,15 +138,15 @@ export const BarChart: React.FC<BarChartProps> = ({
               color: CHART_COLORS.text,
               fontSize: 11,
               fontWeight: 500,
-              formatter: "{c}",
+              formatter: "{c}"
             }
           : undefined,
 
         // 动画配置
         animationDuration: 1000,
-        animationEasing: "cubicOut",
-      },
-    ],
+        animationEasing: "cubicOut"
+      }
+    ]
   };
 
   return <BaseChart option={option} {...chartProps} />;

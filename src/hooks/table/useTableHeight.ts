@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type RefObject } from "react";
+import { type RefObject, useCallback, useEffect, useState } from "react";
 import { useDebounceCallback, useResizeObserver } from "usehooks-ts";
 
 export interface UseTableHeightOptions {
@@ -29,7 +29,7 @@ const constants = {
   containerPadding: 48,
   operationSpacing: 16,
   paginationSpacing: 16,
-  minHeight: 500,
+  minHeight: 500
 } as const;
 
 // 计算表格高度公式：table-container - table-operation - n-data-table-thead - n-data-table__pagination - 12(分页margin)
@@ -42,8 +42,8 @@ export function useTableHeight(
 
   const [tableHeight, setTableHeight] = useState<number | undefined>();
 
-  const { height = 0 } = useResizeObserver({
-    ref: tableContainerRef as RefObject<HTMLDivElement>,
+  useResizeObserver({
+    ref: tableContainerRef as RefObject<HTMLDivElement>
   });
 
   // 计算高度的核心逻辑
@@ -96,7 +96,7 @@ export function useTableHeight(
   useEffect(() => {
     if (!enabled) return;
     debouncedCalculateHeight();
-  }, [height, enabled, debouncedCalculateHeight]);
+  }, [enabled, debouncedCalculateHeight]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -118,6 +118,6 @@ export function useTableHeight(
 
   return {
     tableHeight,
-    refreshTableHeight: calculateHeight,
+    refreshTableHeight: calculateHeight
   };
 }

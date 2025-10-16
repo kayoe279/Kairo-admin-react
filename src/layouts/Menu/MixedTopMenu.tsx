@@ -1,11 +1,10 @@
-import { Menu } from "antd";
 import type { MenuProps } from "antd";
+import { Menu } from "antd";
 import { useNavigate } from "react-router";
 import { useMixedMenu } from "@/hooks";
 import { cn } from "@/lib";
 import { isRootMenu } from "@/lib/menu";
 import { findFirstLeafRoute } from "@/router/helper";
-import { useAppActions } from "@/store";
 import type { AppRouteObject } from "@/types";
 
 type MixedTopMenuProps = {

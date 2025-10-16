@@ -23,7 +23,6 @@ export const AdminMenu = ({ className, location = "side" }: MenuProps) => {
       ) : (
         <MixedSideMenu menuRoutes={authRoutes} className={className} />
       );
-    case "vertical":
     default:
       return <SideMenu menuRoutes={authRoutes} className={className} />;
   }

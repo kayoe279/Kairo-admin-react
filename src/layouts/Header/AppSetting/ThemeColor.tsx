@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ColorPicker } from "@/components/ui";
 import { useDarkMode } from "@/hooks";
-import { useThemeActions, useThemeSettings, type ThemeType } from "@/store";
+import { type ThemeType, useThemeActions, useThemeSettings } from "@/store";
 import { SettingItem } from "./SettingItem";
 
 export const ThemeColor = () => {

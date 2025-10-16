@@ -3,7 +3,7 @@ const colorVars = {
   secondary: "--secondary-500",
   success: "--success-500",
   warning: "--warning-500",
-  error: "--error-500",
+  error: "--error-500"
 } as const;
 
 // 生成颜色调色板的辅助函数
@@ -84,7 +84,7 @@ export const generateColorPalette = (
     "600": hslToHex(h, Math.min(s + 5, 100), Math.max(l - 10, 45)),
     "700": hslToHex(h, Math.min(s + 10, 100), Math.max(l - 20, 35)),
     "800": hslToHex(h, Math.min(s + 15, 100), Math.max(l - 30, 25)),
-    "900": hslToHex(h, Math.min(s + 20, 100), Math.max(l - 40, 15)),
+    "900": hslToHex(h, Math.min(s + 20, 100), Math.max(l - 40, 15))
   };
 };
 

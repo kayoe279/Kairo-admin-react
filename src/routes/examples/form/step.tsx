@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { App, Button, Card, Form, Input, Result, Select, Space, Upload } from "antd";
+import { useState } from "react";
 import { StepForm, StepFormStep } from "@/components/ui/Form";
 
 const { Option } = Select;
@@ -35,7 +35,7 @@ export default function FormStepExample() {
 
   const next = async () => {
     try {
-      let values;
+      let values: StepFormData | undefined;
       // 根据当前步骤验证对应的表单
       switch (current) {
         case 0:
@@ -50,7 +50,7 @@ export default function FormStepExample() {
       }
 
       // 合并表单数据
-      const newFormData = { ...formData, ...values };
+      const newFormData: StepFormData = { ...formData, ...values };
       setFormData(newFormData);
 
       if (current < 2) {
@@ -76,7 +76,7 @@ export default function FormStepExample() {
       console.log("完整表单数据:", data);
       message.success("表单提交成功！");
       setCurrent(3); // 跳转到成功页面
-    } catch (error) {
+    } catch {
       message.error("提交失败，请重试");
     } finally {
       setLoading(false);
@@ -113,7 +113,7 @@ export default function FormStepExample() {
                   label="用户名"
                   rules={[
                     { required: true, message: "请输入用户名" },
-                    { min: 3, message: "用户名至少3个字符" },
+                    { min: 3, message: "用户名至少3个字符" }
                   ]}
                 >
                   <Input placeholder="请输入用户名" />
@@ -124,7 +124,7 @@ export default function FormStepExample() {
                   label="邮箱"
                   rules={[
                     { required: true, message: "请输入邮箱" },
-                    { type: "email", message: "请输入有效的邮箱地址" },
+                    { type: "email", message: "请输入有效的邮箱地址" }
                   ]}
                 >
                   <Input placeholder="请输入邮箱" />
@@ -135,7 +135,7 @@ export default function FormStepExample() {
                   label="手机号"
                   rules={[
                     { required: true, message: "请输入手机号" },
-                    { pattern: /^1[3-9]\d{9}$/, message: "请输入有效的手机号" },
+                    { pattern: /^1[3-9]\d{9}$/, message: "请输入有效的手机号" }
                   ]}
                 >
                   <Input placeholder="请输入手机号" />
@@ -251,7 +251,7 @@ export default function FormStepExample() {
                 <Button type="primary" key="restart" onClick={restart}>
                   重新填写
                 </Button>,
-                <Button key="home">返回首页</Button>,
+                <Button key="home">返回首页</Button>
               ]}
             />
           </StepFormStep>

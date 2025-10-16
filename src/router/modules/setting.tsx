@@ -11,30 +11,30 @@ export const settingRoutes: AppRouteObject[] = [
     meta: {
       name: "setting",
       icon: "solar:settings-outline",
-      sort: 8,
+      sort: 8
     },
     children: [
       {
         path: "/setting/account",
         element: <SettingAccount />,
         meta: {
-          name: "settingAccount",
-        },
+          name: "settingAccount"
+        }
       },
       {
         path: "/setting/theme",
         element: <SettingTheme />,
         meta: {
-          name: "settingTheme",
-        },
+          name: "settingTheme"
+        }
       },
       {
         path: "/setting/security",
         element: <SettingSecurity />,
         meta: {
-          name: "settingSecurity",
-        },
-      },
-    ],
-  },
+          name: "settingSecurity"
+        }
+      }
+    ]
+  }
 ];

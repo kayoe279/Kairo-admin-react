@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { ResourceKey } from "i18next";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { ButtonIcon, SvgIcon } from "@/components/ui";
@@ -12,7 +12,7 @@ import {
   useAppSettings,
   useAuthRouteState,
   useTabsActions,
-  useTabsList,
+  useTabsList
 } from "@/store";
 import { TabsDropdownMenu } from "./TabsDropdownMenu";
 
@@ -31,7 +31,7 @@ export const Tabs = ({ className }: { className?: string }) => {
     scrollX: true,
     scrollY: false,
     click: true,
-    bounce: true,
+    bounce: true
   });
 
   const tabsRef = useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ export const Tabs = ({ className }: { className?: string }) => {
   const [scrollState, setScrollState] = useState({
     canScrollLeft: false,
     canScrollRight: false,
-    isScrollable: false,
+    isScrollable: false
   });
 
   // 滚动到活动标签页
@@ -78,8 +78,7 @@ export const Tabs = ({ className }: { className?: string }) => {
     if (matchedRoute?.meta?.name) {
       addTab(matchedRoute);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matchedRoute]);
+  }, [matchedRoute, addTab]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -101,7 +100,7 @@ export const Tabs = ({ className }: { className?: string }) => {
       setScrollState({
         isScrollable,
         canScrollLeft,
-        canScrollRight,
+        canScrollRight
       });
     };
 
@@ -114,7 +113,7 @@ export const Tabs = ({ className }: { className?: string }) => {
       bs.off("scroll", handleScroll);
       bs.off("scrollEnd", handleScroll);
     };
-  }, [bs, wrapperRef, tabsRef]);
+  }, [bs, wrapperRef]);
 
   // 监听活动标签页变化，自动滚动到可见区域
   useEffect(() => {
@@ -147,12 +146,12 @@ export const Tabs = ({ className }: { className?: string }) => {
           initial={{ height: 0, opacity: 0 }}
           animate={{
             height: multiTabsSetting.height,
-            opacity: 1,
+            opacity: 1
           }}
           exit={{ height: 0, opacity: 0 }}
           transition={{
             duration: 0.25,
-            ease: "easeOut",
+            ease: "easeOut"
           }}
           className={cn(
             "bg-background flex w-full gap-x-2 overflow-hidden px-2 py-1.5 sm:gap-x-4 sm:px-4 sm:py-2",

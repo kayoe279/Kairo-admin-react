@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Button,
   Checkbox,
@@ -11,8 +10,9 @@ import {
   Row,
   Select,
   Space,
-  Switch,
+  Switch
 } from "antd";
+import { useEffect } from "react";
 import { cn } from "@/lib";
 import type { BaseFormProps, DynamicFormField } from "./type";
 
@@ -91,7 +91,7 @@ export function DynamicForm({
     if (colSize >= 24) {
       return {
         xs: 12,
-        lg: 24,
+        lg: 24
       };
     }
 
@@ -99,7 +99,7 @@ export function DynamicForm({
       xs: 12,
       sm: colSize + 4,
       md: colSize + 2,
-      lg: colSize,
+      lg: colSize
     };
   };
 
@@ -155,7 +155,7 @@ export function DynamicForm({
           className={cn("!flex gap-4", {
             "!justify-end": align === "right",
             "!justify-center": align === "center",
-            "!justify-start": align === "left",
+            "!justify-start": align === "left"
           })}
         >
           <Form.Item className="!mb-0">

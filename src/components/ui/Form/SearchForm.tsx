@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
 import {
   DownOutlined,
   Loading3QuartersOutlined,
   SearchOutlined,
-  UpOutlined,
+  UpOutlined
 } from "@ant-design/icons";
 import { Button, Col, Form, Row } from "antd";
+import { useEffect, useState } from "react";
 import { useSearchQuery } from "@/hooks";
 import { cn } from "@/lib";
 import type { SearchFormProps } from "./type";

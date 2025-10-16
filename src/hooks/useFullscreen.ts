@@ -29,6 +29,6 @@ export const useFullscreen = () => {
 
   return {
     isFullscreen,
-    toggleFullscreen,
+    toggleFullscreen
   };
 };

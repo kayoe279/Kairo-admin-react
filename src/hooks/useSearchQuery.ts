@@ -5,7 +5,7 @@ import {
   SORT_BY_NAME,
   SORT_ORDER_NAME,
   typedBoolean,
-  validValue,
+  validValue
 } from "@/lib";
 
 type QueryParams<T extends string> = {
@@ -23,7 +23,7 @@ const excludeResetKeys = [PAGE_SIZE_NAME, SORT_BY_NAME, SORT_ORDER_NAME] as cons
 
 export const useSearchQuery = <T extends string>({
   prefix,
-  extendKeys = [],
+  extendKeys = []
 }: {
   prefix?: string;
   extendKeys?: T[];

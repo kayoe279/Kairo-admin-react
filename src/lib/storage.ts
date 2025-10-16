@@ -17,7 +17,7 @@ function createLocalStorage<T = any>() {
       if (storageData) {
         return storageData;
       }
-    } catch (error) {
+    } catch {
       return null;
     }
   }
@@ -32,7 +32,7 @@ function createLocalStorage<T = any>() {
     set,
     get,
     remove,
-    clear,
+    clear
   };
 }
 /**
@@ -63,7 +63,7 @@ function createSessionStorage<T = any>() {
     set,
     get,
     remove,
-    clear,
+    clear
   };
 }
 

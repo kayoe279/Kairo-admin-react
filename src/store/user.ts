@@ -53,15 +53,15 @@ export const useUserStore = create<UserStore>()(
 
         if (!ignoreAuth && navigate) {
           navigate(PAGE.LOGIN_PATH, {
-            state: { redirect: currentPath },
+            state: { redirect: currentPath }
           });
         }
         setTimeout(() => {
           routeActions.resetAuthRoute();
           tabsActions.clearAllTabs();
         }, 500);
-      },
-    },
+      }
+    }
   }))
 );
 

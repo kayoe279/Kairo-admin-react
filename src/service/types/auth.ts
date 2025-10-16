@@ -1,4 +1,4 @@
-import { AuthError, type Session, type User } from "@supabase/supabase-js";
+import type { AuthError, Session, User } from "@supabase/supabase-js";
 
 export type RoleType = "super" | "admin" | "user";
 

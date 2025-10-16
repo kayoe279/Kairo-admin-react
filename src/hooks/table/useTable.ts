@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GetProp, Table, TableProps } from "antd";
 import type { SorterResult } from "antd/es/table/interface";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import {
   DEFAULT_PAGE,
@@ -8,7 +8,7 @@ import {
   PAGE_NAME,
   PAGE_SIZE_NAME,
   PAGE_SIZE_OPTIONS,
-  validValue,
+  validValue
 } from "@/lib";
 
 type TablePaginationConfig = Exclude<GetProp<TableProps, "pagination">, boolean>;
@@ -58,8 +58,8 @@ export function useTable<T extends Record<string, any>>(
       showSizeChanger: true,
       showQuickJumper: true,
       size: "default",
-      showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`,
-    },
+      showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
+    }
   });
 
   const handleTableChange = useCallback(
@@ -75,11 +75,11 @@ export function useTable<T extends Record<string, any>>(
         pagination: {
           ...tableParams.current.pagination,
           ...pagination,
-          current: isChangePageSize ? 1 : pagination.current,
+          current: isChangePageSize ? 1 : pagination.current
         },
         filters,
         sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
-        sortField: Array.isArray(sorter) ? undefined : sorter.field,
+        sortField: Array.isArray(sorter) ? undefined : sorter.field
       };
 
       setSearchParams((prev) => {
@@ -89,7 +89,7 @@ export function useTable<T extends Record<string, any>>(
           page: isChangePageSize ? 1 : pagination.current,
           pageSize: isChangePageSize ? pagination.pageSize : undefined,
           sortBy: Array.isArray(sorter) ? undefined : sorter.field,
-          sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+          sortOrder: Array.isArray(sorter) ? undefined : sorter.order
         } as Record<string, any>;
 
         for (const key of Object.keys(newParams)) {
@@ -123,8 +123,8 @@ export function useTable<T extends Record<string, any>>(
           total: total,
           current: page ? Number(page) : options.page || DEFAULT_PAGE,
           pageSize: pageSize ? Number(pageSize) : options.pageSize || DEFAULT_PAGE_SIZE,
-          showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`,
-        },
+          showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
+        }
       };
     }
   }, [page, pageSize, total, options.page, options.pageSize, options.data, options.isLoading]);
@@ -139,15 +139,15 @@ export function useTable<T extends Record<string, any>>(
         bordered: true,
         onChange: handleTableChange,
         rowKey: (record: T) => record.id,
-        ...tableOptions,
+        ...tableOptions
       }) as TableProps<T>,
-    [tableRef, tableData, tableOptions, handleTableChange]
+    [tableData, tableOptions, handleTableChange]
   );
 
   return {
     tableRef,
     tableParams,
     tableProps,
-    pagination: tableParams.current.pagination,
+    pagination: tableParams.current.pagination
   };
 }

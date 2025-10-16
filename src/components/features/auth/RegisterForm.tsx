@@ -4,7 +4,7 @@ import {
   getConfirmPasswordRules,
   getEmailRules,
   getFullNameRules,
-  getPasswordRules,
+  getPasswordRules
 } from "@/components/features/auth/validation";
 import { SvgIcon } from "@/components/ui";
 import type { RegisterCredentials } from "@/service";

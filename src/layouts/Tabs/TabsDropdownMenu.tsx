@@ -1,5 +1,5 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { Dropdown, type DropDownProps, type MenuProps } from "antd";
+import { type DropDownProps, Dropdown, type MenuProps } from "antd";
+import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { SvgIcon } from "@/components/ui";
@@ -41,35 +41,36 @@ export const TabsDropdownMenu = ({
     {
       key: "reloadCurrent",
       label: t("common.reload", "重新加载"),
-      icon: <SvgIcon icon="solar:refresh-outline" className="size-4" />,
+      icon: <SvgIcon icon="solar:refresh-outline" className="size-4" />
     },
     {
       key: "closeCurrent",
       label: t("common.close", "关闭"),
-      icon: <SvgIcon icon="pajamas:close" className="size-4" />,
+      icon: <SvgIcon icon="pajamas:close" className="size-4" />
     },
     {
       key: "closeLeft",
       label: t("tabs.contextMenu.closeLeft", "关闭左侧"),
-      icon: <SvgIcon icon="mdi:format-horizontal-align-left" className="size-4" />,
+      icon: <SvgIcon icon="mdi:format-horizontal-align-left" className="size-4" />
     },
     {
       key: "closeRight",
       label: t("tabs.contextMenu.closeRight", "关闭右侧"),
-      icon: <SvgIcon icon="mdi:format-horizontal-align-right" className="size-4" />,
+      icon: <SvgIcon icon="mdi:format-horizontal-align-right" className="size-4" />
     },
     {
       key: "closeOther",
       label: t("tabs.contextMenu.closeOther", "关闭其他"),
-      icon: <SvgIcon icon="ant-design:column-width-outlined" className="size-4" />,
+      icon: <SvgIcon icon="ant-design:column-width-outlined" className="size-4" />
     },
     {
       key: "closeAll",
       label: t("tabs.contextMenu.closeAll", "关闭全部"),
-      icon: <SvgIcon icon="ant-design:line-outlined" className="size-4" />,
-    },
+      icon: <SvgIcon icon="ant-design:line-outlined" className="size-4" />
+    }
   ]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: biome ignore
   useEffect(() => {
     if (!tabId) return;
 
@@ -83,7 +84,7 @@ export const TabsDropdownMenu = ({
         disabledKeys.push("closeLeft");
       }
 
-      const isFixed = tabsList.find((item) => item.name == tabId)?.meta?.affix ?? false;
+      const isFixed = tabsList.find((item) => item.name === tabId)?.meta?.affix ?? false;
       if (isFixed) {
         disabledKeys.push(...["closeCurrent", "closeLeft"]);
         if (tabsList.length <= 1) {
@@ -100,12 +101,11 @@ export const TabsDropdownMenu = ({
     const newItems = items
       .map((item) => ({
         ...item,
-        disabled: isItemDisabled(item.key as DropdownKey),
+        disabled: isItemDisabled(item.key as DropdownKey)
       }))
       .filter((item) => !excludeKeys.includes(item.key as DropdownKey));
 
     setItems(newItems);
-    //  eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, tabsList, tabId]);
 
   const handleDropdownClick: MenuProps["onClick"] = (e) => {

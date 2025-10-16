@@ -6,7 +6,11 @@ import type { RoleType } from "@/service";
 import { useIsAuthenticated, useUserInfo } from "@/store/user";
 import { usePermission } from "./usePermission";
 
-type RouteGuardBeforeEnterResult = { path?: string; success?: boolean } | void | null | undefined;
+type RouteGuardBeforeEnterResult =
+  | { path?: string; success?: boolean }
+  | undefined
+  | null
+  | undefined;
 
 export interface RouteGuardOptions {
   /** 是否需要登录 */
@@ -49,10 +53,10 @@ export function useRouteGuard(guardOptions: RouteGuardOptions = {}) {
     // beforeEnter 钩子
     if (beforeEnter) {
       const result = beforeEnter(pathname, location.state?.from || "");
-      if (result && result.path && result.path !== pathname) {
+      if (result?.path && result.path !== pathname) {
         return { canRender: false, redirectPath: result.path };
       }
-      if (result && result.success === false) {
+      if (result?.success === false) {
         return { canRender: false, redirectPath: PAGE.LOGIN_PATH };
       }
     }
@@ -96,7 +100,7 @@ export function useRouteGuard(guardOptions: RouteGuardOptions = {}) {
     hasPermission,
     beforeEnter,
     afterEnter,
-    onAuthFailed,
+    onAuthFailed
   ]);
 
   // effect: 处理副作用（跳转、afterEnter 等）

@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from "react";
 import { Icon } from "@iconify/react";
+import type { HTMLAttributes } from "react";
 import { cn } from "@/lib";
 
 /**

@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
 import type { FormInstance, FormProps } from "antd";
 import type { Rule } from "antd/es/form";
+import type { ReactNode } from "react";
 
 // 基础表单组件类型
 export interface BaseFormProps extends Omit<FormProps, "children"> {
