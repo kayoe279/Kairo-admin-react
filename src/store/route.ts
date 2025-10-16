@@ -7,7 +7,7 @@ import { hasPermission } from "@/hooks";
 import { PAGE } from "@/lib";
 import { getUserInfo } from "@/lib/cookie";
 import { staticRoutes, transformRouteConfig } from "@/router";
-import { getUserRoutes, type RoleType } from "@/service";
+import { authApi, type RoleType } from "@/service";
 import { useUserActions, useUserInfo } from "@/store";
 import type { AppRouteObject } from "@/types";
 
@@ -108,7 +108,7 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
             return;
           }
 
-          const { data } = await getUserRoutes({
+          const { data } = await authApi.getUserRoutes({
             id: userInfo.id
           });
           const dynamicRoutes = transformRouteConfig(data || []);

@@ -6,11 +6,7 @@ import type { RoleType } from "@/service";
 import { useIsAuthenticated, useUserInfo } from "@/store/user";
 import { usePermission } from "./usePermission";
 
-type RouteGuardBeforeEnterResult =
-  | { path?: string; success?: boolean }
-  | undefined
-  | null
-  | undefined;
+type RouteGuardBeforeEnterResult = { path?: string; success?: boolean } | undefined | null | void;
 
 export interface RouteGuardOptions {
   /** 是否需要登录 */

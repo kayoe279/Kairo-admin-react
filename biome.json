@@ -36,7 +36,8 @@
       "suspicious": {
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
-        "noUnknownAtRules": "off"
+        "noUnknownAtRules": "off",
+        "noConfusingVoidType": "off"
       },
       "correctness": {
         "useUniqueElementIds": "off",

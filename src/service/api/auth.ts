@@ -1,44 +1,44 @@
 import { useMutation } from "@tanstack/react-query";
-import { SupabaseAuthAPI } from "@/service";
+import { authApi } from "@/service/supabase/api";
 
 export const useSignIn = () => {
   return useMutation({
-    mutationFn: SupabaseAuthAPI.signIn
+    mutationFn: authApi.signIn
   });
 };
 
 export const useSignUp = () => {
   return useMutation({
-    mutationFn: SupabaseAuthAPI.signUp
+    mutationFn: authApi.signUp
   });
 };
 
 export const useSignOut = () => {
   return useMutation({
-    mutationFn: SupabaseAuthAPI.signOut
+    mutationFn: authApi.signOut
   });
 };
 
 export const useVerifyOtp = () => {
   return useMutation({
-    mutationFn: SupabaseAuthAPI.verifyOtp
+    mutationFn: authApi.verifyOtp
   });
 };
 
 export const useResendConfirmation = () => {
   return useMutation({
-    mutationFn: SupabaseAuthAPI.resendConfirmation
+    mutationFn: authApi.resendConfirmation
   });
 };
 
 export const useSignInWithGitHub = () => {
   return useMutation({
-    mutationFn: SupabaseAuthAPI.signInWithGitHub
+    mutationFn: authApi.signInWithGitHub
   });
 };
 
 export const useSignInWithGoogle = () => {
   return useMutation({
-    mutationFn: SupabaseAuthAPI.signInWithGoogle
+    mutationFn: authApi.signInWithGoogle
   });
 };

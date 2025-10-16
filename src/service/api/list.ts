@@ -6,14 +6,14 @@ import {
   useQuery,
   useQueryClient
 } from "@tanstack/react-query";
-import {
-  type ListQueryParams,
-  type ListResponse,
-  type MutationResponse,
-  type NavListInsert,
-  SupabaseListAPI
-} from "@/service";
 import { queryKeysFactory } from "@/service/queryKey";
+import { listApi } from "@/service/supabase/api";
+import type {
+  ListQueryParams,
+  ListResponse,
+  MutationResponse,
+  NavListInsert
+} from "@/service/types";
 
 const listKey = queryKeysFactory("list");
 
@@ -23,7 +23,7 @@ export const useTableList = (
 ) => {
   const { data, ...rest } = useQuery({
     queryKey: listKey.list({ ...params }),
-    queryFn: () => SupabaseListAPI.getList(params),
+    queryFn: () => listApi.getList(params),
     ...options
   });
 
@@ -39,7 +39,7 @@ export const useTableCreate = (
   const queryClient = useQueryClient();
 
   const { data, ...rest } = useMutation({
-    mutationFn: SupabaseListAPI.create,
+    mutationFn: listApi.create,
     onSuccess: (...args) => {
       queryClient.invalidateQueries({ queryKey: listKey.lists() });
       options?.onSuccess?.(...args);
