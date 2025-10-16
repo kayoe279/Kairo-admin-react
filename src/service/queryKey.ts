@@ -11,7 +11,7 @@ export type TQueryKey<TKey, TListQuery = any, TDetailQuery = string> = {
   ) => readonly [
     ...ReturnType<TQueryKey<TKey>["details"]>,
     TDetailQuery,
-    { query: TListQuery | undefined },
+    { query: TListQuery | undefined }
   ];
 };
 
@@ -26,8 +26,8 @@ export const queryKeysFactory = <T, TListQueryType = any, TDetailQueryType = str
     detail: (id: TDetailQueryType, query?: TListQueryType) => [
       ...queryKeyFactory.details(),
       id,
-      { query },
-    ],
+      { query }
+    ]
   };
   return queryKeyFactory;
 };

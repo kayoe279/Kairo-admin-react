@@ -27,7 +27,7 @@ function checkPathMatch(
     {
       path: routePath,
       caseSensitive: false,
-      end: true,
+      end: true
     },
     currentPath
   );
@@ -48,7 +48,7 @@ function checkPathMatch(
 
   return {
     isMatch: true,
-    params,
+    params
   };
 }
 
@@ -78,7 +78,7 @@ export function findMatchingRoute(
           return {
             matchedRoute: route,
             matchedRoutes: currentMatchedRoutes.filter((item) => !!item.path),
-            params,
+            params
           };
         }
       }

@@ -22,7 +22,7 @@ export const businessRoutes: AppRouteObject[] = [
     meta: {
       name: "business",
       icon: "solar:shop-broken",
-      sort: 2,
+      sort: 2
     },
     children: [
       // 商品管理 - 三级路由示例
@@ -30,143 +30,143 @@ export const businessRoutes: AppRouteObject[] = [
         path: "/business/product",
         element: <Outlet />,
         meta: {
-          name: "businessProduct",
+          name: "businessProduct"
         },
         children: [
           {
             path: "/business/product/list",
             element: <ProductList />,
             meta: {
-              name: "businessProductList",
-            },
+              name: "businessProductList"
+            }
           },
           {
             path: "/business/product/detail/:id?",
             element: <ProductDetail />,
             meta: {
               name: "businessProductDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           // 商品分类 - 三级路由
           {
             path: "/business/product/category",
             element: <Outlet />,
             meta: {
-              name: "businessProductCategory",
+              name: "businessProductCategory"
             },
             children: [
               {
                 path: "/business/product/category/list",
                 element: <ProductCategoryList />,
                 meta: {
-                  name: "businessProductCategoryList",
-                },
+                  name: "businessProductCategoryList"
+                }
               },
               {
                 path: "/business/product/category/detail/:id?",
                 element: <ProductCategoryDetail />,
                 meta: {
                   name: "businessProductCategoryDetail",
-                  hidden: true,
-                },
-              },
-            ],
+                  hidden: true
+                }
+              }
+            ]
           },
           {
             path: "/business/product/brand",
             element: <ProductBrand />,
             meta: {
-              name: "businessProductBrand",
-            },
+              name: "businessProductBrand"
+            }
           },
           {
             path: "/business/product/inventory",
             element: <ProductInventory />,
             meta: {
-              name: "businessProductInventory",
-            },
-          },
-        ],
+              name: "businessProductInventory"
+            }
+          }
+        ]
       },
       // 订单管理
       {
         path: "/business/order",
         element: <Outlet />,
         meta: {
-          name: "businessOrder",
+          name: "businessOrder"
         },
         children: [
           {
             path: "/business/order/list",
             element: <OrderList />,
             meta: {
-              name: "businessOrderList",
-            },
+              name: "businessOrderList"
+            }
           },
           {
             path: "/business/order/detail/:id",
             element: <OrderDetail />,
             meta: {
               name: "businessOrderDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           {
             path: "/business/order/refund",
             element: <OrderRefund />,
             meta: {
-              name: "businessOrderRefund",
-            },
+              name: "businessOrderRefund"
+            }
           },
           {
             path: "/business/order/shipping",
             element: <OrderShipping />,
             meta: {
-              name: "businessOrderShipping",
-            },
-          },
-        ],
+              name: "businessOrderShipping"
+            }
+          }
+        ]
       },
       // 客户管理
       {
         path: "/business/customer",
         element: <Outlet />,
         meta: {
-          name: "businessCustomer",
+          name: "businessCustomer"
         },
         children: [
           {
             path: "/business/customer/list",
             element: <CustomerList />,
             meta: {
-              name: "businessCustomerList",
-            },
+              name: "businessCustomerList"
+            }
           },
           {
             path: "/business/customer/detail/:id",
             element: <CustomerDetail />,
             meta: {
               name: "businessCustomerDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           {
             path: "/business/customer/group",
             element: <CustomerGroup />,
             meta: {
-              name: "businessCustomerGroup",
-            },
+              name: "businessCustomerGroup"
+            }
           },
           {
             path: "/business/customer/service",
             element: <CustomerService />,
             meta: {
-              name: "businessCustomerService",
-            },
-          },
-        ],
-      },
-    ],
-  },
+              name: "businessCustomerService"
+            }
+          }
+        ]
+      }
+    ]
+  }
 ];

@@ -1,5 +1,5 @@
-import { useMemo, type ReactNode } from "react";
-import { App, ConfigProvider, theme, type ThemeConfig } from "antd";
+import { App, ConfigProvider, type ThemeConfig, theme } from "antd";
+import { type ReactNode, useMemo } from "react";
 import { useDarkMode } from "@/hooks";
 import { hexToRgba } from "@/lib";
 import { useThemeSettings } from "@/store";
@@ -12,7 +12,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
     primaryColor,
     successColor,
     warningColor,
-    errorColor,
+    errorColor
   } = useThemeSettings();
   const { isDarkMode } = useDarkMode();
 
@@ -26,13 +26,13 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
         colorWarning: warningColor,
         colorError: errorColor,
         colorInfo: primaryColor,
-        borderRadius: 10,
+        borderRadius: 10
       },
       cssVar: true,
       algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       components: {
         Button: {
-          borderRadius: 8,
+          borderRadius: 8
         },
         Menu: {
           iconSize: 20,
@@ -51,40 +51,40 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
           darkPopupBg: "#3b3b3f",
           horizontalItemHoverColor: primaryColor,
           darkItemColor: "#ffffffd9",
-          darkItemBg: "#18181c",
+          darkItemBg: "#18181c"
         },
         Layout: {
           siderBg: backgroundColor,
-          lightSiderBg: darkNav ? foregroundColor : backgroundColor,
+          lightSiderBg: darkNav ? foregroundColor : backgroundColor
         },
         Breadcrumb: {
           borderRadiusSM: 8,
-          paddingXXS: 8,
+          paddingXXS: 8
         },
         Dropdown: {
           borderRadiusLG: 12,
           borderRadiusSM: 8,
           borderRadiusXS: 4,
           paddingXXS: 4,
-          paddingXS: 8,
+          paddingXS: 8
         },
         Tooltip: {
           borderRadius: 10,
           paddingXS: 12,
-          paddingSM: 14,
+          paddingSM: 14
         },
         Switch: {
           handleSize: 20,
           trackHeight: 24,
           handleSizeSM: 14,
           trackHeightSM: 18,
-          innerMaxMargin: 24,
+          innerMaxMargin: 24
         },
         InputNumber: {
           controlWidth: 80,
-          borderRadius: 8,
-        },
-      },
+          borderRadius: 8
+        }
+      }
     }),
     [
       isDarkMode,
@@ -95,7 +95,7 @@ export const AntConfigProvider = ({ children }: { children: ReactNode }) => {
       successColor,
       warningColor,
       errorColor,
-      primaryStr,
+      primaryStr
     ]
   );
 

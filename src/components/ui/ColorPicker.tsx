@@ -1,6 +1,6 @@
-import { useCallback } from "react";
-import { ColorPicker as AntColorPicker } from "antd";
 import type { ColorPickerProps } from "antd";
+import { ColorPicker as AntColorPicker } from "antd";
+import { useCallback } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { appThemeList } from "@/lib/settings/theme";
 
@@ -16,15 +16,15 @@ interface Props {
 const defaultPalettes = [
   {
     label: "Colors",
-    colors: appThemeList,
-  },
+    colors: appThemeList
+  }
 ] as Presets[];
 
 const ColorPickerBase = ({
   color,
   palettes,
   disabled = false,
-  onColorChange,
+  onColorChange
 }: Props & ColorPickerProps) => {
   const palettesList = palettes || defaultPalettes;
 

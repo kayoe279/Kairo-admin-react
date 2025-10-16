@@ -13,19 +13,19 @@ export default function Analysis() {
     { name: "3月", value: 9800 },
     { name: "4月", value: 3908 },
     { name: "5月", value: 4800 },
-    { name: "6月", value: 3800 },
+    { name: "6月", value: 3800 }
   ];
 
   // 折线图数据 - 用户活跃度趋势
   const lineChartData = [
     {
       name: "活跃用户",
-      data: [820, 932, 901, 934, 1290, 1330, 1320, 1200, 1100, 950, 1000, 1150],
+      data: [820, 932, 901, 934, 1290, 1330, 1320, 1200, 1100, 950, 1000, 1150]
     },
     {
       name: "新增用户",
-      data: [320, 432, 501, 634, 890, 930, 820, 700, 600, 450, 500, 650],
-    },
+      data: [320, 432, 501, 634, 890, 930, 820, 700, 600, 450, 500, 650]
+    }
   ];
 
   const lineChartXAxis = [
@@ -40,7 +40,7 @@ export default function Analysis() {
     "9月",
     "10月",
     "11月",
-    "12月",
+    "12月"
   ];
 
   // 饼状图数据 - 系统资源使用情况
@@ -49,7 +49,7 @@ export default function Analysis() {
     { name: "内存使用率", value: 25 },
     { name: "磁盘使用率", value: 18 },
     { name: "网络带宽", value: 15 },
-    { name: "其他", value: 7 },
+    { name: "其他", value: 7 }
   ];
 
   return (
@@ -108,7 +108,7 @@ export default function Analysis() {
                 { name: "销售部", value: 88 },
                 { name: "市场部", value: 82 },
                 { name: "运营部", value: 79 },
-                { name: "财务部", value: 85 },
+                { name: "财务部", value: 85 }
               ]}
               horizontal={true}
               useGradient={true}
@@ -127,7 +127,7 @@ export default function Analysis() {
                 { name: "手机", value: 40 },
                 { name: "电脑", value: 30 },
                 { name: "平板", value: 20 },
-                { name: "配件", value: 10 },
+                { name: "配件", value: 10 }
               ]}
               innerRadius="40%"
               outerRadius="70%"

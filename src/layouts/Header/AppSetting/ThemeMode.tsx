@@ -1,7 +1,7 @@
 import { Segmented, Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import { SvgIcon } from "@/components/ui";
-import { useDarkMode, type ThemeMode as ThemeModeType } from "@/hooks";
+import { type ThemeMode as ThemeModeType, useDarkMode } from "@/hooks";
 import { useThemeActions, useThemeSettings } from "@/store";
 import { SettingItem } from "./SettingItem";
 
@@ -12,12 +12,12 @@ const ThemeSwitch = () => {
     { value: themeModeMap.light, icon: <SvgIcon icon="solar:sun-bold" className="text-xl" /> },
     {
       value: themeModeMap.dark,
-      icon: <SvgIcon icon="solar:moon-stars-bold" className="text-xl" />,
+      icon: <SvgIcon icon="solar:moon-stars-bold" className="text-xl" />
     },
     {
       value: themeModeMap.system,
-      icon: <SvgIcon icon="solar:sunrise-broken" className="text-xl" />,
-    },
+      icon: <SvgIcon icon="solar:sunrise-broken" className="text-xl" />
+    }
   ];
 
   const handleThemeChange = (key: string | number) => {

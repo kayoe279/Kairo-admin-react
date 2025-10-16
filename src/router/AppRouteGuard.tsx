@@ -1,13 +1,13 @@
-import { useMemo, type ReactNode } from "react";
 import type { ResourceKey } from "i18next";
 import NProgress from "nprogress";
+import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  type RouteGuardOptions,
   useRequireAuth,
   useRequireRoles,
   useRouteGuard,
-  useRouteMetaMeta,
-  type RouteGuardOptions,
+  useRouteMetaMeta
 } from "@/hooks";
 
 const title = import.meta.env.VITE_GLOB_APP_TITLE;
@@ -61,7 +61,7 @@ export const AppRouteGuard = ({ children }: { children: ReactNode }) => {
       onAuthFailed: (_to, reason) => {
         console.warn(`路由守卫: 权限验证失败 - ${reason}`);
         NProgress.done();
-      },
+      }
     }),
     [requireAuth, requireRoles, meta, t]
   );

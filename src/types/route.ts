@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import type { RouteObject } from "react-router";
 
 /** React 路由的 meta 属性接口 */

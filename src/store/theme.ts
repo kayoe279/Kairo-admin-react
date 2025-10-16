@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { generateColorPalette } from "@/lib";
-import { themeSetting, type ThemeSettingProps } from "@/lib/settings/theme";
+import { type ThemeSettingProps, themeSetting } from "@/lib/settings/theme";
 
 const colorTypes = ["primary", "success", "warning", "error"] as const;
 
@@ -114,12 +114,12 @@ export const useThemeStore = create<ThemeStore>()(
         resetThemeSetting: (isDarkMode: boolean) => {
           set(store.getInitialState());
           get().actions.resetThemeColor({ isDarkMode });
-        },
-      },
+        }
+      }
     })),
     {
       name: "theme-store",
-      partialize: (state) => omit(state, ["actions"]),
+      partialize: (state) => omit(state, ["actions"])
     }
   )
 );

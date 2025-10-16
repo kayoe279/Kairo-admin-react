@@ -29,7 +29,7 @@ export const useRouteMatch = () => {
     isRoot,
     matchedRoute: result?.matchedRoute || {},
     matchedRoutes: result?.matchedRoutes || [],
-    params: result?.params || {},
+    params: result?.params || {}
   };
 };
 

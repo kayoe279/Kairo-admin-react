@@ -1,5 +1,5 @@
-import { useMemo } from "react";
 import type { ItemType } from "antd/es/menu/interface";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { useDarkMode } from "@/hooks";
@@ -7,8 +7,8 @@ import {
   getAntMenuSelectedKeys,
   getLevelKeys,
   getMenuKeyPaths,
-  transformToMenus,
   type LevelKeysProps,
+  transformToMenus
 } from "@/lib/menu";
 import type { AppRouteObject } from "@/types";
 
@@ -41,7 +41,7 @@ export const useMenu = (menuRoutes: AppRouteObject[]) => {
     levelKeys,
     currentKeyPaths,
     currentPath: location.pathname,
-    getMenuKeyPaths,
+    getMenuKeyPaths
   };
 };
 
@@ -70,7 +70,7 @@ export const useMixedMenu = (menuRoutes: AppRouteObject[]) => {
     return {
       activeMenu,
       activeTopMenuKey: (activeMenu?.key || "") as string,
-      showSideMenu: activeMenu ? keyPaths.length > 1 : false,
+      showSideMenu: activeMenu ? keyPaths.length > 1 : false
     };
   }, [location.pathname, menuItems]);
 
@@ -92,6 +92,6 @@ export const useMixedMenu = (menuRoutes: AppRouteObject[]) => {
     currentPath: location.pathname,
     topSelectedKeys,
     sideMenuRoutes,
-    ...activeTopMenu,
+    ...activeTopMenu
   };
 };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import {
   App,
@@ -6,14 +5,15 @@ import {
   Card,
   Col,
   Form,
+  type FormInstance,
   Input,
   Row,
   Select,
   Space,
-  Tabs,
-  type FormInstance,
+  Tabs
 } from "antd";
-import { DynamicForm, ModalForm, SearchForm, type DynamicFormField } from "@/components/ui/Form";
+import { useState } from "react";
+import { DynamicForm, type DynamicFormField, ModalForm, SearchForm } from "@/components/ui/Form";
 
 const { Option } = Select;
 
@@ -30,7 +30,7 @@ export default function FormAdvancedExample() {
       type: "input",
       required: true,
       rules: [{ required: true, message: "请输入标题" }],
-      placeholder: "请输入标题",
+      placeholder: "请输入标题"
     },
     {
       name: "category",
@@ -41,8 +41,8 @@ export default function FormAdvancedExample() {
       options: [
         { label: "技术", value: "tech" },
         { label: "生活", value: "life" },
-        { label: "工作", value: "work" },
-      ],
+        { label: "工作", value: "work" }
+      ]
     },
     {
       name: "priority",
@@ -51,20 +51,20 @@ export default function FormAdvancedExample() {
       options: [
         { label: "高", value: "high" },
         { label: "中", value: "medium" },
-        { label: "低", value: "low" },
-      ],
+        { label: "低", value: "low" }
+      ]
     },
     {
       name: "description",
       label: "描述",
       type: "textarea",
-      placeholder: "请输入描述信息",
+      placeholder: "请输入描述信息"
     },
     {
       name: "enabled",
       label: "启用状态",
-      type: "switch",
-    },
+      type: "switch"
+    }
   ];
 
   const handleDynamicFormSubmit = async (values: Record<string, any>) => {
@@ -105,7 +105,7 @@ export default function FormAdvancedExample() {
                   dynamicFields={dynamicFields}
                   handleDynamicFormSubmit={handleDynamicFormSubmit}
                 />
-              ),
+              )
             },
             {
               key: "modal",
@@ -116,7 +116,7 @@ export default function FormAdvancedExample() {
                   setModalVisible={setModalVisible}
                   handleModalFormSubmit={handleModalFormSubmit}
                 />
-              ),
+              )
             },
             {
               key: "search",
@@ -127,8 +127,8 @@ export default function FormAdvancedExample() {
                   handleSearch={handleSearch}
                   handleSearchReset={handleSearchReset}
                 />
-              ),
-            },
+              )
+            }
           ]}
         />
       </Card>
@@ -138,7 +138,7 @@ export default function FormAdvancedExample() {
 
 const DynamicFormExample = ({
   dynamicFields,
-  handleDynamicFormSubmit,
+  handleDynamicFormSubmit
 }: {
   dynamicFields: DynamicFormField[];
   handleDynamicFormSubmit: (values: Record<string, any>) => void;
@@ -178,7 +178,7 @@ const DynamicFormExample = ({
 const ModalFormExample = ({
   modalVisible,
   setModalVisible,
-  handleModalFormSubmit,
+  handleModalFormSubmit
 }: {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
@@ -246,7 +246,7 @@ const ModalFormExample = ({
 const SearchFormExample = ({
   searchForm,
   handleSearch,
-  handleSearchReset,
+  handleSearchReset
 }: {
   searchForm: FormInstance<any>;
   handleSearch: (values: Record<string, any>) => void;

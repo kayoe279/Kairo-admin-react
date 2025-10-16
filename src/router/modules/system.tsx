@@ -17,7 +17,7 @@ export const systemRoutes: AppRouteObject[] = [
     meta: {
       name: "system",
       icon: "solar:settings-minimalistic-broken",
-      sort: 7,
+      sort: 7
     },
     children: [
       // 用户管理
@@ -25,109 +25,109 @@ export const systemRoutes: AppRouteObject[] = [
         path: "/system/user",
         element: <Outlet />,
         meta: {
-          name: "systemUser",
+          name: "systemUser"
         },
         children: [
           {
             path: "/system/user/list",
             element: <SystemUserList />,
             meta: {
-              name: "systemUserList",
-            },
+              name: "systemUserList"
+            }
           },
           {
             path: "/system/user/detail/:id",
             element: <SystemUserDetail />,
             meta: {
               name: "systemUserDetail",
-              hidden: true,
-            },
-          },
-        ],
+              hidden: true
+            }
+          }
+        ]
       },
       // 角色管理 - 二级路由
       {
         path: "/system/role",
         element: <Outlet />,
         meta: {
-          name: "systemRole",
+          name: "systemRole"
         },
         children: [
           {
             path: "/system/role/list",
             element: <SystemRoleList />,
             meta: {
-              name: "systemRoleList",
-            },
+              name: "systemRoleList"
+            }
           },
           {
             path: "/system/role/detail/:id",
             element: <SystemRoleDetail />,
             meta: {
               name: "systemRoleDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           {
             path: "/system/role/permissions/:id",
             element: <SystemRolePermissions />,
             meta: {
               name: "systemRolePermissions",
-              hidden: true,
-            },
-          },
-        ],
+              hidden: true
+            }
+          }
+        ]
       },
       // 菜单管理
       {
         path: "/system/menu",
         element: <Outlet />,
         meta: {
-          name: "systemMenu",
+          name: "systemMenu"
         },
         children: [
           {
             path: "/system/menu/list",
             element: <SystemMenuList />,
             meta: {
-              name: "systemMenuList",
-            },
+              name: "systemMenuList"
+            }
           },
           {
             path: "/system/menu/detail/:id?",
             element: <SystemMenuDetail />,
             meta: {
               name: "systemMenuDetail",
-              hidden: true,
-            },
-          },
-        ],
+              hidden: true
+            }
+          }
+        ]
       },
       // 部门管理
       {
         path: "/system/dept",
         element: <Outlet />,
         meta: {
-          name: "systemDept",
+          name: "systemDept"
         },
         children: [
           {
             path: "/system/dept/list",
             element: <SystemDeptList />,
             meta: {
-              name: "systemDeptList",
-            },
+              name: "systemDeptList"
+            }
           },
           {
             path: "/system/dept/detail/:id?",
             element: <SystemDeptDetail />,
             meta: {
               name: "systemDeptDetail",
-              hidden: true,
-            },
-          },
-        ],
-      },
-    ],
-  },
+              hidden: true
+            }
+          }
+        ]
+      }
+    ]
+  }
 ];

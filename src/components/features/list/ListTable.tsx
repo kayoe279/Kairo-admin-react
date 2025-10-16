@@ -1,18 +1,18 @@
-import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { App, Button } from "antd";
+import { useState } from "react";
 import { ButtonIcon } from "@/components/ui";
 import type { DynamicFormField } from "@/components/ui/Form";
 import { BasicTable } from "@/components/ui/Table";
 import { useSearchQuery, useTable } from "@/hooks";
 import { cn } from "@/lib";
-import { useTableList, type NavListItem } from "@/service";
+import { type NavListItem, useTableList } from "@/service";
 import { useListTableColumns } from "./columns";
 
 export const ListTable = ({
   className,
   cardTitle,
-  filters = [],
+  filters = []
 }: {
   className?: string;
   cardTitle?: string;
@@ -20,15 +20,15 @@ export const ListTable = ({
 }) => {
   const { message, modal } = App.useApp();
 
-  const [detailModalVisible, setDetailModalVisible] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<NavListItem | null>(null);
+  const [_detailModalVisible, setDetailModalVisible] = useState(false);
+  const [_selectedUser, setSelectedUser] = useState<NavListItem | null>(null);
 
   const { searchQuery } = useSearchQuery({ extendKeys: ["disabled", "keyword"] });
   const { list, total, isLoading, isFetching, refetch } = useTableList(searchQuery);
   const { tableProps } = useTable<NavListItem>({
     data: list,
     total,
-    isLoading,
+    isLoading
   });
 
   const handleDisable = (record: NavListItem) => {
@@ -37,7 +37,7 @@ export const ListTable = ({
       content: `确定要${record.disabled ? "启用" : "禁用"}${record.name}吗？`,
       onOk: () => {
         message.success(`TODO 还没做: ${record.name}`);
-      },
+      }
     });
   };
 
@@ -52,7 +52,7 @@ export const ListTable = ({
       content: `确定要删除${record.name}吗？`,
       onOk: () => {
         message.success(`TODO 还没做: ${record.name}`);
-      },
+      }
     });
   };
 
@@ -61,8 +61,8 @@ export const ListTable = ({
     actions: {
       onEdit: handleEdit,
       onDisable: handleDisable,
-      onDelete: handleDelete,
-    },
+      onDelete: handleDelete
+    }
   });
 
   return (

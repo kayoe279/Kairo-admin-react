@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { App, Button, Divider } from "antd";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonIcon, Drawer } from "@/components/ui";
 import { useDarkMode } from "@/hooks";
@@ -30,7 +30,7 @@ export const AppSetting = () => {
         resetAppSetting();
         resetThemeSetting(isDarkMode);
         message.success(t("app.resetSuccess"));
-      },
+      }
     });
   };
 

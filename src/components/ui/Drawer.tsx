@@ -1,6 +1,6 @@
-import { type ComponentProps, type ReactNode } from "react";
 import { Drawer as AntdDrawer, Button } from "antd";
 import type { DrawerClassNames } from "antd/es/drawer/DrawerPanel";
+import type { ComponentProps, ReactNode } from "react";
 import { SvgIcon } from "@/components/ui";
 
 export const Drawer = ({
@@ -15,7 +15,7 @@ export const Drawer = ({
     mask: blurMask ? "backdrop-blur-sm backdrop-saturate-300" : "",
     body: "flex flex-col",
     footer: "!py-4",
-    ...classNames,
+    ...classNames
   };
 
   return (

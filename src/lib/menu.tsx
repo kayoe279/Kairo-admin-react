@@ -50,7 +50,7 @@ export function transformToMenus(
     const menuItem = {
       key: route.path || "",
       label: hasChildren ? label : <Link to={route.path || ""}>{label}</Link>,
-      icon: meta.icon ? <SvgIcon icon={meta.icon as string} /> : undefined,
+      icon: meta.icon ? <SvgIcon icon={meta.icon as string} /> : undefined
     } as SubMenuType;
 
     if (hasChildren && !onlyFirstLevel) {

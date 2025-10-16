@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import { BaseChart, type BaseChartProps } from "./BaseChart";
 import { CHART_COLORS, DEFAULT_LEGEND, DEFAULT_TITLE, DEFAULT_TOOLTIP } from "./chartConfig";
 
@@ -46,7 +46,7 @@ export const PieChart: React.FC<PieChartProps> = ({
     title: title
       ? {
           ...DEFAULT_TITLE,
-          text: title,
+          text: title
         }
       : undefined,
 
@@ -64,12 +64,12 @@ export const PieChart: React.FC<PieChartProps> = ({
             </div>
           </div>
         `;
-      },
+      }
     },
 
     legend: {
       ...DEFAULT_LEGEND,
-      data: data.map((item) => item.name),
+      data: data.map((item) => item.name)
     },
 
     series: [
@@ -84,8 +84,8 @@ export const PieChart: React.FC<PieChartProps> = ({
             color: CHART_COLORS.primary[index % CHART_COLORS.primary.length],
             borderRadius: 6,
             borderColor: "#ffffff",
-            borderWidth: 2,
-          },
+            borderWidth: 2
+          }
         })),
 
         // 玫瑰图配置
@@ -99,10 +99,10 @@ export const PieChart: React.FC<PieChartProps> = ({
               formatter: "{b}: {c} ({d}%)",
               fontSize: 12,
               color: CHART_COLORS.text,
-              fontWeight: 500,
+              fontWeight: 500
             }
           : {
-              show: false,
+              show: false
             },
 
         // 标签线配置
@@ -115,11 +115,11 @@ export const PieChart: React.FC<PieChartProps> = ({
                 smooth: true,
                 lineStyle: {
                   color: CHART_COLORS.border,
-                  width: 1,
-                },
+                  width: 1
+                }
               }
             : {
-                show: false,
+                show: false
               },
 
         // 强调样式
@@ -127,21 +127,21 @@ export const PieChart: React.FC<PieChartProps> = ({
           itemStyle: {
             shadowBlur: 20,
             shadowColor: "rgba(0, 0, 0, 0.2)",
-            borderWidth: 3,
+            borderWidth: 3
           },
           label: {
             fontSize: 14,
-            fontWeight: "bold",
-          },
+            fontWeight: "bold"
+          }
         },
 
         // 动画配置
         animationType: "scale",
         animationDuration: 1500,
         animationEasing: "elasticOut",
-        animationDelay: (idx: number) => idx * 100,
-      },
-    ],
+        animationDelay: (idx: number) => idx * 100
+      }
+    ]
   };
 
   return <BaseChart option={option} {...chartProps} />;

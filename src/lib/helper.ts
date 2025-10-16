@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 // cn
@@ -18,7 +18,7 @@ export const validValue = (value: undefined | null | string | boolean) => {
 export const tryParseJson = (value: string, defaultValue?: unknown) => {
   try {
     return JSON.parse(value);
-  } catch (error) {
+  } catch {
     return defaultValue || null;
   }
 };

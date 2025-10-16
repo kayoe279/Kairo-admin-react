@@ -10,9 +10,9 @@ function App() {
       queries: {
         retry: 3,
         staleTime: 1.5 * 60 * 1000,
-        refetchOnWindowFocus: false,
-      },
-    },
+        refetchOnWindowFocus: false
+      }
+    }
   });
 
   return (

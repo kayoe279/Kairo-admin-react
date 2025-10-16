@@ -10,12 +10,12 @@ export const CHART_COLORS = {
     "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
     "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
     "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-    "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+    "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
   ],
   background: "#ffffff",
   text: "#374151",
   textSecondary: "#6B7280",
-  border: "#E5E7EB",
+  border: "#E5E7EB"
 };
 
 // 通用网格配置
@@ -24,7 +24,7 @@ export const DEFAULT_GRID = {
   left: 60,
   right: 40,
   bottom: 60,
-  containLabel: true,
+  containLabel: true
 };
 
 // 通用标题配置
@@ -32,10 +32,10 @@ export const DEFAULT_TITLE = {
   textStyle: {
     color: CHART_COLORS.text,
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: 600
   },
   left: "center",
-  top: 20,
+  top: 20
 };
 
 // 通用提示框配置
@@ -46,9 +46,9 @@ export const DEFAULT_TOOLTIP = {
   borderWidth: 1,
   textStyle: {
     color: CHART_COLORS.text,
-    fontSize: 12,
+    fontSize: 12
   },
-  extraCssText: "box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border-radius: 8px;",
+  extraCssText: "box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border-radius: 8px;"
 };
 
 // 通用图例配置
@@ -57,11 +57,11 @@ export const DEFAULT_LEGEND = {
   left: "center",
   textStyle: {
     color: CHART_COLORS.textSecondary,
-    fontSize: 12,
+    fontSize: 12
   },
   itemWidth: 12,
   itemHeight: 8,
-  itemGap: 20,
+  itemGap: 20
 };
 
 // 通用坐标轴配置
@@ -69,23 +69,23 @@ export const DEFAULT_AXIS = {
   axisLine: {
     lineStyle: {
       color: CHART_COLORS.border,
-      width: 1,
-    },
+      width: 1
+    }
   },
   axisTick: {
-    show: false,
+    show: false
   },
   axisLabel: {
     color: CHART_COLORS.textSecondary,
-    fontSize: 11,
+    fontSize: 11
   },
   splitLine: {
     lineStyle: {
       color: CHART_COLORS.border,
       type: "dashed" as const,
-      width: 1,
-    },
-  },
+      width: 1
+    }
+  }
 };
 
 /**
@@ -103,8 +103,8 @@ export const getGradientColor = (colorIndex: number) => {
     y2: 1,
     colorStops: [
       { offset: 0, color: color1 },
-      { offset: 1, color: `${color1}40` }, // 添加透明度
-    ],
+      { offset: 1, color: `${color1}40` } // 添加透明度
+    ]
   };
 };
 
@@ -116,11 +116,11 @@ export const getFlatStyle = () => ({
     focus: "series",
     itemStyle: {
       shadowBlur: 10,
-      shadowColor: "rgba(0, 0, 0, 0.1)",
-    },
+      shadowColor: "rgba(0, 0, 0, 0.1)"
+    }
   },
   itemStyle: {
     borderRadius: [4, 4, 0, 0], // 圆角
-    borderWidth: 0,
-  },
+    borderWidth: 0
+  }
 });

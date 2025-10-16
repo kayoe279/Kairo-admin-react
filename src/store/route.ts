@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -7,7 +7,7 @@ import { hasPermission } from "@/hooks";
 import { PAGE } from "@/lib";
 import { getUserInfo } from "@/lib/cookie";
 import { staticRoutes, transformRouteConfig } from "@/router";
-import { getUserRoutes, type RoleType } from "@/service";
+import { authApi, type RoleType } from "@/service";
 import { useUserActions, useUserInfo } from "@/store";
 import type { AppRouteObject } from "@/types";
 
@@ -55,8 +55,8 @@ export const useRouteStore = create<RouteStore>()(
           state.isInitAuthRoute = false;
           state.authRoutes = [];
         });
-      },
-    },
+      }
+    }
   }))
 );
 
@@ -83,7 +83,7 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
         .filter((route) => hasPermission((route.meta?.roles as RoleType[]) || []))
         .map((route) => {
           const newRoute = { ...route };
-          if (newRoute.children && newRoute.children.length) {
+          if (newRoute.children?.length) {
             newRoute.children = filterFunc(newRoute.children);
           }
           return newRoute;
@@ -108,8 +108,8 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
             return;
           }
 
-          const { data } = await getUserRoutes({
-            id: userInfo.id,
+          const { data } = await authApi.getUserRoutes({
+            id: userInfo.id
           });
           const dynamicRoutes = transformRouteConfig(data || []);
 
@@ -132,8 +132,7 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
     if (immediate) {
       fetchRoutes(userInfo);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [immediate]);
+  }, [immediate, userInfo, fetchRoutes]);
 
   return {
     ...state,
@@ -141,6 +140,6 @@ export const useAuthRoute = ({ immediate = true }: { immediate?: boolean } = {})
     routeError,
     initAuthRoute,
     setInitAuthRoute,
-    refreshRoutes: fetchRoutes,
+    refreshRoutes: fetchRoutes
   };
 };

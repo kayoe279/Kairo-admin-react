@@ -34,7 +34,7 @@ export const Header = ({ className }: { className?: string }) => {
         "text-foreground bg-background z-10 flex w-full items-center justify-between gap-x-6 px-4 md:px-5",
         className
       )}
-      style={{ height: headerSetting.height + "px" }}
+      style={{ height: `${headerSetting.height}px` }}
     >
       <div className="flex h-full min-w-0 flex-1 items-center gap-x-5">
         {showCollapsed && <Collapsed />}

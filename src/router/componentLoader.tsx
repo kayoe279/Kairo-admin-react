@@ -1,4 +1,4 @@
-import { lazy, type ComponentType } from "react";
+import { type ComponentType, lazy } from "react";
 import { Outlet } from "react-router";
 import type { AppRouteObject, DynamicRouteConfig } from "@/types";
 
@@ -67,7 +67,7 @@ const componentMap: Record<string, ComponentType<any>> = {
 
   // 异常页面模块
   "exception/403": lazy(() => import("@/routes/exception/403")),
-  "exception/404": lazy(() => import("@/routes/exception/404")),
+  "exception/404": lazy(() => import("@/routes/exception/404"))
 };
 
 /**
@@ -102,7 +102,7 @@ export const transformRouteConfig = (routeConfigs: DynamicRouteConfig[]): AppRou
     const route: AppRouteObject = {
       path: config.path,
       element: <ComponentLoader componentPath={config.component} />,
-      meta: config.meta,
+      meta: config.meta
     };
     if (config.children && config.children?.length > 0) {
       route.children = config.children.map(transformSingleRoute);

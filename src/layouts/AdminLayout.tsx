@@ -21,38 +21,35 @@ export const AdminLayout = () => {
 
   return (
     <Layout className="flex h-screen">
-      {showSideMenu && (
-        <>
-          {isMobile ? (
-            <Drawer
-              placement="left"
-              open={collapsed}
-              onClose={() => toggleCollapsed()}
-              maskClosable
-              blurMask={false}
-              closable={false}
-              width={menuSetting.menuWidth}
-              classNames={{
-                body: "!p-0",
-              }}
-            >
-              <Logo />
-              <AdminMenu />
-            </Drawer>
-          ) : (
-            <Layout.Sider
-              collapsed={collapsed}
-              width={menuSetting.menuWidth}
-              collapsedWidth={menuSetting.minMenuWidth}
-              theme={navTheme === "dark" ? "dark" : theme}
-              className="h-full overflow-y-auto"
-            >
-              <Logo />
-              <AdminMenu />
-            </Layout.Sider>
-          )}
-        </>
-      )}
+      {showSideMenu &&
+        (isMobile ? (
+          <Drawer
+            placement="left"
+            open={collapsed}
+            onClose={() => toggleCollapsed()}
+            maskClosable
+            blurMask={false}
+            closable={false}
+            width={menuSetting.menuWidth}
+            classNames={{
+              body: "!p-0"
+            }}
+          >
+            <Logo />
+            <AdminMenu />
+          </Drawer>
+        ) : (
+          <Layout.Sider
+            collapsed={collapsed}
+            width={menuSetting.menuWidth}
+            collapsedWidth={menuSetting.minMenuWidth}
+            theme={navTheme === "dark" ? "dark" : theme}
+            className="h-full overflow-y-auto"
+          >
+            <Logo />
+            <AdminMenu />
+          </Layout.Sider>
+        ))}
 
       <div
         className={cn(

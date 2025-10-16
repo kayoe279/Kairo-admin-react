@@ -19,7 +19,7 @@ export const PageFeatures = () => {
         <InputNumber
           variant="filled"
           value={headerSetting.height.toString()}
-          onChange={(value) => updateAppSetting("headerSetting.height", parseInt(value || "0"))}
+          onChange={(value) => updateAppSetting("headerSetting.height", parseInt(value || "0", 10))}
         />
       </SettingItem>
 
@@ -48,7 +48,9 @@ export const PageFeatures = () => {
         <InputNumber
           variant="filled"
           value={multiTabsSetting.height.toString()}
-          onChange={(value) => updateAppSetting("multiTabsSetting.height", parseInt(value || "0"))}
+          onChange={(value) =>
+            updateAppSetting("multiTabsSetting.height", parseInt(value || "0", 10))
+          }
         />
       </SettingItem>
 
@@ -77,7 +79,9 @@ export const PageFeatures = () => {
         <InputNumber
           variant="filled"
           value={menuSetting.menuWidth.toString()}
-          onChange={(value) => updateAppSetting("menuSetting.menuWidth", parseInt(value || "0"))}
+          onChange={(value) =>
+            updateAppSetting("menuSetting.menuWidth", parseInt(value || "0", 10))
+          }
         />
       </SettingItem>
 
@@ -85,7 +89,9 @@ export const PageFeatures = () => {
         <InputNumber
           variant="filled"
           value={menuSetting.minMenuWidth.toString()}
-          onChange={(value) => updateAppSetting("menuSetting.minMenuWidth", parseInt(value || "0"))}
+          onChange={(value) =>
+            updateAppSetting("menuSetting.minMenuWidth", parseInt(value || "0", 10))
+          }
         />
       </SettingItem>
     </div>

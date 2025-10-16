@@ -15,7 +15,7 @@ export const appThemeList: string[] = [
   "#ff9800",
   "#FC5404",
   "#db5a6b",
-  "#F5222D",
+  "#F5222D"
 ];
 
 export const themeSetting = {
@@ -38,7 +38,7 @@ export const themeSetting = {
   // 错误颜色
   errorColor: "#f31260",
   //系统内置主题色列表
-  appThemeList,
+  appThemeList
 };
 
 export type ThemeSettingProps = typeof themeSetting;

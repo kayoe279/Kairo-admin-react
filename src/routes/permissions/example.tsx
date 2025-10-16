@@ -1,8 +1,8 @@
-import React from "react";
 import { Alert, App, Button, Card, Space, Spin, Typography } from "antd";
+import type React from "react";
 import { usePermission } from "@/hooks/usePermission";
 import { tryParseJson } from "@/lib";
-import { useSignIn, type RoleType } from "@/service";
+import { type RoleType, useSignIn } from "@/service";
 import { useAuthRoute, useUserActions, useUserInfo } from "@/store";
 
 const { Title } = Typography;
@@ -38,7 +38,7 @@ export default function PermissionExample() {
   const roleMap = {
     super: accounts[0],
     admin: accounts[1],
-    user: accounts[2],
+    user: accounts[2]
   };
 
   const toggleUserRole = async (targetRole: RoleType) => {
@@ -49,14 +49,14 @@ export default function PermissionExample() {
     try {
       const result = await mutateAsync({
         email: roleMap[targetRole],
-        password: password,
+        password: password
       });
       if (result.user) {
         updateUserInfo(result.user);
         await refreshRoutes(result.user);
         message.success(`已切换到 ${targetRole} 角色`);
       }
-    } catch (error) {
+    } catch {
       message.error("角色切换失败");
     }
   };

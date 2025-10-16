@@ -18,7 +18,7 @@ export const examplesRoutes: AppRouteObject[] = [
     meta: {
       name: "examples",
       icon: "solar:code-square-broken",
-      sort: 1,
+      sort: 1
     },
     children: [
       // 表单示例 - 三级路由
@@ -26,92 +26,92 @@ export const examplesRoutes: AppRouteObject[] = [
         path: "/examples/form",
         element: <Outlet />,
         meta: {
-          name: "examplesForm",
+          name: "examplesForm"
         },
         children: [
           {
             path: "/examples/form/basic",
             element: <FormBasicExample />,
             meta: {
-              name: "examplesFormBasic",
-            },
+              name: "examplesFormBasic"
+            }
           },
           {
             path: "/examples/form/advanced",
             element: <FormAdvancedExample />,
             meta: {
-              name: "examplesFormAdvanced",
-            },
+              name: "examplesFormAdvanced"
+            }
           },
           {
             path: "/examples/form/step",
             element: <FormStepExample />,
             meta: {
-              name: "examplesFormStep",
-            },
+              name: "examplesFormStep"
+            }
           },
           {
             path: "/examples/form/validation",
             element: <FormValidationExample />,
             meta: {
-              name: "examplesFormValidation",
-            },
-          },
-        ],
+              name: "examplesFormValidation"
+            }
+          }
+        ]
       },
       // 表格示例 - 三级路由
       {
         path: "/examples/table",
         element: <Outlet />,
         meta: {
-          name: "examplesTable",
+          name: "examplesTable"
         },
         children: [
           {
             path: "/examples/table/basic",
             element: <TableBasicExample />,
             meta: {
-              name: "examplesTableBasic",
-            },
+              name: "examplesTableBasic"
+            }
           },
           {
             path: "/examples/table/advanced",
             element: <TableAdvancedExample />,
             meta: {
-              name: "examplesTableAdvanced",
-            },
+              name: "examplesTableAdvanced"
+            }
           },
           {
             path: "/examples/table/editable",
             element: <TableEditableExample />,
             meta: {
-              name: "examplesTableEditable",
-            },
+              name: "examplesTableEditable"
+            }
           },
           {
             path: "/examples/table/virtual",
             element: <TableVirtualExample />,
             meta: {
-              name: "examplesTableVirtual",
-            },
-          },
-        ],
+              name: "examplesTableVirtual"
+            }
+          }
+        ]
       },
       // 其他组件示例
       {
         path: "/examples/chart",
         element: <ChartExample />,
         meta: {
-          name: "examplesChart",
-        },
+          name: "examplesChart"
+        }
       },
       {
         path: "/examples/upload",
         element: <UploadExample />,
         meta: {
-          name: "examplesUpload",
-        },
-      },
-    ],
-  },
+          name: "examplesUpload"
+        }
+      }
+    ]
+  }
 ];

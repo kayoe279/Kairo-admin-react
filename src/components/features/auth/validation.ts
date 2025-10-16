@@ -28,8 +28,8 @@ export const getPasswordRules = (t: TFunction<"translation", undefined>): Rule[]
       }
 
       return Promise.resolve();
-    },
-  },
+    }
+  }
 ];
 
 /**
@@ -43,8 +43,8 @@ export const getConfirmPasswordRules = (t: TFunction<"translation", undefined>):
         return Promise.resolve();
       }
       return Promise.reject(new Error(t("auth.passwordMismatch")));
-    },
-  }),
+    }
+  })
 ];
 
 /**
@@ -52,12 +52,12 @@ export const getConfirmPasswordRules = (t: TFunction<"translation", undefined>):
  */
 export const getEmailRules = (t: TFunction<"translation", undefined>): Rule[] => [
   { required: true, message: t("auth.emailRequired") },
-  { type: "email", message: t("auth.emailValidation") },
+  { type: "email", message: t("auth.emailValidation") }
 ];
 
 /**
  * 获取姓名验证规则
  */
 export const getFullNameRules = (t: TFunction<"translation", undefined>): Rule[] => [
-  { min: 2, message: t("auth.fullNameMinLength") },
+  { min: 2, message: t("auth.fullNameMinLength") }
 ];

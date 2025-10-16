@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   App,
   Button,
@@ -11,8 +10,9 @@ import {
   Row,
   Select,
   Space,
-  Switch,
+  Switch
 } from "antd";
+import { useState } from "react";
 import type { UserFormData } from "@/components/ui/Form/type";
 
 const { Option } = Select;
@@ -31,7 +31,7 @@ export default function FormBasicExample() {
       console.log("表单数据:", values);
       message.success("表单提交成功！");
       form.resetFields();
-    } catch (error) {
+    } catch {
       message.error("提交失败，请重试");
     } finally {
       setLoading(false);
@@ -64,7 +64,7 @@ export default function FormBasicExample() {
                     label="用户名"
                     rules={[
                       { required: true, message: "请输入用户名" },
-                      { min: 3, message: "用户名至少3个字符" },
+                      { min: 3, message: "用户名至少3个字符" }
                     ]}
                   >
                     <Input placeholder="请输入用户名" />
@@ -76,7 +76,7 @@ export default function FormBasicExample() {
                     label="邮箱"
                     rules={[
                       { required: true, message: "请输入邮箱" },
-                      { type: "email", message: "请输入有效的邮箱地址" },
+                      { type: "email", message: "请输入有效的邮箱地址" }
                     ]}
                   >
                     <Input placeholder="请输入邮箱" />

@@ -1,5 +1,5 @@
-import { type HTMLAttributes, type ReactNode } from "react";
 import { Tooltip, type TooltipProps } from "antd";
+import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib";
 import { SvgIcon } from "./SvgIcon";
 

@@ -1,4 +1,4 @@
-import { resolve } from "path";
+import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { format } from "date-fns";
@@ -10,7 +10,7 @@ const { dependencies, devDependencies, name, version, author } = pkg;
 
 const appInfo = {
   pkg: { dependencies, devDependencies, name, version, author },
-  lastBuildTime: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+  lastBuildTime: format(new Date(), "yyyy-MM-dd HH:mm:ss")
 };
 
 // https://vite.dev/config/
@@ -22,13 +22,13 @@ export default defineConfig({
       iconDirs: [resolve(process.cwd(), "src/assets/icons")],
       symbolId: "icon-[name]",
       inject: "body-last",
-      customDomId: "__svg__icons__dom__",
-    }),
+      customDomId: "__svg__icons__dom__"
+    })
   ],
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src"),
-    },
+      "@": resolve(__dirname, "./src")
+    }
   },
   define: {
     // 设置默认的本地图标前缀
@@ -36,9 +36,9 @@ export default defineConfig({
     // 构建时间作为环境变量
     "import.meta.env.VITE_BUILD_TIME": JSON.stringify(format(new Date(), "yyyy-MM-dd HH:mm:ss")),
     // 应用信息
-    appInfo: JSON.stringify(appInfo),
+    appInfo: JSON.stringify(appInfo)
   },
   server: {
-    port: 8001,
-  },
+    port: 8001
+  }
 });

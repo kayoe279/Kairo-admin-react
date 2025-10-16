@@ -11,7 +11,7 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "dashboard",
       icon: "solar:chart-square-broken",
-      sort: 0,
+      sort: 0
     },
     children: [
       {
@@ -19,24 +19,24 @@ export const routeConfig: DynamicRouteConfig[] = [
         component: "dashboard/workplace",
         meta: {
           name: "dashboardWorkplace",
-          affix: true,
-        },
+          affix: true
+        }
       },
       {
         path: "/dashboard/analysis",
         component: "dashboard/analysis",
         meta: {
-          name: "dashboardAnalysis",
-        },
+          name: "dashboardAnalysis"
+        }
       },
       {
         path: "/dashboard/monitor",
         component: "dashboard/monitor",
         meta: {
-          name: "dashboardMonitor",
-        },
-      },
-    ],
+          name: "dashboardMonitor"
+        }
+      }
+    ]
   },
 
   // 组件示例模块
@@ -45,96 +45,96 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "examples",
       icon: "solar:code-square-broken",
-      sort: 1,
+      sort: 1
     },
     children: [
       {
         path: "/examples/form",
         meta: {
-          name: "examplesForm",
+          name: "examplesForm"
         },
         children: [
           {
             path: "/examples/form/basic",
             component: "examples/form/basic",
             meta: {
-              name: "examplesFormBasic",
-            },
+              name: "examplesFormBasic"
+            }
           },
           {
             path: "/examples/form/advanced",
             component: "examples/form/advanced",
             meta: {
-              name: "examplesFormAdvanced",
-            },
+              name: "examplesFormAdvanced"
+            }
           },
           {
             path: "/examples/form/step",
             component: "examples/form/step",
             meta: {
-              name: "examplesFormStep",
-            },
+              name: "examplesFormStep"
+            }
           },
           {
             path: "/examples/form/validation",
             component: "examples/form/validation",
             meta: {
-              name: "examplesFormValidation",
-            },
-          },
-        ],
+              name: "examplesFormValidation"
+            }
+          }
+        ]
       },
       {
         path: "/examples/table",
         meta: {
-          name: "examplesTable",
+          name: "examplesTable"
         },
         children: [
           {
             path: "/examples/table/basic",
             component: "examples/table/basic",
             meta: {
-              name: "examplesTableBasic",
-            },
+              name: "examplesTableBasic"
+            }
           },
           {
             path: "/examples/table/advanced",
             component: "examples/table/advanced",
             meta: {
-              name: "examplesTableAdvanced",
-            },
+              name: "examplesTableAdvanced"
+            }
           },
           {
             path: "/examples/table/editable",
             component: "examples/table/editable",
             meta: {
-              name: "examplesTableEditable",
-            },
+              name: "examplesTableEditable"
+            }
           },
           {
             path: "/examples/table/virtual",
             component: "examples/table/virtual",
             meta: {
-              name: "examplesTableVirtual",
-            },
-          },
-        ],
+              name: "examplesTableVirtual"
+            }
+          }
+        ]
       },
       {
         path: "/examples/chart",
         component: "examples/chart",
         meta: {
-          name: "examplesChart",
-        },
+          name: "examplesChart"
+        }
       },
       {
         path: "/examples/upload",
         component: "examples/upload",
         meta: {
-          name: "examplesUpload",
-        },
-      },
-    ],
+          name: "examplesUpload"
+        }
+      }
+    ]
   },
 
   // 业务管理模块
@@ -143,144 +143,144 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "business",
       icon: "solar:shop-broken",
-      sort: 2,
+      sort: 2
     },
     children: [
       {
         path: "/business/product",
         meta: {
-          name: "businessProduct",
+          name: "businessProduct"
         },
         children: [
           {
             path: "/business/product/list",
             component: "business/product/list",
             meta: {
-              name: "businessProductList",
-            },
+              name: "businessProductList"
+            }
           },
           {
             path: "/business/product/detail/:id?",
             component: "business/product/detail",
             meta: {
               name: "businessProductDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           {
             path: "/business/product/category",
             meta: {
-              name: "businessProductCategory",
+              name: "businessProductCategory"
             },
             children: [
               {
                 path: "/business/product/category/list",
                 component: "business/product/category/list",
                 meta: {
-                  name: "businessProductCategoryList",
-                },
+                  name: "businessProductCategoryList"
+                }
               },
               {
                 path: "/business/product/category/detail/:id?",
                 component: "business/product/category/detail",
                 meta: {
                   name: "businessProductCategoryDetail",
-                  hidden: true,
-                },
-              },
-            ],
+                  hidden: true
+                }
+              }
+            ]
           },
           {
             path: "/business/product/brand",
             component: "business/product/brand",
             meta: {
-              name: "businessProductBrand",
-            },
+              name: "businessProductBrand"
+            }
           },
           {
             path: "/business/product/inventory",
             component: "business/product/inventory",
             meta: {
-              name: "businessProductInventory",
-            },
-          },
-        ],
+              name: "businessProductInventory"
+            }
+          }
+        ]
       },
       {
         path: "/business/order",
         meta: {
-          name: "businessOrder",
+          name: "businessOrder"
         },
         children: [
           {
             path: "/business/order/list",
             component: "business/order/list",
             meta: {
-              name: "businessOrderList",
-            },
+              name: "businessOrderList"
+            }
           },
           {
             path: "/business/order/detail/:id",
             component: "business/order/detail",
             meta: {
               name: "businessOrderDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           {
             path: "/business/order/refund",
             component: "business/order/refund",
             meta: {
-              name: "businessOrderRefund",
-            },
+              name: "businessOrderRefund"
+            }
           },
           {
             path: "/business/order/shipping",
             component: "business/order/shipping",
             meta: {
-              name: "businessOrderShipping",
-            },
-          },
-        ],
+              name: "businessOrderShipping"
+            }
+          }
+        ]
       },
       {
         path: "/business/customer",
         meta: {
-          name: "businessCustomer",
+          name: "businessCustomer"
         },
         children: [
           {
             path: "/business/customer/list",
             component: "business/customer/list",
             meta: {
-              name: "businessCustomerList",
-            },
+              name: "businessCustomerList"
+            }
           },
           {
             path: "/business/customer/detail/:id",
             component: "business/customer/detail",
             meta: {
               name: "businessCustomerDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           {
             path: "/business/customer/group",
             component: "business/customer/group",
             meta: {
-              name: "businessCustomerGroup",
-            },
+              name: "businessCustomerGroup"
+            }
           },
           {
             path: "/business/customer/service",
             component: "business/customer/service",
             meta: {
-              name: "businessCustomerService",
-            },
-          },
-        ],
-      },
-    ],
+              name: "businessCustomerService"
+            }
+          }
+        ]
+      }
+    ]
   },
 
   // 权限管理模块
@@ -289,25 +289,25 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "permissions",
       icon: "solar:shield-user-broken",
-      sort: 5,
+      sort: 5
     },
     children: [
       {
         path: "/permissions/example",
         component: "permissions/example",
         meta: {
-          name: "permissionsExample",
-        },
+          name: "permissionsExample"
+        }
       },
       {
         path: "/permissions/super",
         component: "permissions/super",
         meta: {
           name: "permissionsSuper",
-          roles: ["super"],
-        },
-      },
-    ],
+          roles: ["super"]
+        }
+      }
+    ]
   },
 
   // 系统管理模块
@@ -316,110 +316,110 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "system",
       icon: "solar:settings-minimalistic-broken",
-      sort: 7,
+      sort: 7
     },
     children: [
       {
         path: "/system/user",
         meta: {
-          name: "systemUser",
+          name: "systemUser"
         },
         children: [
           {
             path: "/system/user/list",
             component: "system/user/list",
             meta: {
-              name: "systemUserList",
-            },
+              name: "systemUserList"
+            }
           },
           {
             path: "/system/user/detail/:id",
             component: "system/user/detail",
             meta: {
               name: "systemUserDetail",
-              hidden: true,
-            },
-          },
-        ],
+              hidden: true
+            }
+          }
+        ]
       },
       {
         path: "/system/role",
         meta: {
-          name: "systemRole",
+          name: "systemRole"
         },
         children: [
           {
             path: "/system/role/list",
             component: "system/role/list",
             meta: {
-              name: "systemRoleList",
-            },
+              name: "systemRoleList"
+            }
           },
           {
             path: "/system/role/detail/:id",
             component: "system/role/detail",
             meta: {
               name: "systemRoleDetail",
-              hidden: true,
-            },
+              hidden: true
+            }
           },
           {
             path: "/system/role/permissions/:id",
             component: "system/role/permissions",
             meta: {
               name: "systemRolePermissions",
-              hidden: true,
-            },
-          },
-        ],
+              hidden: true
+            }
+          }
+        ]
       },
       {
         path: "/system/menu",
         meta: {
-          name: "systemMenu",
+          name: "systemMenu"
         },
         children: [
           {
             path: "/system/menu/list",
             component: "system/menu/list",
             meta: {
-              name: "systemMenuList",
-            },
+              name: "systemMenuList"
+            }
           },
           {
             path: "/system/menu/detail/:id?",
             component: "system/menu/detail",
             meta: {
               name: "systemMenuDetail",
-              hidden: true,
-            },
-          },
-        ],
+              hidden: true
+            }
+          }
+        ]
       },
       {
         path: "/system/dept",
         meta: {
-          name: "systemDept",
+          name: "systemDept"
         },
         children: [
           {
             path: "/system/dept/list",
             component: "system/dept/list",
             meta: {
-              name: "systemDeptList",
-            },
+              name: "systemDeptList"
+            }
           },
           {
             path: "/system/dept/detail/:id?",
             component: "system/dept/detail",
             meta: {
               name: "systemDeptDetail",
-              hidden: true,
-            },
-          },
-        ],
-      },
-    ],
+              hidden: true
+            }
+          }
+        ]
+      }
+    ]
   },
 
   // 系统设置模块
@@ -428,31 +428,31 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "setting",
       icon: "solar:settings-outline",
-      sort: 8,
+      sort: 8
     },
     children: [
       {
         path: "/setting/account",
         component: "setting/account",
         meta: {
-          name: "settingAccount",
-        },
+          name: "settingAccount"
+        }
       },
       {
         path: "/setting/theme",
         component: "setting/theme",
         meta: {
-          name: "settingTheme",
-        },
+          name: "settingTheme"
+        }
       },
       {
         path: "/setting/security",
         component: "setting/security",
         meta: {
-          name: "settingSecurity",
-        },
-      },
-    ],
+          name: "settingSecurity"
+        }
+      }
+    ]
   },
 
   // 关于模块
@@ -462,8 +462,8 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "aboutIndex",
       icon: "solar:info-circle-broken",
-      sort: 8,
-    },
+      sort: 8
+    }
   },
 
   // 异常页面模块
@@ -472,23 +472,23 @@ export const routeConfig: DynamicRouteConfig[] = [
     meta: {
       name: "exception",
       icon: "solar:confounded-circle-broken",
-      sort: 4,
+      sort: 4
     },
     children: [
       {
         path: "/exception/403",
         component: "exception/403",
         meta: {
-          name: "exception403",
-        },
+          name: "exception403"
+        }
       },
       {
         path: "/exception/404",
         component: "exception/404",
         meta: {
-          name: "exception404",
-        },
-      },
-    ],
-  },
+          name: "exception404"
+        }
+      }
+    ]
+  }
 ];

@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { setValueByPath } from "@/lib";
-import { appSetting, type AppSettingProps } from "@/lib/settings/app";
+import { type AppSettingProps, appSetting } from "@/lib/settings/app";
 import type { NestedKeyOf, PathValue } from "@/types";
 
 interface AppState extends AppSettingProps {
@@ -75,12 +75,12 @@ export const useAppStore = create<AppStore>()(
           cb?.();
         },
 
-        resetAppSetting: () => set(store.getInitialState()),
-      },
+        resetAppSetting: () => set(store.getInitialState())
+      }
     })),
     {
       name: "app-store",
-      partialize: (state) => omit(state, ["actions"]),
+      partialize: (state) => omit(state, ["actions"])
     }
   )
 );

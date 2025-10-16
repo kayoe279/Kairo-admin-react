@@ -1,2 +1,2 @@
-export * from "./auth";
-export * from "./list";
+export * as authApi from "./auth";
+export * as listApi from "./list";

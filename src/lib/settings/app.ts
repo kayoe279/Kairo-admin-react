@@ -16,7 +16,7 @@ export const appSetting = {
     //顶部高度
     height: 56,
     //显示重载按钮
-    isReload: true,
+    isReload: true
   },
   //页脚
   showFooter: true,
@@ -24,7 +24,7 @@ export const appSetting = {
   multiTabsSetting: {
     height: 48,
     //是否显示
-    show: true,
+    show: true
   },
   //菜单
   menuSetting: {
@@ -35,21 +35,21 @@ export const appSetting = {
     //触发移动端侧边栏的宽度
     mobileWidth: 768,
     // 菜单手风琴模式
-    accordion: false,
+    accordion: false
   },
   //面包屑
   breadcrumbsSetting: {
     //是否显示
     show: true,
     //显示图标
-    showIcon: false,
+    showIcon: false
   },
   //菜单权限模式 FIXED 前端固定路由  BACK 动态获取
   permissionMode: "FIXED",
   //是否开启路由动画
   isPageAnimate: true,
   //路由动画类型
-  pageAnimateType: "fade-slide",
+  pageAnimateType: "fade-slide"
 };
 
 export type AppSettingProps = typeof appSetting;
@@ -60,5 +60,5 @@ export const appConfig = {
     "Kairo Admin React 是一个基于 React 19、React Router 7、Vite、TypeScript 和 Antd 的中后台解决方案，它可以帮助你快速搭建企业级中后台项目，持续更新中。",
   avatar: avatarImage,
   github: "https://github.com/kayoe279/Kairo-admin-react",
-  preview: "https://kairo-admin-react.vercel.app",
+  preview: "https://kairo-admin-react.vercel.app"
 };

@@ -1,5 +1,5 @@
-import { App, Avatar, Dropdown } from "antd";
 import type { MenuProps } from "antd";
+import { App, Avatar, Dropdown } from "antd";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { SvgIcon } from "@/components/ui";
@@ -24,13 +24,13 @@ export const User = () => {
     {
       key: "setting-account",
       label: t("auth.userSetting"),
-      icon: <SvgIcon icon="solar:settings-outline" className="text-base" />,
+      icon: <SvgIcon icon="solar:settings-outline" className="text-base" />
     },
     {
       key: "logout",
       label: t("auth.logout"),
-      icon: <SvgIcon icon="solar:logout-2-broken" className="text-base" />,
-    },
+      icon: <SvgIcon icon="solar:logout-2-broken" className="text-base" />
+    }
   ];
 
   // 处理菜单点击事件
@@ -57,7 +57,7 @@ export const User = () => {
         await mutateAsync();
         await logout(navigate, location.pathname);
         message.success(t("auth.logoutConfirm.successMessage"));
-      },
+      }
     });
   };
 

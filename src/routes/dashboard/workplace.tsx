@@ -1,5 +1,5 @@
-import { useMemo } from "react";
 import { Avatar, Card, Col, Row } from "antd";
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
 import avatar from "@/assets/images/avatar.jpg";
 import { SvgIcon } from "@/components/ui";
@@ -35,20 +35,20 @@ export const DashboardWorkplace = () => {
         name: "Hearem",
         localIcon: "hearit-logo",
         description: "AI智能可定制地将文字转为自然人声",
-        link: "https://hearem.cc/en",
+        link: "https://hearem.cc/en"
       },
       {
         name: "Amoihub",
         localIcon: "amoihub-logo",
         description: "将生成式AI的提示词统一管理",
-        link: "https://www.amoihub.com/",
+        link: "https://www.amoihub.com/"
       },
       {
         name: "Kairo Website",
         localIcon: "blog-logo",
         description: "Kairo Website",
-        link: "https://kairo-website-livid.vercel.app/",
-      },
+        link: "https://kairo-website-livid.vercel.app/"
+      }
     ],
     []
   );
@@ -60,36 +60,36 @@ export const DashboardWorkplace = () => {
         icon: "solar:emoji-funny-square-broken",
         link: "/dashboard/console",
         color:
-          "from-blue-50/50 to-blue-50/80 hover:from-blue-50 hover:to-blue-100 text-blue-600 dark:from-blue-900/20 dark:to-blue-800/20 dark:text-blue-400",
+          "from-blue-50/50 to-blue-50/80 hover:from-blue-50 hover:to-blue-100 text-blue-600 dark:from-blue-900/20 dark:to-blue-800/20 dark:text-blue-400"
       },
       {
         name: "基础列表",
         icon: "solar:checklist-minimalistic-outline",
         link: "/basic-list",
         color:
-          "from-green-50/50 to-green-50/80 hover:from-green-50 hover:to-green-100 text-green-600 dark:from-green-900/20 dark:to-green-800/20 dark:text-green-400",
+          "from-green-50/50 to-green-50/80 hover:from-green-50 hover:to-green-100 text-green-600 dark:from-green-900/20 dark:to-green-800/20 dark:text-green-400"
       },
       {
         name: "表单页面",
         icon: "solar:document-add-broken",
         link: "/form/basic-form",
         color:
-          "from-purple-50/50 to-purple-50/80 hover:from-purple-50 hover:to-purple-100 text-purple-600 dark:from-purple-900/20 dark:to-purple-800/20 dark:text-purple-400",
+          "from-purple-50/50 to-purple-50/80 hover:from-purple-50 hover:to-purple-100 text-purple-600 dark:from-purple-900/20 dark:to-purple-800/20 dark:text-purple-400"
       },
       {
         name: "权限管理",
         icon: "solar:shield-user-broken",
         link: "/permissions",
         color:
-          "from-orange-50/50 to-orange-50/80 hover:from-orange-50 hover:to-orange-100 text-orange-600 dark:from-orange-900/20 dark:to-orange-800/20 dark:text-orange-400",
+          "from-orange-50/50 to-orange-50/80 hover:from-orange-50 hover:to-orange-100 text-orange-600 dark:from-orange-900/20 dark:to-orange-800/20 dark:text-orange-400"
       },
       {
         name: "系统设置",
         icon: "solar:settings-outline",
         link: "/setting/system",
         color:
-          "from-indigo-50/50 to-indigo-50/80 hover:from-indigo-50 hover:to-indigo-100 text-indigo-600 dark:from-indigo-900/20 dark:to-indigo-800/20 dark:text-indigo-400",
-      },
+          "from-indigo-50/50 to-indigo-50/80 hover:from-indigo-50 hover:to-indigo-100 text-indigo-600 dark:from-indigo-900/20 dark:to-indigo-800/20 dark:text-indigo-400"
+      }
     ],
     []
   );
@@ -153,7 +153,8 @@ export const DashboardWorkplace = () => {
           <Card className="text-foreground" title="友情链接 👍">
             <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
               {projectList.map((item) => (
-                <div
+                <button
+                  type="button"
                   key={item.name}
                   title={item.description}
                   className="group flex transform cursor-pointer flex-col items-center rounded-2xl bg-gradient-to-b from-gray-50/50 to-gray-50/80 p-6 text-center transition-all duration-300 hover:scale-[1.02] hover:from-blue-50/60 hover:to-blue-50/90 hover:shadow-md dark:from-gray-800/40 dark:to-gray-800/60 dark:hover:from-gray-700/50 dark:hover:to-gray-700/70"
@@ -169,7 +170,7 @@ export const DashboardWorkplace = () => {
                   <p className="text-foreground-subtle group-hover:text-primary/80 line-clamp-2 text-xs transition-colors duration-300">
                     {item.description}
                   </p>
-                </div>
+                </button>
               ))}
             </div>
           </Card>
@@ -178,7 +179,10 @@ export const DashboardWorkplace = () => {
             className="text-foreground"
             title="最新动态"
             extra={
-              <button className="text-primary/80 hover:text-primary text-sm font-medium">
+              <button
+                type="button"
+                className="text-primary/80 hover:text-primary text-sm font-medium"
+              >
                 查看全部
               </button>
             }

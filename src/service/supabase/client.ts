@@ -15,12 +15,12 @@ export const getSupabaseClient = (options?: SupabaseClientOptions<"public">) => 
     auth: {
       autoRefreshToken: true,
       persistSession: true,
-      detectSessionInUrl: false,
+      detectSessionInUrl: false
     },
 
     db: {
-      schema: "public",
-    },
+      schema: "public"
+    }
   });
 
   return supabaseClient;

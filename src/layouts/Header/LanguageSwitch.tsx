@@ -1,8 +1,8 @@
-import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
+import { Dropdown } from "antd";
 import { useTranslation } from "react-i18next";
 import { ButtonIcon } from "@/components/ui";
-import { locales, setI18nLocale, type Locale } from "@/lib/i18n";
+import { type Locale, locales, setI18nLocale } from "@/lib/i18n";
 
 export const LanguageSwitch = () => {
   const { t, i18n } = useTranslation();
@@ -10,7 +10,7 @@ export const LanguageSwitch = () => {
 
   const localeOptions: MenuProps["items"] = locales.map((localeKey) => ({
     key: localeKey,
-    label: t(`app.${localeKey}`),
+    label: t(`app.${localeKey}`)
   }));
 
   const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
@@ -22,7 +22,7 @@ export const LanguageSwitch = () => {
       menu={{
         items: localeOptions,
         onClick: handleMenuClick,
-        selectedKeys: [locale],
+        selectedKeys: [locale]
       }}
       trigger={["hover"]}
       placement="bottom"

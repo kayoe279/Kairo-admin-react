@@ -57,7 +57,7 @@ export const useTabsStore = create<TabsStore>()(
           name: meta?.name || "",
           path: path || "",
           meta,
-          isFixed: (meta?.affix as boolean) ?? false,
+          isFixed: (meta?.affix as boolean) ?? false
         };
       },
 
@@ -108,7 +108,7 @@ export const useTabsStore = create<TabsStore>()(
         closeLeftTabs: (tabId: string, navigate?) => {
           const { activeTabId, tabsList } = get();
           const index = tabsList.findIndex((item) => item.name === tabId);
-          const activeIndex = tabsList.findIndex((item) => item.name == activeTabId);
+          const activeIndex = tabsList.findIndex((item) => item.name === activeTabId);
 
           set((state) => {
             state.tabsList = state.tabsList.filter(
@@ -129,7 +129,7 @@ export const useTabsStore = create<TabsStore>()(
         closeRightTabs: (tabId: string, navigate?) => {
           const { activeTabId, tabsList } = get();
           const index = tabsList.findIndex((item) => item.name === tabId);
-          const activeIndex = tabsList.findIndex((item) => item.name == activeTabId);
+          const activeIndex = tabsList.findIndex((item) => item.name === activeTabId);
 
           set((state) => {
             state.tabsList = state.tabsList.filter(
@@ -216,15 +216,15 @@ export const useTabsStore = create<TabsStore>()(
             state.activeTabId = "";
             state.tabsList = [];
           });
-        },
-      },
+        }
+      }
     })),
     {
       name: "tabs-store",
       partialize: (state) => ({
         activeTabId: state.activeTabId,
-        tabsList: state.tabsList,
-      }),
+        tabsList: state.tabsList
+      })
     }
   )
 );

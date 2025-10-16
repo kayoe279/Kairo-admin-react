@@ -2,7 +2,15 @@ import type { SVGProps } from "react";
 
 export const AdminLogo = (props: SVGProps<SVGSVGElement>) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 48 48"
+      aria-label="Admin Logo"
+      role="img"
+      {...props}
+    >
       <path
         fill="none"
         stroke="currentColor"

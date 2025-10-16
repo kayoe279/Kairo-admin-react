@@ -31,7 +31,7 @@ export const staticRoutes = [
   ...permissionsRoutes,
   ...settingRoutes,
   ...aboutRoutes,
-  ...exceptionRoutes,
+  ...exceptionRoutes
 ];
 
 export const getRootRoutes = (routes: AppRouteObject[]): AppRouteObject[] => {
@@ -40,7 +40,7 @@ export const getRootRoutes = (routes: AppRouteObject[]): AppRouteObject[] => {
     {
       path: "/auth/login",
       element: <Login />,
-      meta: { ignoreAuth: true },
+      meta: { ignoreAuth: true }
     },
     // 主应用布局 - 需要登录
     {
@@ -48,19 +48,19 @@ export const getRootRoutes = (routes: AppRouteObject[]): AppRouteObject[] => {
       children: [
         {
           path: "/",
-          element: <Navigate to="/dashboard/workplace" replace />,
+          element: <Navigate to="/dashboard/workplace" replace />
         },
         ...routes,
         {
           path: "/403",
-          element: <Exception403 />,
+          element: <Exception403 />
         },
         {
           path: "*",
-          element: <Exception404 />,
-        },
-      ],
-    },
+          element: <Exception404 />
+        }
+      ]
+    }
   ];
 };
 

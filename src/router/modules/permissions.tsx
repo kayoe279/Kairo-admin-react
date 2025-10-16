@@ -10,24 +10,24 @@ export const permissionsRoutes: AppRouteObject[] = [
     meta: {
       name: "permissions",
       icon: "solar:shield-user-broken",
-      sort: 5,
+      sort: 5
     },
     children: [
       {
         path: "/permissions/example",
         element: <PermissionsExample />,
         meta: {
-          name: "permissionsExample",
-        },
+          name: "permissionsExample"
+        }
       },
       {
         path: "/permissions/super",
         element: <Super />,
         meta: {
           name: "permissionsSuper",
-          roles: ["super"],
-        },
-      },
-    ],
-  },
+          roles: ["super"]
+        }
+      }
+    ]
+  }
 ];
