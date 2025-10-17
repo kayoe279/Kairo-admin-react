@@ -14,8 +14,9 @@ export const Collapsed = () => {
 
   return (
     <ButtonIcon
-      icon={collapsed ? "ri:menu-fold-4-fill" : "ri:menu-fold-3-fill"}
+      icon={collapsed ? "hugeicons:sidebar-right-01" : "hugeicons:sidebar-left-01"}
       hideTooltip
+      className="hover:text-primary text-xl"
       onClick={() => toggleCollapsed()}
     />
   );
